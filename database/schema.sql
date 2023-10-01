@@ -1,6 +1,6 @@
 create table if not exists users
 (
-    user_id  varchar(36) default (UUID()) not null primary key,
+    user_id  serial primary key,
     username varchar(50)  not null,
     password varchar(255) not null,
     is_admin boolean default false
@@ -31,8 +31,8 @@ create table if not exists songs
 create table if not exists playlists
 (
     playlist_id   serial primary key,
-    user_id       varchar(36) not null references users,
-    playlist_name varchar(50) not null,
+    user_id       varchar(36)  not null references users,
+    playlist_name varchar(50)  not null,
     description   text,
     cover_url     varchar(255) not null
 ) CHARACTER SET utf8;
