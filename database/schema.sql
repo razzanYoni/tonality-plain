@@ -1,6 +1,6 @@
 create table if not exists users
 (
-    user_id  int auto_increment primary key,
+    user_id  int unsigned auto_increment primary key,
     username varchar(50)  not null,
     password varchar(255) not null,
     is_admin boolean default false
@@ -18,8 +18,8 @@ create table if not exists albums
 
 create table if not exists songs
 (
-    song_id     int auto_increment primary key,
-    album_id    int references albums,
+    song_id     int unsigned auto_increment primary key,
+    album_id    int unsigned not null references albums,
     title       varchar(255) not null,
     artist      varchar(255) not null,
     song_number smallint     not null,
@@ -30,8 +30,8 @@ create table if not exists songs
 
 create table if not exists playlists
 (
-    playlist_id   int auto_increment primary key,
-    user_id       int          not null references users,
+    playlist_id   int unsigned auto_increment primary key,
+    user_id       int unsigned not null references users,
     playlist_name varchar(50)  not null,
     description   text,
     cover_url     varchar(255) not null
@@ -39,7 +39,7 @@ create table if not exists playlists
 
 create table if not exists appears_on
 (
-    song_id     int references songs,
-    playlist_id int references playlists,
+    song_id     int unsigned references songs,
+    playlist_id int unsigned references playlists,
     primary key (song_id, playlist_id)
 ) character set utf8;
