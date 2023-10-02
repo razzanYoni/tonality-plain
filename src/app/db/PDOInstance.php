@@ -1,5 +1,7 @@
 <?php
 
+namespace db;
+
 class PDOInstance
 {
     private static $instance;
