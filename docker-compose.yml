@@ -16,6 +16,6 @@ services:
     env_file:
       - .env
     volumes:
-      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+      - ./migrations/tonality.sql:/docker-entrypoint-initdb.d/tonality.sql:ro
     ports:
       - "9906:3306"  # Map host port 5432 to container port 5432
