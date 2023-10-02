@@ -32,7 +32,6 @@ class DotEnv {
             putenv(sprintf('%s=%s', $name, $value));
             $_ENV[$name] = $value;
             $_SERVER[$name] = $value;
-            echo "ENV: " . $name . " = " . $value . "<br>";
         }
         }
     }

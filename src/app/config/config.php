@@ -14,7 +14,7 @@ define('ROWS_PER_PAGE', 10); // Application Logic
 
 // File
 // define("ROOT_DIR", __DIR__ . "/");
-define('DEFAULT_FILE_PATH', 'files/');
+define('DEFAULT_FILE_PATH', 'storage/');
 define('MAX_SIZE', 10 * 1024 * 1024); //10MB
 
 // Bcrypt
