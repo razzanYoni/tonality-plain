@@ -21,13 +21,13 @@ create table if not exists albums
 create table if not exists songs
 (
     song_id     int unsigned auto_increment,
-    album_id    int unsigned not null,
-    title       varchar(255) not null,
-    artist      varchar(255) not null,
-    song_number smallint     not null,
-    disc_number smallint,
-    duration    int          not null,
-    audio_url   varchar(255) not null,
+    album_id    int unsigned      not null,
+    title       varchar(255)      not null,
+    artist      varchar(255)      not null,
+    song_number smallint unsigned not null,
+    disc_number smallint unsigned,
+    duration    int unsigned      not null,
+    audio_url   varchar(255)      not null,
     primary key (song_id),
     foreign key (album_id) references albums (album_id)
 ) character set utf8;
