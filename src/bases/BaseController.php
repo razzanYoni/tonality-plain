@@ -1,5 +1,7 @@
 <?php
 
+namespace bases;
+
 use exceptions;
 
 abstract class BaseController {

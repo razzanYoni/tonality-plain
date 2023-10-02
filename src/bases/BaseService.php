@@ -1,5 +1,7 @@
 <?php
 
+namespace bases;
+
 abstract class BaseSrv {
   protected static $instance;
   protected $repository;
