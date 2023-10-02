@@ -1,14 +1,16 @@
 <?php
 
-use db\PDOInstance;
+namespace bases;
 
-abstract class BaseRepo {
+use db\PDOInstance, PDOException, Exception;
+
+abstract class BaseRepository {
     protected $table = "";
     protected $pdo;
     protected static $instance;
 
     protected function __construct() {
-        $this->pdo = db\PDOInstance::getInstance()->getDbh();
+        $this->pdo = PDOInstance::getInstance()->getDbh();
         $stmt =  $this->pdo->query("SELECT * FROM users");
         while ($row = $stmt->fetch()) {
             echo $row['username']."<br />\n";
