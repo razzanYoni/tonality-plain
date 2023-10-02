@@ -8,7 +8,7 @@ create table if not exists users
 
 create table if not exists albums
 (
-    album_id     int auto_increment primary key,
+    album_id     int unsigned auto_increment primary key,
     album_name   varchar(255) not null,
     release_date date         not null,
     genre        varchar(50)  not null,
