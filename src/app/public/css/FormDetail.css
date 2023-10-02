@@ -1,0 +1,259 @@
+body {
+    background-color: #000000;
+
+    display: flex; /* Membuat body menjadi flex container */
+    justify-content: center; /* Menengahkan elemen horizontal di dalam flex container */
+    align-items: center; /* Menengahkan elemen vertikal di dalam flex container */
+    height: 100vh; /* Mengisi seluruh ketinggian viewport */
+    margin: 0;
+}
+
+.form-container {
+    background-color: #171717;
+    border-radius: 15px;
+
+    height: 600px;
+    width: 500px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: white;
+    font-family: 'Inter';
+    font-size: 25px;
+}
+
+.form-list {
+    /* background-color: aliceblue; */
+    height: 430px;
+    width: 300px;
+}
+
+.song-quest {
+    margin-bottom: 10px;
+}
+
+.album-quest {
+    margin-bottom: 25px;
+}
+
+.playlist-quest {
+    margin-bottom: 60px;
+    margin-top: 60px;
+}
+
+.form-label {
+    font-family: 'Inter';
+    font-weight: 800;
+    font-size: 12px;
+
+    margin-bottom: 5px;
+    color: white;
+}
+
+form input[type=text] {
+    background-color: #000000;
+    border-radius: 15px;
+    border-color: white;
+
+    width: 280px;
+    height: 40px;
+
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    cursor: pointer;
+    font-family: 'Inter';
+    font-size: 14px;
+
+    transition: transform 0.3s ease;
+}
+
+form input[type=date] {
+    background-color: #000000;
+    border-radius: 15px;
+    border-color: white;
+
+    width: 280px;
+    height: 40px;
+
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    cursor: pointer;
+    font-family: 'Inter';
+    font-size: 14px;
+
+    transition: transform 0.3s ease;
+}
+
+form input[type=file] {
+    display: none;
+}
+
+label {
+    background-color: #000000;
+    border-radius: 15px;
+    border-color: white;
+    position: relative;
+
+    width: 276px;
+    height: 18px;
+
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    position:relative;
+
+    cursor: pointer;
+    font-family: 'Inter';
+    font-size: 14px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    transition: transform 0.3s ease;
+}
+
+.custom-file-upload {
+    border: 2px solid #ccc;
+    display: inline-block;
+    padding: 12px 12px;
+    cursor: pointer;
+}
+
+.cancel-submit {
+    margin-top: 30px;
+    width: 300px;
+}
+
+.cancel-btn {
+    background-color: #EB4646;
+    color: white;
+
+    border-style: none;
+    border-radius: 15px;
+
+    width: 135px;
+    height: 40px;
+
+    margin-right: 11px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cancel-btn:hover {
+    background-color: #FF5959; /* Warna latar berubah saat tombol dihover */
+    transform: scale(1.05);
+}
+
+.add-btn {
+    background-color: #259793;
+    color: white;
+
+    border-style: none;
+    border-radius: 15px;
+
+    width: 135px;
+    height: 40px;
+
+    margin-left: 15px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-btn:hover {
+    background-color: #2ebab5; /* Warna latar berubah saat tombol dihover */
+    transform: scale(1.05);
+}
+
+@media screen and (max-width: 600px) {
+    .form-container {
+        margin-right: auto;
+        margin-left: auto;
+
+        width: 82%;
+
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-list {
+        width: 82%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    form input[type=text] {
+        width: 94%;
+    }
+
+    form input[type=file] {
+        width: 94%;
+    }
+
+    label {
+        width: 91.5%;
+    }
+
+    form input[type=date] {
+        width: 94%;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .form-container {
+        margin-right: auto;
+        margin-left: auto;
+
+        width: 82%;
+
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-list {
+        width: 82%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    form input[type=text] {
+        width: 90%;
+    }
+
+    form input[type=file] {
+        width: 940%;
+    }
+
+    label {
+        width: 88%;
+    }
+
+    form input[type=date] {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .cancel-submit {
+        align-items: center;
+        justify-content: center;
+        display: flex;
+
+        width: 100%;
+    }
+    .cancel-btn {
+        width: 60%;
+    }
+
+    .add-btn {
+        width: 60%;
+    }
+}
