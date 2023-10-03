@@ -2,7 +2,7 @@
 
 namespace bases;
 
-abstract class BaseSrv {
+abstract class BaseService {
   protected static $instance;
   protected $repository;
 
