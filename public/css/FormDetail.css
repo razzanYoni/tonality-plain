@@ -8,6 +8,11 @@ body {
     margin: 0;
 }
 
+@font-face {
+    font-family: Inter;
+    src: url(/public/assets/fonts/Inter-Light.ttf);
+}
+
 .form-container {
     background-color: #171717;
     border-radius: 15px;
