@@ -4,30 +4,30 @@ namespace repositories;
 
 use bases\BaseRepository;
 
-class SongRepository extends BaseRepository {
-    protected static $instance;
-    protected $table = "songs";
+class SongRepository extends BaseRepository
+{
+    protected string $table = "songs";
 
-    private function __contruct() {
-        parent::__construct();
-    }
-
-    public static function getInstance() {
+    public static function getInstance(): SongRepository
+    {
         if (!isset(self::$instance)) {
             self::$instance = new SongRepository();
         }
         return self::$instance;
     }
 
-    public function getSongById($song_id) {
+    public function getSongById($song_id)
+    {
         return $this->getOne(["song_id" => $song_id]);
     }
 
-    public function getSongByTitle($title) {
+    public function getSongByTitle($title): bool|array
+    {
         return $this->getAll(where: ["title" => $title]);
     }
 
-    public function getSongByArtist($artist) {
+    public function getSongByArtist($artist): bool|array
+    {
         return $this->getAll(where: ["artist" => $artist]);
     }
 }

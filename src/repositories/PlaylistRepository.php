@@ -7,13 +7,7 @@ use PDOException;
 
 class PlaylistRepository extends BaseRepository
 {
-    protected static $instance;
-    protected $table = "albums";
-
-    private function __construct()
-    {
-        parent::__construct();
-    }
+    protected string $table = "playlists";
 
     public static function getInstance(): PlaylistRepository
     {

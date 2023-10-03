@@ -6,9 +6,9 @@ use db\PDOInstance, PDOException, Exception;
 
 abstract class BaseRepository
 {
-    protected $table = "";
-    protected $pdo;
-    protected static $instance;
+    protected string $table = "";
+    protected \PDO $pdo;
+    protected static BaseRepository $instance;
 
     protected function __construct()
     {
@@ -153,7 +153,7 @@ abstract class BaseRepository
 
 
     // Fungsi untuk mengambil semua data
-    public function getAll($order = null, $is_desc = false, $where = [], $limit = null, $offset = null)
+    public function getAll($order = null, $is_desc = false, $where = [], $limit = null, $offset = null): bool|array
     {
         try {
             $query = "SELECT * FROM {$this->table}";
