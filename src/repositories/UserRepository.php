@@ -1,5 +1,7 @@
 <?php
 
+namespace repositories;
+
 use bases\BaseRepository;
 
 class UserRepository extends BaseRepository {
