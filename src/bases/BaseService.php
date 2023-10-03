@@ -3,12 +3,8 @@
 namespace bases;
 
 abstract class BaseService {
-  protected static $instance;
-  protected $repository;
-
-    protected function __construct()
-    {
-    }
+  protected static BaseService $instance;
+  protected BaseRepository $repository;
 
     public static function getInstance(): BaseService
     {

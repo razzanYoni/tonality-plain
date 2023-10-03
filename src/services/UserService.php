@@ -3,24 +3,31 @@
 namespace services;
 
 use bases\BaseService, models\UserModel, repositories\UserRepository;
-use PDO, exceptions;
+use exceptions\BadRequestException;
+use exceptions;
 
-class UserService extends BaseService {
-    private static $instance;
+class UserService extends BaseService
+{
+    protected static BaseService $instance;
 
-    private function __construct($repository) {
-        parent::__construct();
+    private function __construct($repository)
+    {
         $this->repository = UserRepository::getInstance();
     }
 
-    public static function getInstance() : UserService {
+    public static function getInstance(): UserService
+    {
         if (!isset(self::$instance)) {
             self::$instance = new static(UserRepository::getInstance());
         }
         return self::$instance;
     }
 
-    public function register($username, $password, $confirmation_password) {
+    /**
+     * @throws BadRequestException
+     */
+    public function register($username, $password, $confirmation_password): UserModel
+    {
         if ($password != $confirmation_password) {
             throw new exceptions\BadRequestException("Password doesn't match");
         }
@@ -30,40 +37,37 @@ class UserService extends BaseService {
                 'username' => $username,
                 'password' => password_hash($password, PASSWORD_BCRYPT, array('cost' => BCRYPT_COST))
             )
-            ));
+        ));
 
         if ($this->repository->getByUsername($username)) {
             throw new exceptions\BadRequestException("Username already exists");
         }
 
         $sqlReturn = $this->repository
-        -> getById(
-            $this->repository->insert
-            (
-                $user, 
-                array(
-                    'username' => PDO::PARAM_STR,
-                    'password' => PDO::PARAM_STR,
-                )
-            )
-        );
+            ->getById(
+                $this->repository->insert($user)
+            );
 
         $registeredUser = new UserModel(
             array(
                 'user_id' => $sqlReturn['user_id'],
                 'username' => $sqlReturn['username'],
             )
-        );      
+        );
 
-        return $registeredUser;      
+        return $registeredUser;
     }
 
-    public function login($username, $password) {
+    /**
+     * @throws BadRequestException
+     */
+    public function login($username, $password): UserModel
+    {
         $user = null;
 
         $user = $this->repository->getByUsername($username);
 
-        if (!$user || is_null($user)) {
+        if (!$user) {
             throw new exceptions\BadRequestException("Username doesn't exist");
         }
 
@@ -85,7 +89,8 @@ class UserService extends BaseService {
         return $user;
     }
 
-    public function getByUsername($username) {
+    public function getByUsername($username): UserModel
+    {
         $user = null;
         $sqlReturn = $this->repository->getByUsername($username);
 
@@ -106,7 +111,8 @@ class UserService extends BaseService {
         return $user;
     }
 
-    public function getById($user_id) {
+    public function getById($user_id): ?UserModel
+    {
         $user = null;
         $sqlReturn = $this->repository->getById($user_id);
 
@@ -123,7 +129,8 @@ class UserService extends BaseService {
         return $user;
     }
 
-    public function getAllUsers() {
+    public function getAllUsers(): array
+    {
         $userSQL = $this->repository->getAll();
         $users = array();
         foreach ($userSQL as $user) {
@@ -138,7 +145,8 @@ class UserService extends BaseService {
         return $users;
     }
 
-    public function isUsernameExist($username) { 
+    public function isUsernameExist($username): bool
+    {
         $user = $this->repository->getByUsername($username);
         return !is_null($user);
     }
