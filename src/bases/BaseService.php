@@ -6,13 +6,15 @@ abstract class BaseService {
   protected static $instance;
   protected $repository;
 
-  protected function __construct() {
-  }
-
-  public static function getInstance() {
-    if (!isset(self::$instance)) {
-      self::$instance = new static();
+    protected function __construct()
+    {
     }
-    return self::$instance;
-  }
+
+    public static function getInstance(): BaseService
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = new static();
+        }
+        return self::$instance;
+    }
 }
