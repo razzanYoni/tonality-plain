@@ -21,7 +21,6 @@ abstract class BaseRepository {
         return $this->pdo;
     }
 
-    // Fungsi untuk mengambil data berdasarkan ID
     public function getOne($where) {
         try {
             $query = "SELECT * FROM {$this->table}";
@@ -68,7 +67,7 @@ abstract class BaseRepository {
         }
     }
 
-    // Fungsi untuk mengubah data berdasarkan ID
+    // Fungsi untuk mengubah data
     public function update($where, $data) {
         try {
             $updateFields = '';
@@ -106,7 +105,7 @@ abstract class BaseRepository {
     }
 
 
-    // Fungsi untuk menghapus data berdasarkan ID
+    // Fungsi untuk menghapus data
     public function delete($where) {
         try {
             $query = "DELETE FROM {$this->table}";
@@ -147,12 +146,12 @@ abstract class BaseRepository {
 
 
     // Fungsi untuk mengambil semua data
-    public function getAll($order, $is_desc, $where, $limit, $offset) {
+    public function getAll($order = null, $is_desc = false, $where = [], $limit = null, $offset = null) {
         try {
             $query = "SELECT * FROM {$this->table}";
 
             if (count($where) > 0) {
-                $query .= " WHERE";
+                $query .= " WHERE ";
                 $conditions = [];
 
                 foreach ($where as $key => $value) {
