@@ -6,13 +6,7 @@ use bases\BaseRepository;
 
 class UserRepository extends BaseRepository
 {
-    protected static $instance;
-    protected $table = "users";
-
-    private function __construct()
-    {
-        parent::__construct();
-    }
+    protected string $table = "users";
 
     public static function getInstance(): UserRepository
     {
