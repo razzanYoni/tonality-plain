@@ -12,7 +12,7 @@ class AuthService extends BaseService {
         $this->userService = UserService::getInstance();
     }
 
-    public static function getInstance() {
+    public static function getInstance() : AuthService {
         if (!isset(self::$instance)) {
             self::$instance = new static();
         }

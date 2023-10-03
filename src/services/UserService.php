@@ -13,7 +13,7 @@ class UserService extends BaseService {
         $this->repository = UserRepository::getInstance();
     }
 
-    public static function getInstance() {
+    public static function getInstance() : UserService {
         if (!isset(self::$instance)) {
             self::$instance = new static(UserRepository::getInstance());
         }
