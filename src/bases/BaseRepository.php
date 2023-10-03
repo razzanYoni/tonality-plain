@@ -4,24 +4,28 @@ namespace bases;
 
 use db\PDOInstance, PDOException, Exception;
 
-abstract class BaseRepository {
+abstract class BaseRepository
+{
     protected $table = "";
     protected $pdo;
     protected static $instance;
 
-    protected function __construct() {
+    protected function __construct()
+    {
         $this->pdo = PDOInstance::getInstance()->getDbh();
-        $stmt =  $this->pdo->query("SELECT * FROM users");
+        $stmt = $this->pdo->query("SELECT * FROM users");
         while ($row = $stmt->fetch()) {
-            echo $row['username']."<br />\n";
+            echo $row['username'] . "<br />\n";
         }
     }
 
-    public function getPDO() {
+    public function getPDO(): \PDO
+    {
         return $this->pdo;
     }
 
-    public function getOne($where) {
+    public function getOne($where)
+    {
         try {
             $query = "SELECT * FROM {$this->table}";
 
@@ -51,7 +55,8 @@ abstract class BaseRepository {
     }
 
     // Fungsi untuk menambahkan data
-    public function insert($data) {
+    public function insert($data): bool
+    {
         try {
             $columns = implode(', ', array_keys($data));
             $values = ':' . implode(', :', array_keys($data));
@@ -68,7 +73,8 @@ abstract class BaseRepository {
     }
 
     // Fungsi untuk mengubah data
-    public function update($where, $data) {
+    public function update($where, $data): bool
+    {
         try {
             $updateFields = '';
             foreach ($data as $key => $value) {
@@ -106,33 +112,34 @@ abstract class BaseRepository {
 
 
     // Fungsi untuk menghapus data
-    public function delete($where) {
+    public function delete($where): bool
+    {
         try {
             $query = "DELETE FROM {$this->table}";
 
-        if (!empty($where)) {
-            if (count($where) === 1) {
-                $key = key($where);
-                $value = current($where);
-                $query .= " WHERE $key = :where_$key";
-            } else {
-                $whereClause = '';
-                foreach ($where as $key => $value) {
-                    $whereClause .= "$key = :where_$key AND ";
+            if (!empty($where)) {
+                if (count($where) === 1) {
+                    $key = key($where);
+                    $value = current($where);
+                    $query .= " WHERE $key = :where_$key";
+                } else {
+                    $whereClause = '';
+                    foreach ($where as $key => $value) {
+                        $whereClause .= "$key = :where_$key AND ";
+                    }
+                    $whereClause = rtrim($whereClause, ' AND ');
+                    $query .= " WHERE $whereClause";
                 }
-                $whereClause = rtrim($whereClause, ' AND ');
-                $query .= " WHERE $whereClause";
             }
-        }
 
-        $stmt = $this->pdo->prepare($query);
+            $stmt = $this->pdo->prepare($query);
 
-        foreach ($where as $key => $value) {
-            $stmt->bindValue(":where_$key", $value);
-        }
+            foreach ($where as $key => $value) {
+                $stmt->bindValue(":where_$key", $value);
+            }
 
-        $stmt->execute();
-        return true;
+            $stmt->execute();
+            return true;
 
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
@@ -146,7 +153,8 @@ abstract class BaseRepository {
 
 
     // Fungsi untuk mengambil semua data
-    public function getAll($order = null, $is_desc = false, $where = [], $limit = null, $offset = null) {
+    public function getAll($order = null, $is_desc = false, $where = [], $limit = null, $offset = null)
+    {
         try {
             $query = "SELECT * FROM {$this->table}";
 
@@ -193,12 +201,11 @@ abstract class BaseRepository {
         }
     }
 
-    public static function getInstance()
+    public static function getInstance(): BaseRepository
     {
         if (!isset(self::$instance)) {
-        self::$instance = new static();
+            self::$instance = new static();
         }
         return self::$instance;
     }
 }
-
