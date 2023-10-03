@@ -4,26 +4,31 @@ namespace repositories;
 
 use bases\BaseRepository;
 
-class UserRepository extends BaseRepository {
-    private static $instance;
-    private $table = "users";
+class UserRepository extends BaseRepository
+{
+    protected static $instance;
+    protected $table = "users";
 
-    private function __construct() {
+    private function __construct()
+    {
         parent::__construct();
     }
 
-    public static function getInstance() {
+    public static function getInstance(): UserRepository
+    {
         if (!isset(self::$instance)) {
             self::$instance = new UserRepository();
         }
         return self::$instance;
     }
 
-    public function getById($user_id) {
+    public function getById($user_id)
+    {
         return $this->getOne(["user_id" => $user_id]);
     }
 
-    public function getByUsername($username) {
+    public function getByUsername($username)
+    {
         return $this->getOne(["username" => $username]);
     }
 }
