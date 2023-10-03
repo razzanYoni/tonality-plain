@@ -52,7 +52,7 @@ abstract class BaseRepository {
     }
 
     // Fungsi untuk menambahkan data
-    public function add($data) {
+    public function insert($data) {
         try {
             $columns = implode(', ', array_keys($data));
             $values = ':' . implode(', :', array_keys($data));
