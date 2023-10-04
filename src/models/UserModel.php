@@ -10,11 +10,11 @@ use bases\BaseModel,
 
 class UserModel extends BaseModel
 {
-    public $userId;
+    public $user_id;
     public $username = '';
     public $password = '';
     public $passwordConfirm = '';
-//    public $_isAdmin = 0;
+    public $is_admin = 0;
 
     public static function primaryKey(): string
     {
@@ -36,10 +36,10 @@ class UserModel extends BaseModel
 
     public function constructFromArray(array $data): UserModel
     {
-        $this->userId = $data['user_id'];
+        $this->user_id = $data['user_id'];
         $this->username = $data['username'];
         $this->password = $data['password'];
-        $this->isAdmin = $data['is_admin'];
+        $this->is_admin = $data['is_admin'];
         return $this;
     }
 
@@ -55,7 +55,6 @@ class UserModel extends BaseModel
     public function insert(): bool
     {
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-        echo 'masuk <br>';
         return parent::insert();
     }
 
@@ -67,10 +66,10 @@ class UserModel extends BaseModel
     public function toResponse(): array
     {
         return array(
-            'user_id' => $this->_userId,
-            'username' => $this->_username,
-            'password' => $this->_password,
-            'is_admin' => $this->_isAdmin
+            'user_id' => $this->user_id,
+            'username' => $this->username,
+            'password' => $this->password,
+            'is_admin' => $this->is_admin
         );
     }
 }
