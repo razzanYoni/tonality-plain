@@ -8,6 +8,7 @@ services:
       - "8080:80"  # Map host port 8080 to container port 80
     volumes:
       - .:/var/www/html  # Mount source code into the container
+      - ./storage:/var/www/html/storage  # Map storage directory to a volume
     depends_on:
       - db
 
