@@ -1,0 +1,181 @@
+body {
+    background-color: #151515;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* margin: 0; */
+
+    color: white;
+    font-family: 'Inter';
+}
+
+@font-face {
+    font-family: Inter;
+    src: url(/public/assets/fonts/Inter-Light.ttf);
+}
+
+.login-container {
+    background-color: #000000;
+    border-radius: 15px;
+
+    height: 550px;
+    width: 550px;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+}
+
+.logo {
+    height: 100px;
+    width: 100px;
+}
+
+.login-title {
+    font-size: 30px;
+    font-weight: bold;
+
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form {
+    height: 200px;
+    width: 300px;
+
+    margin-top: 25px;
+    margin-bottom: 30px;
+
+    align-items: center;
+}
+
+.register-form {
+    height: 260px;
+    width: 300px;
+
+    margin-top: 16px;
+
+    align-items: center;
+}
+
+.login-quest {
+    margin-bottom: 15px;
+}
+
+.register-quest {
+    margin-bottom: 10px;
+}
+
+.form-label {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+form input[type=text] {
+    background-color: #151515;
+    border-radius: 15px;
+    border-color: white;
+
+    width: 280px;
+    height: 40px;
+
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    cursor: pointer;
+    font-family: 'Inter';
+    font-size: 14px;
+
+    transition: transform 0.3s ease;
+}
+
+form input[type=password] {
+    background-color: #151515;
+    border-radius: 15px;
+    border-color: white;
+
+    width: 280px;
+    height: 40px;
+
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    cursor: pointer;
+    font-family: 'Inter';
+    font-size: 14px;
+
+    transition: transform 0.3s ease;
+}
+
+.btn-for-login {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.btn-for-signup {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.login-btn {
+    background-color: #259793;
+    color: white;
+
+    border-style: none;
+    border-radius: 15px;
+
+    width: 135px;
+    height: 40px;
+
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #2ebab5;
+    transform: scale(1.05);
+}
+
+.sign-up-link {
+    margin-top: 10px;
+}
+
+.signup-text {
+    text-decoration: underline;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.signup-text:hover {
+    color: #259793;
+}
+
+.login-link {
+    margin-top: 40px;
+}
+
+.login-text {
+    text-decoration: underline;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.login-text:hover {
+    color: #259793;
+}
