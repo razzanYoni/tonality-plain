@@ -2,47 +2,49 @@
 
 namespace repositories;
 
-use bases\BaseRepository;
-use PDOException;
+use cores\Application,
+    bases\BaseRepository,
+    PDOException;
 
 class AlbumRepository extends BaseRepository
 {
-    protected string $table = "albums";
+    public static function tableName(): string
+    {
+        return 'albums';
+    }
 
-    public static function getInstance(): BaseRepository
+    public static function getInstance()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new AlbumRepository();
+            self::$instance = new static();
         }
         return self::$instance;
     }
 
-    public function getById($album_id)
+    public function getAlbumById($album_id)
     {
-        return $this->getOne(["album_id" => $album_id]);
+        return $this->findOne(where : ["album_id" => $album_id]);
     }
 
-    public function getByName($album_name)
+    public function getAlbumByName($album_name)
     {
-        return $this->getOne(["album_name" => $album_name]);
+        return $this->findAll(where : ["album_name" => $album_name]);
     }
 
-    public function getByArtist($artist): bool|array
+    public function getAlbumByArtist($artist): bool|array
     {
-        return $this->getAll(where: ["artist" => $artist]);
+        return $this->findAll(where: ["artist" => $artist]);
     }
 
-    public function getByGenre($genre): bool|array
+    public function getAlbumByGenre($genre): bool|array
     {
-        return $this->getAll(
-            where: ["genre" => $genre]
-        );
+        return $this->findAll(where: ["genre" => $genre]);
     }
 
-    public function getGenres(): bool|array
+    public function getAlbumGenres(): bool|array
     {
         $query = "SELECT DISTINCT genre FROM albums";
-        $stmt = $this->pdo->prepare($query);
+        $stmt = Application::$app->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -51,7 +53,7 @@ class AlbumRepository extends BaseRepository
     {
         try {
             $query = "SELECT * FROM songs WHERE album_id = :album_id";
-            $stmt = $this->pdo->prepare($query);
+            $stmt = Application::$app->db->prepare($query);
 
             $stmt->bindParam(':album_id', $album_id);
 

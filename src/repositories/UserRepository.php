@@ -2,13 +2,18 @@
 
 namespace repositories;
 
+require_once ROOT_DIR . "src/bases/BaseRepository.php";
+
 use bases\BaseRepository;
 
 class UserRepository extends BaseRepository
 {
-    protected string $table = "users";
+    public static function tableName(): string
+    {
+        return 'users';
+    }
 
-    public static function getInstance(): UserRepository
+    public static function getInstance()
     {
         if (!isset(self::$instance)) {
             self::$instance = new UserRepository();
@@ -16,13 +21,13 @@ class UserRepository extends BaseRepository
         return self::$instance;
     }
 
-    public function getById($user_id)
+    public function getUserById($user_id)
     {
-        return $this->getOne(["user_id" => $user_id]);
+        return $this->findOne(where : ["user_id" => $user_id]);
     }
 
-    public function getByUsername($username)
+    public function getUserByUsername($username)
     {
-        return $this->getOne(["username" => $username]);
+        return $this->findOne(where : ["username" => $username]);
     }
 }

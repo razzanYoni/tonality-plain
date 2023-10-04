@@ -3,35 +3,39 @@
 namespace repositories;
 
 use bases\BaseRepository;
+use cores\Application;
 use PDOException;
 
 class PlaylistRepository extends BaseRepository
 {
-    protected string $table = "playlists";
+    public static function tableName(): string
+    {
+        return 'playlists';
+    }
 
-    public static function getInstance(): PlaylistRepository
+    public static function getInstance()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new PlaylistRepository();
+            self::$instance = new static();
         }
         return self::$instance;
     }
 
-    public function getPlaylists($user_id)
+    public function getPlaylistsByUserId($user_id)
     {
-        return $this->getOne(["user_id" => $user_id]);
+        return $this->findOne(where : ["user_id" => $user_id]);
     }
 
     public function getPlaylistByName($playlist_name)
     {
-        return $this->getOne(["playlist_name" => $playlist_name]);
+        return $this->findAll(where : ["playlist_name" => $playlist_name]);
     }
 
     public function getSongsFromPlaylist($playlist_id): bool|array
     {
         try {
             $query = "SELECT * FROM songs WHERE playlist_id = :playlist_id";
-            $stmt = $this->pdo->prepare($query);
+            $stmt = Application::$app->db->prepare($query);
 
             $stmt->bindParam(':playlist_id', $playlist_id);
 

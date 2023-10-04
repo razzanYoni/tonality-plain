@@ -6,9 +6,12 @@ use bases\BaseRepository;
 
 class SongRepository extends BaseRepository
 {
-    protected string $table = "songs";
+    public static function tableName(): string
+    {
+        return 'songs';
+    }
 
-    public static function getInstance(): SongRepository
+    public static function getInstance()
     {
         if (!isset(self::$instance)) {
             self::$instance = new SongRepository();
@@ -18,16 +21,16 @@ class SongRepository extends BaseRepository
 
     public function getSongById($song_id)
     {
-        return $this->getOne(["song_id" => $song_id]);
+        return $this->findOne(["song_id" => $song_id]);
     }
 
     public function getSongByTitle($title): bool|array
     {
-        return $this->getAll(where: ["title" => $title]);
+        return $this->findAll(where: ["title" => $title]);
     }
 
     public function getSongByArtist($artist): bool|array
     {
-        return $this->getAll(where: ["artist" => $artist]);
+        return $this->findAll(where: ["artist" => $artist]);
     }
 }
