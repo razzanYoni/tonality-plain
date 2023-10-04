@@ -1,0 +1,72 @@
+body {
+    background-color: #000000;
+    display: flex;
+    height: 100vh;
+    margin: 0;
+}
+
+@font-face {
+    font-family: Inter;
+    src: url(/public/assets/fonts/Inter-Regular.ttf);
+}
+
+.album-card {
+    display: inline-block;
+    width: 200px; /* Set a fixed width for the album card */
+    margin: 10px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #2b2b2b;
+    border-radius: 5px; /* Apply border-radius to the default state */
+    overflow: hidden; /* Prevents content from overflowing rounded corners */
+    transition: background-color 0.2s; /* Add a smooth transition */
+}
+
+.album-card:hover {
+    background-color: #3d3d3d;
+    border-radius: 5px; /* Apply border-radius to the hover state */
+}
+
+.album-info-container {
+    padding: 20px;
+}
+
+.album-cover-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px
+}
+
+/* Additional styling for album name and artist name */
+.album-name,
+.artist-name {
+    font-family: 'Inter', sans-serif;
+    font-size: small;
+    margin-top: 5px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.album-name {
+    font-weight: bold;
+    color: white;
+}
+
+.artist-name {
+    color: rgb(210, 210, 210);
+}
+
+/* Responsive styles using media queries */
+@media (max-width: 768px) {
+    /* Adjust card width and font size for smaller screens */
+    .album-card {
+        width: 150px;
+    }
+
+    .album-name,
+    .artist-name {
+        font-size: x-small;
+    }
+}
