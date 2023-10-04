@@ -5,7 +5,7 @@ namespace utils;
 use ErrorException;
 
 
-class EnvironmentLoader
+class DotEnv
 {
     private $path;
 
