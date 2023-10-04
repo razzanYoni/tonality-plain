@@ -17,13 +17,23 @@ $app->on(Application::EVENT_BEFORE_REQUEST, function () {
 
 $userSiteController = \controllers\UserSiteController::getInstance();
 
-$app->router->get('/', [$userSiteController->getLoginController()::class, 'login']);
+$app->router->get('/', [\controllers\UserSiteController::class, 'home']);
 $app->router->get('/login', [$userSiteController->getLoginController()::class, 'login']);
 $app->router->post('/login', [$userSiteController->getLoginController()::class, 'login']);
+$app->router->get('/logout', [$userSiteController->getLogoutController()::class, 'logout']);
 $app->router->get('/register', [$userSiteController->getRegisterController()::class, 'register']);
 $app->router->post('/register', [$userSiteController->getRegisterController()::class, 'register']);
+$app->router->get('/homeAdmin', [\controllers\AdminSiteController::class, 'homeAdmin']);
+
 
 $app->run();
+
+echo $app->controller;
+
+//set router default to login
+if ($_SERVER['REQUEST_URI'] === '/' && $_SESSION['user_id'] === null) {
+    header('Location: /login');
+}
 
 //$viewRoutes = array(
 //    '/' => ROOT_DIR . 'public/pages/index.php',
