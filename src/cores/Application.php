@@ -12,6 +12,7 @@ require_once ROOT_DIR . 'src/cores/View.php';
 use PDO,
     models\UserModel,
     db\PDOInstance;
+use repositories\UserRepository;
 
 class Application {
     const EVENT_BEFORE_REQUEST = 'beforeRequest';
@@ -45,10 +46,12 @@ class Application {
         $this->session = new Session();
         $this->view = new View();
 
-        $userId = Application::$app->session->get('user');
+        $userId = Application::$app->session->get('user_id');
         if ($userId) {
             $key = $this->userClass::primaryKey();
-            $this->loggedUser = $this->userClass::findOne([$key => $userId]);
+            $userModel = new UserModel();
+            $userModel->constructFromArray(UserRepository::getInstance()->findOne(where : [$key => $userId]));
+            $this->loggedUser = $userModel;
         }
     }
 
@@ -65,23 +68,27 @@ class Application {
         return !self::$app->loggedUser;
     }
 
-    public static function isAdmin() {
-        return self::$app->loggedUser->get('_isAdmin');
+    public static function isNotAdmin() {
+
+        return self::isGuest() || !self::$app->loggedUser->get('is_admin');
     }
 
     public function login(UserModel $user)
     {
         $this->loggedUser = $user;
-        $value = $user->get('userId');
-        Application::$app->session->set('userId', $value);
+        $user_id = $user->get('user_id');
+        $is_admin = $user->get('is_admin');
+        Application::$app->session->set('user_id', $user_id);
+        Application::$app->session->set('is_admin', $is_admin);
 
-        return true;
+        return [true, $is_admin];
     }
 
     public function logout()
     {
         $this->loggedUser = null;
-        self::$app->session->remove('user');
+        self::$app->session->remove('user_id');
+        self::$app->session->remove('is_admin');
     }
 
     public function run()
