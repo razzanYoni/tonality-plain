@@ -2,19 +2,17 @@
 
 namespace controllers\auth;
 
-use bases\BaseController;
-use bases\BaseService;
-use services\UserService;
+use bases\BaseController,
+    bases\BaseRepository,
+    repositories\UserRepository;
 
 class CheckUsernameController extends BaseController
 {
-    /* @var UserService $service */
-    protected BaseService $service;
-
-    public static function getInstance($service): CheckUsernameController
+    protected static CheckUsernameController $instance;
+    public static function getInstance(): CheckUsernameController
     {
         if (!isset(self::$instance)) {
-            self::$instance = new static(UserService::getInstance());
+            self::$instance = new static();
         }
         return self::$instance;
     }
@@ -22,7 +20,7 @@ class CheckUsernameController extends BaseController
     public function post($urlParameters): void
     {
         $username = $_POST['username'];
-        $user = $this->service->isUsernameExist($username);
+        $user = UserRepository::getInstance()->getUserByUsername($username);
 
         http_response_code(200);
         echo json_encode(array(
