@@ -6,6 +6,7 @@ function AlbumCard(AlbumModel $album): string
 {
     $albumId = $album->get('album_id');
     $coverUrl = $albumId->get('cover_url');
+    $coverUrl = $coverUrl ? : 'public/assets/default-cover.jpg';
     $albumName = $album->get('album_name');
     $albumArtist = $album->get('artist');
 
