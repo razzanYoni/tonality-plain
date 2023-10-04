@@ -1,3 +1,10 @@
+<?php
+
+define("ROOT_DIR", __DIR__ . "/");
+require_once ROOT_DIR . "../../components/NavBar.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,10 +12,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/public/js/FormDetail.js"></script>
     <link rel="stylesheet" href="/public/css/FormDetail.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/NavBar.css" type="text/css">
     <!-- <link href="/public/assets/fonts" rel="stylesheet"> -->
-    <title>Form</title>
+    <title>Add New Album - Tonality</title>
 </head>
 <body>
+    <?php
+        echo NavBar();
+    ?>
     <div class="form-container">
         <h1>Edit Song</h1>
         <form class="form-list">
