@@ -18,7 +18,7 @@ class RegisterController extends BaseController {
             $registerModel->loadData($request->getBody());
             if ($registerModel->validate() && $registerModel->insert()) {
                 Application::$app->session->setFlash('success', 'Thanks for registering');
-                Application::$app->response->redirect('/');
+                Application::$app->response->redirect('/login');
                 return 'Show success page';
             }
         }
