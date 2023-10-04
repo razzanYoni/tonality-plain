@@ -93,6 +93,7 @@ class Router
         $method = $this->request->getMethod();
         $url = $this->request->getUrl();
         $callback = $this->routeMap[$method][$url] ?? false;
+
         if (!$callback) {
 
             $callback = $this->getCallback();
@@ -105,9 +106,6 @@ class Router
             return $this->renderView($callback);
         }
         if (is_array($callback)) {
-            /**
-             * @var $controller \thecodeholic\phpmvc\Controller
-             */
             $controller = new $callback[0];
             $controller->action = $callback[1];
             Application::$app->controller = $controller;
