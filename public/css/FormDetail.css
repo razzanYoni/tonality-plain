@@ -1,11 +1,15 @@
 body {
     background-color: #000000;
 
-    display: flex; /* Membuat body menjadi flex container */
-    justify-content: center; /* Menengahkan elemen horizontal di dalam flex container */
-    align-items: center; /* Menengahkan elemen vertikal di dalam flex container */
-    height: 100vh; /* Mengisi seluruh ketinggian viewport */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100vw;
+    height: 100vh;
     margin: 0;
+
+    font-family: "Inter";
 }
 
 @font-face {
@@ -23,6 +27,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    margin-top: 20px;
 }
 
 h1 {
@@ -136,6 +142,8 @@ label {
 .cancel-submit {
     margin-top: 30px;
     width: 300px;
+    justify-content: center;
+    display: flex;
 }
 
 .cancel-btn {
@@ -145,7 +153,7 @@ label {
     border-style: none;
     border-radius: 15px;
 
-    width: 135px;
+    width: 125px;
     height: 40px;
 
     margin-right: 11px;
@@ -164,7 +172,7 @@ label {
     border-style: none;
     border-radius: 15px;
 
-    width: 135px;
+    width: 125px;
     height: 40px;
 
     margin-left: 15px;
