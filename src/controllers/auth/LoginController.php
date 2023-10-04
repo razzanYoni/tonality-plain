@@ -16,8 +16,14 @@ class LoginController extends BaseController {
         $loginForm = new LoginForm();
         if ($request->getMethod() === 'post') {
             $loginForm->loadData($request->getBody());
-            if ($loginForm->validate() && $loginForm->login()) {
-                Application::$app->response->redirect('/');
+            if ($loginForm->validate() && $loginForm->login()[0]) {
+                if (!$loginForm->login()[1]) {
+                    // Not Admin
+                    Application::$app->response->redirect('/');
+                } else {
+                    // Admin
+                    Application::$app->response->redirect('/homeAdmin'); //homeAdmin
+                }
                 return;
             }
         }
