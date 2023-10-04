@@ -2,27 +2,13 @@
 
 namespace bases;
 
-use exceptions;
-use exceptions\MethodNotAllowedException;
+require_once ROOT_DIR . "src/cores/Controller.php";
 
-abstract class BaseController
+use exceptions,
+    cores\Controller;
+
+class BaseController extends Controller
 {
-    protected static BaseController $instance;
-    protected BaseService $service;
-
-    protected function __construct($service)
-    {
-        $this->service = $service;
-    }
-
-    public static function getInstance($service): BaseController|static
-    {
-        if (!isset(self::$instance)) {
-            self::$instance = new static($service);
-        }
-        return self::$instance;
-    }
-
     /**
      * @throws MethodNotAllowedException
      */
@@ -39,9 +25,6 @@ abstract class BaseController
         throw new exceptions\MethodNotAllowedException("Method Not Allowed");
     }
 
-    /**
-     * @throws MethodNotAllowedException
-     */
     protected function put($urlParameters)
     {
         throw new exceptions\MethodNotAllowedException("Method Not Allowed");
