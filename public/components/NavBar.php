@@ -1,15 +1,6 @@
 <?php
 function NavBar() {
-    echo <<<HTML
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/public/css/NavBar.css">
-        <title>Tonality</title>
-    </head>
-    <body>
+    $html = <<<"EOT"
         <div class="navbar">
             <div class="logo">
                 <img src="logo.png">
@@ -27,8 +18,8 @@ function NavBar() {
                 <a href="#" class="right-side logout">Log Out</a>
             </div>
         </div>
-    </body>
-    </html>
-HTML;
+    EOT;
+
+    return $html;
 }
 ?>
