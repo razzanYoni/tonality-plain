@@ -2,28 +2,66 @@
 
 namespace models;
 
-use bases\BaseModel;
+require_once ROOT_DIR . "src/bases/BaseModel.php";
+
+use bases\BaseModel,
+    cores,
+    PDOException;
 
 class UserModel extends BaseModel
 {
-    private $_userId;
-    private $_username;
-    private $_password;
-    private $_isAdmin;
+    public $userId;
+    public $username = '';
+    public $password = '';
+    public $passwordConfirm = '';
+//    public $_isAdmin = 0;
 
-    public function __construct(array $data)
+    public static function primaryKey(): string
     {
-        $this->constructFromArray($data);
-        return $this;
+        return 'user_id';
+    }
+
+    public static function tableName(): string
+    {
+        return 'users';
+    }
+
+    public function attributes()
+    {
+        return [
+            'username',
+            'password',
+        ];
     }
 
     public function constructFromArray(array $data): UserModel
     {
-        $this->_userId = $data['user_id'];
-        $this->_username = $data['username'];
-        $this->_password = $data['password'];
-        $this->_isAdmin = $data['is_admin'];
+        $this->userId = $data['user_id'];
+        $this->username = $data['username'];
+        $this->password = $data['password'];
+        $this->isAdmin = $data['is_admin'];
         return $this;
+    }
+
+    public function rules()
+    {
+        return [
+            'username' => [self::RULE_REQUIRED],
+            'password' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 8]],
+            'passwordConfirm' => [[self::RULE_MATCH, 'match' => 'password']],
+        ];
+    }
+
+    public function insert(): bool
+    {
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        echo 'masuk <br>';
+        return parent::insert();
+    }
+
+    public function getUserByUsername($username)
+    {
+        return $this->findOne(where : ["username" => $username]);
     }
 
     public function toResponse(): array

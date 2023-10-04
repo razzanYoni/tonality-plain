@@ -6,16 +6,21 @@ use bases\BaseModel;
 
 class PlaylistModel extends BaseModel
 {
-    private $_playlistId;
-    private $_userId;
-    private $_playlistName;
-    private $_description;
-    private $_coverUrl;
+    public $_playlistId;
+    public $_userId;
+    public $_playlistName;
+    public $_description;
+    public $_coverUrl;
 
-    public function __construct(array $data)
+
+    public static function primaryKey(): string
     {
-        $this->constructFromArray($data);
-        return $this;
+        return 'playlist_id';
+    }
+
+    public static function tableName(): string
+    {
+        return 'playlists';
     }
 
     public function constructFromArray(array $data): PlaylistModel
@@ -26,6 +31,16 @@ class PlaylistModel extends BaseModel
         $this->_description = $data['description'];
         $this->_coverUrl = $data['cover_url'];
         return $this;
+    }
+
+    public function getPlaylistsByUserId()
+    {
+        return $this->findAll(where : ["user_id" => $this->_userId]);
+    }
+
+    public function getSongsFromPlaylist()
+    {
+        return $this->findAll(where : ["playlist_id" => $this->_playlistId]);
     }
 
     public function toResponse(): array

@@ -6,17 +6,21 @@ use bases\BaseModel;
 
 class AlbumModel extends BaseModel
 {
-    private $_albumId;
-    private $_albumName;
-    private $_releaseDate;
-    private $_genre;
-    private $_artist;
-    private $_coverUrl;
+    public $_albumId;
+    public $_albumName;
+    public $_releaseDate;
+    public $_genre;
+    public $_artist;
+    public $_coverUrl;
 
-    public function __construct(array $data)
+    public static function tableName(): string
     {
-        $this->constructFromArray($data);
-        return $this;
+        return 'albums';
+    }
+
+    public static function primaryKey(): string
+    {
+        return 'album_id';
     }
 
     public function constructFromArray(array $data): AlbumModel

@@ -6,19 +6,23 @@ use bases\BaseModel;
 
 class SongModel extends BaseModel
 {
-    private $_songId;
-    private $_albumId;
-    private $_title;
-    private $_artist;
-    private $_songNumber;
-    private $_discNumber;
-    private $_duration;
-    private $_audioUrl;
+    public $_songId;
+    public $_albumId;
+    public $_title;
+    public $_artist;
+    public $_songNumber;
+    public $_discNumber;
+    public $_duration;
+    public $_audioUrl;
 
-    public function __construct(array $data)
+    public static function tableName(): string
     {
-        $this->constructFromArray($data);
-        return $this;
+        return 'songs';
+    }
+
+    public static function primaryKey(): string
+    {
+        return 'song_id';
     }
 
     public function constructFromArray(array $data): SongModel
@@ -32,6 +36,21 @@ class SongModel extends BaseModel
         $this->_duration = $data['duration'];
         $this->_audioUrl = $data['audio_url'];
         return $this;
+    }
+
+    public function getSongById($song_id)
+    {
+        return $this->findOne(where : ["song_id" => $song_id]);
+    }
+
+    public function getSongByTitle($title): bool|array
+    {
+        return $this->findAll(where: ["title" => $title]);
+    }
+
+    public function getSongByArtist($artist): bool|array
+    {
+        return $this->findAll(where: ["artist" => $artist]);
     }
 
     public function toResponse(): array
