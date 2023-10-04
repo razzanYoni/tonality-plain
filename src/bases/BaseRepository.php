@@ -2,32 +2,21 @@
 
 namespace bases;
 
-use db\PDOInstance, PDOException, Exception;
+use cores,
+    PDOException,
+    Exception,
+    PDO;
 
 abstract class BaseRepository
 {
-    protected string $table = "";
-    protected \PDO $pdo;
     protected static BaseRepository $instance;
+    abstract public static function tableName(): string;
 
-    protected function __construct()
-    {
-        $this->pdo = PDOInstance::getInstance()->getDbh();
-        $stmt = $this->pdo->query("SELECT * FROM users");
-        while ($row = $stmt->fetch()) {
-            echo $row['username'] . "<br />\n";
-        }
-    }
-
-    public function getPDO(): \PDO
-    {
-        return $this->pdo;
-    }
-
-    public function getOne($where)
+    public function findOne($where)
     {
         try {
-            $query = "SELECT * FROM {$this->table}";
+            $tableName = $this->tableName();
+            $query = "SELECT * FROM {$tableName}";
 
             if (count($where) > 0) {
                 $query .= " WHERE ";
@@ -40,10 +29,10 @@ abstract class BaseRepository
                 $query .= implode(" AND ", $conditions);
             }
 
-            $stmt = $this->pdo->prepare($query);
+            $stmt = cores\Application::$app->db->prepare($query);
 
             foreach ($where as $key => $value) {
-                $stmt->bindValue(":$key", $value);
+                $stmt->bindValue(":$key", $value, PDO::PARAM_STR);
             }
 
             $stmt->execute();
@@ -54,109 +43,12 @@ abstract class BaseRepository
         }
     }
 
-    // Fungsi untuk menambahkan data
-    public function insert($data): bool
-    {
-        try {
-            $columns = implode(', ', array_keys($data));
-            $values = ':' . implode(', :', array_keys($data));
-            $query = "INSERT INTO {$this->table} ($columns) VALUES ($values)";
-            $stmt = $this->pdo->prepare($query);
-            $stmt->execute($data);
-            return true;
-
-        } catch (PDOException $e) {
-
-            echo "Error: " . $e->getMessage();
-            return false;
-        }
-    }
-
-    // Fungsi untuk mengubah data
-    public function update($where, $data): bool
-    {
-        try {
-            $updateFields = '';
-            foreach ($data as $key => $value) {
-                $updateFields .= "$key = :$key, ";
-            }
-            $updateFields = rtrim($updateFields, ', ');
-
-            $whereClause = '';
-            foreach ($where as $key => $value) {
-                $whereClause .= "$key = :where_$key AND ";
-            }
-            $whereClause = rtrim($whereClause, ' AND ');
-
-            $query = "UPDATE {$this->table} SET $updateFields WHERE $whereClause";
-            $stmt = $this->pdo->prepare($query);
-
-            // Binding nilai update
-            foreach ($data as $key => $value) {
-                $stmt->bindValue(":$key", $value);
-            }
-
-            // Binding nilai WHERE
-            foreach ($where as $key => $value) {
-                $stmt->bindValue(":where_$key", $value);
-            }
-
-            $stmt->execute();
-            return true;
-        } catch (PDOException $e) {
-            // Handle kesalahan koneksi atau query di sini
-            echo "Error: " . $e->getMessage();
-            return false;
-        }
-    }
-
-
-    // Fungsi untuk menghapus data
-    public function delete($where): bool
-    {
-        try {
-            $query = "DELETE FROM {$this->table}";
-
-            if (!empty($where)) {
-                if (count($where) === 1) {
-                    $key = key($where);
-                    $value = current($where);
-                    $query .= " WHERE $key = :where_$key";
-                } else {
-                    $whereClause = '';
-                    foreach ($where as $key => $value) {
-                        $whereClause .= "$key = :where_$key AND ";
-                    }
-                    $whereClause = rtrim($whereClause, ' AND ');
-                    $query .= " WHERE $whereClause";
-                }
-            }
-
-            $stmt = $this->pdo->prepare($query);
-
-            foreach ($where as $key => $value) {
-                $stmt->bindValue(":where_$key", $value);
-            }
-
-            $stmt->execute();
-            return true;
-
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-            return false;
-
-        } catch (Exception $e) {
-            echo "Error : " . $e->getMessage();
-            return false;
-        }
-    }
-
-
     // Fungsi untuk mengambil semua data
-    public function getAll($order = null, $is_desc = false, $where = [], $limit = null, $offset = null): bool|array
+    public function findAll($order = null, $is_desc = false, $where = [], $limit = null, $offset = null): bool|array
     {
         try {
-            $query = "SELECT * FROM {$this->table}";
+            $tableName = $this->tableName();
+            $query = "SELECT * FROM {$tableName}";
 
             if (count($where) > 0) {
                 $query .= " WHERE ";
@@ -201,7 +93,7 @@ abstract class BaseRepository
         }
     }
 
-    public static function getInstance(): BaseRepository
+    public static function getInstance()
     {
         if (!isset(self::$instance)) {
             self::$instance = new static();
