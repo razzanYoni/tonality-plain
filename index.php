@@ -42,14 +42,3 @@ $app->router->get('/album/delete/{album_id:\d+}', [AlbumController::class, 'dele
 $app->router->post('/album/delete/{album_id:\d+}', [AlbumController::class, 'deleteAlbum']);
 
 $app->run();
-
-// Set router default to login
-if ($_SERVER['REQUEST_URI'] === '/' && !isset($_SESSION['user_id'])) {
-    echo("<script>location.href = '/login';</script>");
-} else if ($_SERVER['REQUEST_URI'] === '/' && isset($_SESSION['user_id'])) {
-    if ($_SESSION['is_admin'] === '1') {
-        echo("<script>location.href = '/albumAdmin';</script>");
-    } else {
-        echo("<script>location.href = '/album';</script>");
-    }
-}
