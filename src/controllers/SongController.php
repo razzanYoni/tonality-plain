@@ -12,16 +12,19 @@ use bases\BaseController,
     models\SongModel,
     repositories\SongRepository;
 
-class SongController extends BaseController {
-    public function __construct() {
+class SongController extends BaseController
+{
+    public function __construct()
+    {
         $this->registerMiddleware(new AdminMiddleware(['insertSong', 'updateSong']));
     }
 
-    public function insertSong(Request $request) {
+    public function insertSong(Request $request)
+    {
         $songModel = new SongModel();
         if ($request->getMethod() === 'post') {
             $songModel->loadData($request->getBody());
-            if ($songModel->validate() && $songModel->insert()) {
+            if ($songModel->validate() && SongRepository::getInstance()->insert($songModel->toArray())) {
                 Application::$app->session->setFlash('success', 'Song inserted successfully');
                 echo("<script>location.href = '/song/insertSong';</script>");
                 return;
@@ -35,7 +38,8 @@ class SongController extends BaseController {
         ]);
     }
 
-    public function updateSong(Request $request) {
+    public function updateSong(Request $request)
+    {
         $songModelOld = new SongModel();
         $song_id = $request->getRouteParam('song_id');
         $songModelOld->constructFromArray(
@@ -45,18 +49,18 @@ class SongController extends BaseController {
 
         if ($request->getMethod() === 'post') {
             $songModelNew = new SongModel();
-            $songModelNew->song_id = $song_id;
+            $songModelNew->set('song_id', $song_id);
             $songModelNew->loadData($request->getBody());
-            if ($songModelNew->validate() && $songModelNew->update(
-                where: ['song_id' => $song_id],
-                    data: $songModelNew->toResponse()
-                )) {
+            if ($songModelNew->validate() && SongRepository::getInstance()
+                    ->update(
+                        $song_id,
+                        data: $songModelNew->toArray()
+                    )) {
                 Application::$app->session->setFlash('success', 'Song updated successfully');
                 echo("<script>location.href = `/song/${song_id};</script>");
                 return;
             }
         }
-        // TODO : update song
 
         // Method : GET
         $this->setLayout('blank');

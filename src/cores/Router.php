@@ -5,12 +5,7 @@ namespace cores;
 require_once ROOT_DIR . "src/controllers/AuthorizationController.php";
 require_once ROOT_DIR . "src/exceptions/NotFoundException.php";
 
-use cores\Application,
-    cores\Request,
-    cores\Response,
-    exceptions\NotFoundException,
-    exceptions\MethodNotAllowedException,
-    exceptions\BadRequestException;
+use exceptions\NotFoundException;
 
 class Router
 {

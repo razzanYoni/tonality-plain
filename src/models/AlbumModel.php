@@ -6,34 +6,12 @@ use bases\BaseModel;
 
 class AlbumModel extends BaseModel
 {
-    public $album_id;
-    public $album_name;
-    public $release_date;
-    public $genre;
-    public $artist;
-    public $cover_url;
-
-    public static function tableName(): string
-    {
-        return 'albums';
-    }
-
-    public static function primaryKey(): string
-    {
-        return 'album_id';
-    }
-
-    public function attributes(): array
-    {
-        return [
-            'album_id',
-            'album_name',
-            'release_date',
-            'genre',
-            'artist',
-            'cover_url'
-        ];
-    }
+    protected $album_id;
+    protected $album_name;
+    protected $release_date;
+    protected $genre;
+    protected $artist;
+    protected $cover_url;
 
     public function constructFromArray(array $data): AlbumModel
     {
@@ -46,10 +24,9 @@ class AlbumModel extends BaseModel
         return $this;
     }
 
-    public function toResponse(): array
+    public function toArray(): array
     {
         return array(
-            'album_id' => $this->album_id,
             'album_name' => $this->album_name,
             'release_date' => $this->release_date,
             'genre' => $this->genre,

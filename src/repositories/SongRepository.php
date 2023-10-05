@@ -7,9 +7,28 @@ use bases\BaseRepository;
 class SongRepository extends BaseRepository
 {
     protected static BaseRepository $instance;
+
     public static function tableName(): string
     {
         return 'songs';
+    }
+
+    public static function attributes(): array
+    {
+        return [
+            'album_id',
+            'title',
+            'artist',
+            'song_number',
+            'disc_number',
+            'duration',
+            'audio_url',
+        ];
+    }
+
+    public static function primaryKey(): string
+    {
+        return 'song_id';
     }
 
     public static function getInstance()

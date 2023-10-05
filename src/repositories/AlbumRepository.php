@@ -9,9 +9,26 @@ use cores\Application,
 class AlbumRepository extends BaseRepository
 {
     protected static BaseRepository $instance;
+
     public static function tableName(): string
     {
         return 'albums';
+    }
+
+    public static function attributes(): array
+    {
+        return [
+            'album_name',
+            'release_date',
+            'genre',
+            'artist',
+            'cover_url'
+        ];
+    }
+
+    public static function primaryKey(): string
+    {
+        return 'album_id';
     }
 
     public static function getInstance()
@@ -29,7 +46,7 @@ class AlbumRepository extends BaseRepository
 
     public function getAlbumByName($album_name)
     {
-        return $this->findAll(where : ["album_name" => $album_name]);
+        return $this->findAll(where: ["album_name" => $album_name]);
     }
 
     public function getAlbumByArtist($artist): bool|array

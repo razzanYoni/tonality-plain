@@ -2,14 +2,16 @@
 
 namespace bases;
 
-use cores\Model;
+use bases\BaseModel;
 
-abstract class BaseField {
-    public Model $model;
+abstract class BaseField
+{
+    public BaseModel $model;
     public string $attribute;
     public string $type;
 
-    public function __construct(Model $model, string $attribute) {
+    public function __construct(BaseModel $model, string $attribute)
+    {
         $this->model = $model;
         $this->attribute = $attribute;
     }

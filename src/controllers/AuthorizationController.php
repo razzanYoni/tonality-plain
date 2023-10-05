@@ -11,19 +11,33 @@ use bases\BaseController,
     cores\Response,
     models\UserLoginModel,
     models\UserModel;
+use repositories\UserRepository;
 
-class AuthorizationController extends BaseController {
-    public function __construct() {} // doesn't have middleware
+class AuthorizationController extends BaseController
+{
+    public function __construct()
+    {
+    } // doesn't have middleware
 
-    public function register (Request $request) {
+    public function register(Request $request)
+    {
+
         if (isset(Application::$app->loggedUser)) {
             Application::$app->response->redirect('/');
             return;
         }
+
         $userRegisterModel = new UserModel();
+
         if ($request->getMethod() === 'post') {
+
             $userRegisterModel->loadData($request->getBody());
-            if ($userRegisterModel->validate() && $userRegisterModel->insert()) {
+
+            if ($userRegisterModel->validate() && UserRepository::getInstance()
+                    ->insert(
+                        $userRegisterModel->toArray()
+                    )
+            ) {
                 Application::$app->session->setFlash('success', 'Thanks for registering');
                 Application::$app->response->redirect('/login');
                 return 'Show success page';
@@ -37,7 +51,8 @@ class AuthorizationController extends BaseController {
         ]);
     }
 
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         if (isset(Application::$app->loggedUser)) {
             Application::$app->response->redirect('/');
             return;
@@ -54,13 +69,14 @@ class AuthorizationController extends BaseController {
         }
 
         // Method : GET
-        $this->setLayout('blank');
-        return $this->render('authorization/login', [
+        $this->setLayout('Login');
+        return $this->render('authorization/LoginForm', [
             'model' => $userLoginModel
         ]);
     }
 
-    public function logout (Request $request, Response $response) {
+    public function logout(Request $request, Response $response)
+    {
         Application::$app->logout();
         $response->redirect('/login');
     }

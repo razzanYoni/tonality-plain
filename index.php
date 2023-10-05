@@ -43,8 +43,6 @@ $app->router->post('/album/delete/{album_id:\d+}', [AlbumController::class, 'del
 
 $app->run();
 
-echo $app->controller;
-
 // Set router default to login
 if ($_SERVER['REQUEST_URI'] === '/' && !isset($_SESSION['user_id'])) {
     echo("<script>location.href = '/login';</script>");
@@ -55,13 +53,3 @@ if ($_SERVER['REQUEST_URI'] === '/' && !isset($_SESSION['user_id'])) {
         echo("<script>location.href = '/album';</script>");
     }
 }
-
-//$viewRoutes = array(
-//    '/' => ROOT_DIR . 'public/pages/index.php',
-//
-//    '/add-album' => ROOT_DIR . 'public/views/AddAlbum.php',
-//    '/add-song' => ROOT_DIR . 'public/views/InsertSong.php',
-//);
-//
-//$router = new \router\PageRouter($viewRoutes, ROOT_DIR . 'public/pages/404.php');
-//$router->routing($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

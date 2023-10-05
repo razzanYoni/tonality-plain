@@ -2,143 +2,22 @@
 
 namespace bases;
 
-use cores;
-use PDOException, Exception;
+use cores\Application;
 
-abstract class BaseModel extends cores\Model
+abstract class BaseModel
 {
-    abstract public static function tableName(): string;
-    abstract public static function primaryKey(): string;
+    const RULE_REQUIRED = 'required';
+    const RULE_EMAIL = 'email';
+    const RULE_MIN = 'min';
+    const RULE_MAX = 'max';
+    const RULE_MATCH = 'match';
+    const RULE_UNIQUE = 'unique';
 
-    public function findOne($where) {
-        try {
-            $tableName = $this->tableName();
+    public array $errors = [];
 
-            $query = "SELECT * FROM {$tableName}";
-            if (count($where) > 0) {
-                $query .= " WHERE ";
-                $conditions = [];
+    abstract public function constructFromArray(array $data);
 
-                foreach ($where as $key => $value) {
-                    $conditions[] = "$key = :$key";
-                }
-
-                $query .= implode(" AND ", $conditions);
-            }
-
-            $stmt = cores\Application::$app->db->prepare($query);
-
-            foreach ($where as $key => $value) {
-                $stmt->bindValue(":$key", $value);
-            }
-
-            $stmt->execute();
-            return $stmt->fetchObject(static::class);
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-            return null;
-        }
-    }
-
-    public function insert(): bool
-    {
-        try {
-            $tableName = $this->tableName();
-            $attributes = $this->attributes();
-            $params = array_map(fn($attr) => ":$attr", $attributes);
-
-            $query = "INSERT INTO {$tableName} (" . implode(",", $attributes) . ")
-                        VALUES (" . implode(",", $params) . ")";
-            $stmt = cores\Application::$app->db->prepare($query);
-            foreach ($attributes as $attribute) {
-                $stmt->bindValue(":$attribute", $this->{$attribute});
-            }
-            $stmt->execute();
-            return true;
-
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-            return false;
-        }
-    }
-
-    public function update($where, $data): bool
-    {
-        try {
-            $tableName = $this->tableName();
-            $updateFields = '';
-            foreach ($data as $key => $value) {
-                $updateFields .= "$key = :$key, ";
-            }
-            $updateFields = rtrim($updateFields, ', ');
-
-            $whereClause = '';
-            foreach ($where as $key => $value) {
-                $whereClause .= "$key = :where_$key AND ";
-            }
-            $whereClause = rtrim($whereClause, ' AND ');
-
-            $query = "UPDATE {$tableName} SET $updateFields WHERE $whereClause";
-            $stmt = cores\Application::$app->db->prepare($query);
-
-            // Binding nilai update
-            foreach ($data as $key => $value) {
-                $stmt->bindValue(":$key", $value);
-            }
-
-            // Binding nilai WHERE
-            foreach ($where as $key => $value) {
-                $stmt->bindValue(":where_$key", $value);
-            }
-
-            $stmt->execute();
-            return true;
-        } catch (PDOException $e) {
-            // Handle kesalahan koneksi atau query di sini
-            echo "Error: " . $e->getMessage();
-            return false;
-        }
-    }
-
-    public function delete($where): bool
-    {
-        try {
-            $tableName = $this->tableName();
-            $query = "DELETE FROM {$this->table}";
-
-            if (!empty($where)) {
-                if (count($where) === 1) {
-                    $key = key($where);
-                    $value = current($where);
-                    $query .= " WHERE $key = :where_$key";
-                } else {
-                    $whereClause = '';
-                    foreach ($where as $key => $value) {
-                        $whereClause .= "$key = :where_$key AND ";
-                    }
-                    $whereClause = rtrim($whereClause, ' AND ');
-                    $query .= " WHERE $whereClause";
-                }
-            }
-
-            $stmt = cores\Application::$app->db->prepare($query);
-
-            foreach ($where as $key => $value) {
-                $stmt->bindValue(":where_$key", $value);
-            }
-
-            $stmt->execute();
-            return true;
-
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-            return false;
-
-        } catch (Exception $e) {
-            echo "Error : " . $e->getMessage();
-            return false;
-        }
-    }
+    abstract public function toArray(): array;
 
     public function set($attr, $value): BaseModel
     {
@@ -151,7 +30,122 @@ abstract class BaseModel extends cores\Model
         return $this->$attr;
     }
 
-    abstract public function constructFromArray(array $data);
+    public function loadData($data)
+    {
+        foreach ($data as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->{$key} = $value;
+            }
+        }
+    }
 
-    abstract public function toResponse(): array;
+    public function attributes()
+    {
+        return [];
+    }
+
+    public function labels()
+    {
+        return [];
+    }
+
+    public function getLabel($attribute)
+    {
+        return $this->labels()[$attribute] ?? $attribute;
+    }
+
+    public function rules()
+    {
+        return [];
+    }
+
+    public function validate()
+    {
+        foreach ($this->rules() as $attribute => $rules) {
+
+            $value = $this->{$attribute};
+
+            foreach ($rules as $rule) {
+
+                $ruleName = $rule;
+
+                if (!is_string($rule)) {
+                    $ruleName = $rule[0];
+                }
+                if ($ruleName === self::RULE_REQUIRED && !$value) {
+                    $this->addErrorByRule($attribute, self::RULE_REQUIRED);
+                }
+                if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                    $this->addErrorByRule($attribute, self::RULE_EMAIL);
+                }
+                if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min']) {
+                    $this->addErrorByRule($attribute, self::RULE_MIN, ['min' => $rule['min']]);
+                }
+                if ($ruleName === self::RULE_MAX && strlen($value) > $rule['max']) {
+                    $this->addErrorByRule($attribute, self::RULE_MAX);
+                }
+                if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) {
+                    $this->addErrorByRule($attribute, self::RULE_MATCH, ['match' => $rule['match']]);
+                }
+                if ($ruleName === self::RULE_UNIQUE) {
+                    $className = $rule['class'];
+                    $uniqueAttr = $rule['attribute'] ?? $attribute;
+                    $tableName = $className::tableName();
+                    $db = Application::$app->db;
+                    $statement = $db->prepare("SELECT * FROM $tableName WHERE $uniqueAttr = :$uniqueAttr");
+                    $statement->bindValue(":$uniqueAttr", $value);
+                    $statement->execute();
+                    $record = $statement->fetchObject();
+                    if ($record) {
+                        $this->addErrorByRule($attribute, self::RULE_UNIQUE);
+                    }
+                }
+            }
+        }
+
+        return empty($this->errors);
+    }
+
+    public function errorMessages()
+    {
+        return [
+            self::RULE_REQUIRED => 'This field is required',
+            self::RULE_EMAIL => 'This field must be valid email address',
+            self::RULE_MIN => 'Min length of this field must be {min}',
+            self::RULE_MAX => 'Max length of this field must be {max}',
+            self::RULE_MATCH => 'This field must be the same as {match}',
+            self::RULE_UNIQUE => 'Record with with this {field} already exists',
+        ];
+    }
+
+    public function errorMessage($rule)
+    {
+        return $this->errorMessages()[$rule];
+    }
+
+    protected function addErrorByRule(string $attribute, string $rule, $params = [])
+    {
+        $params['field'] ??= $attribute;
+        $errorMessage = $this->errorMessage($rule);
+        foreach ($params as $key => $value) {
+            $errorMessage = str_replace("{{$key}}", $value, $errorMessage);
+        }
+        $this->errors[$attribute][] = $errorMessage;
+    }
+
+    public function addError(string $attribute, string $message)
+    {
+        $this->errors[$attribute][] = $message;
+    }
+
+    public function hasError($attribute)
+    {
+        return $this->errors[$attribute] ?? false;
+    }
+
+    public function getFirstError($attribute)
+    {
+        $errors = $this->errors[$attribute] ?? [];
+        return $errors[0] ?? '';
+    }
 }

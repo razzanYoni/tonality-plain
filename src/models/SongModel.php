@@ -8,52 +8,28 @@ use bases\BaseModel;
 
 class SongModel extends BaseModel
 {
-    public $song_id;
-    public $album_id;
-    public $title;
-    public $artist;
-    public $song_number;
-    public $disc_number;
-    public $duration;
-    public $audio_url;
+    protected $song_id;
+    protected $album_id;
+    protected $title;
+    protected $artist;
+    protected $song_number;
+    protected $disc_number;
+    protected $duration;
+    protected $audio_url;
 
-    public static function tableName(): string
-    {
-        return 'songs';
-    }
-
-    public static function primaryKey(): string
-    {
-        return 'song_id';
-    }
-
-    public function attributes(): array
-    {
-        return [
-            'album_id',
-            'title',
-            'artist',
-            'song_number',
-            'disc_number',
-            'duration',
-            'audio_url',
-        ];
-    }
-
-    public function rules()
+    public function rules(): array
     {
         return [
             'album_id' => [self::RULE_REQUIRED],
             'title' => [self::RULE_REQUIRED],
             'artist' => [self::RULE_REQUIRED],
             'song_number' => [self::RULE_REQUIRED],
-//            'disc_number' => [self::RULE_REQUIRED],
             'duration' => [self::RULE_REQUIRED],
             'audio_url' => [self::RULE_REQUIRED],
         ];
     }
 
-    public function labels()
+    public function labels(): array
     {
         return [
             'album_id' => 'Album ID',
@@ -79,16 +55,9 @@ class SongModel extends BaseModel
         return $this;
     }
 
-    public function insert(): bool
-    {
-        // TODO : using filemanager to upload audio file
-        return parent::insert();
-    }
-
-    public function toResponse(): array
+    public function toArray(): array
     {
         return array(
-            'song_id' => $this->song_id,
             'album_id' => $this->album_id,
             'title' => $this->title,
             'artist' => $this->artist,

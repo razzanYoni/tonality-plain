@@ -7,15 +7,16 @@ require_once ROOT_DIR . "src/models/UserModel.php";
 require_once ROOT_DIR . "src/models/SongModel.php";
 
 use bases\BaseField;
-use cores\Model;
+use bases\BaseModel;
 
-class Field extends BaseField {
+class Field extends BaseField
+{
     const TYPE_TEXT = 'text';
     const TYPE_PASSWORD = 'password';
     const TYPE_FILE = 'file';
     const TYPE_DATE = 'date';
 
-    public function __construct(Model $model, string $attribute)
+    public function __construct(BaseModel $model, string $attribute)
     {
         $this->type = self::TYPE_TEXT;
         parent::__construct($model, $attribute);
@@ -28,7 +29,7 @@ class Field extends BaseField {
             $this->type,
             $this->model->hasError($this->attribute) ? ' is-invalid' : '',
             $this->attribute,
-            $this->model->{$this->attribute},
+            $this->model->get($this->attribute),
         );
     }
 
@@ -38,12 +39,14 @@ class Field extends BaseField {
         return $this;
     }
 
-    public function fileField() {
+    public function fileField()
+    {
         $this->type = self::TYPE_FILE;
         return $this;
     }
 
-    public function dateField() {
+    public function dateField()
+    {
         $this->type = self::TYPE_DATE;
         return $this;
     }

@@ -4,41 +4,27 @@ namespace models;
 
 require_once ROOT_DIR . "src/bases/BaseModel.php";
 
-use bases\BaseModel,
-    cores,
-    PDOException;
+use bases\BaseModel;
+use bases\BaseRepository;
+use repositories\UserRepository;
 
 class UserModel extends BaseModel
 {
-    public $user_id;
-    public $username = '';
-    public $password = '';
-    public $passwordConfirm = '';
+    protected $user_id;
+    protected $username = '';
+    protected $password = '';
+    protected $password_confirm = '';
 
-    public static function primaryKey(): string
-    {
-        return 'user_id';
+    public function getPassword() {
+        return $this->password;
     }
 
-    public static function tableName(): string
-    {
-        return 'users';
-    }
-
-    public function attributes()
+    public function labels(): array
     {
         return [
-            'username',
-            'password',
-        ];
-    }
-
-    public function labels()
-    {
-        return[
             'username' => 'Username',
             'password' => 'Password',
-            'passwordConfirm' => 'Password Confirm'
+            'password_confirm' => 'Password Confirm'
         ];
     }
 
@@ -50,27 +36,20 @@ class UserModel extends BaseModel
         return $this;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'username' => [self::RULE_REQUIRED, [
-                self::RULE_UNIQUE, 'class' => self::class
+                self::RULE_UNIQUE, 'class' => UserRepository::class
             ]],
             'password' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 8]],
-            'passwordConfirm' => [[self::RULE_MATCH, 'match' => 'password']],
+            'password_confirm' => [[self::RULE_MATCH, 'match' => 'password']],
         ];
     }
 
-    public function insert(): bool
-    {
-        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-        return parent::insert();
-    }
-
-    public function toResponse(): array
+    public function toArray(): array
     {
         return array(
-            'user_id' => $this->user_id,
             'username' => $this->username,
             'password' => $this->password,
         );

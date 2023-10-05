@@ -15,17 +15,21 @@ use cores\Application,
 use repositories\AlbumRepository,
     models\AlbumModel;
 
-class AlbumController extends BaseController {
-    public function __construct() {
+class AlbumController extends BaseController
+{
+    public function __construct()
+    {
         $this->registerMiddleware(new AuthMiddleware(['album']));
         $this->registerMiddleware(new AdminMiddleware(['albumAdmin', 'insertAlbum', 'updateAlbum', 'deleteAlbum']));
     }
 
-    public function insertAlbum(Request $request) {
+    public function insertAlbum(Request $request)
+    {
         $albumModel = new AlbumModel();
-        if($request->getMethod() === 'post') {
+
+        if ($request->getMethod() === 'post') {
             $albumModel->loadData($request->getBody());
-            if($albumModel->validate() && $albumModel->insert()) {
+            if ($albumModel->validate() && AlbumRepository::getInstance()->insert($albumModel->toArray())) {
                 Application::$app->session->setFlash('success', 'Album Inserted Successfully');
 
 
@@ -39,7 +43,8 @@ class AlbumController extends BaseController {
         ]);
     }
 
-    public function updateAlbum(Request $request) {
+    public function updateAlbum(Request $request)
+    {
         $albumModelOld = new AlbumModel();
         $album_id = $request->getRouteParam('album_id');
         $albumModelOld->constructFromArray(
@@ -47,14 +52,15 @@ class AlbumController extends BaseController {
                 ->getAlbumById($album_id)
         );
 
-        if($request->getMethod() === 'post') {
+        if ($request->getMethod() === 'post') {
             $albumModelNew = new AlbumModel();
-            $albumModelNew->album_id = $album_id;
+            $albumModelNew->set('album_id', $album_id);
             $albumModelNew->loadData($request->getBody());
-            if($albumModelNew->validate() && $albumModelNew->update(
-                where: ['album_id' => $album_id],
-                data: $albumModelNew->toResponse()
-                )) {
+            if ($albumModelNew->validate() && AlbumRepository::getInstance()
+                    ->update(
+                        $album_id,
+                        data: $albumModelNew->toArray()
+                    )) {
                 Application::$app->session->setFlash('success', 'Album Edited Successfully');
                 return;
             }
@@ -65,15 +71,15 @@ class AlbumController extends BaseController {
         ]);
     }
 
-    public function deleteAlbum(Request $request) {
+    public function deleteAlbum(Request $request)
+    {
         $albumModel = new AlbumModel();
-        if($request->getMethod() === 'delete') {
+        if ($request->getMethod() === 'delete') {
             $albumModel->loadData($request->getBody());
             $album_id = $request->getBody();
             print_r($album_id);
-            if($albumModel->validate() && $albumModel->delete(where: ['album_id' => $album_id])) {
+            if ($albumModel->validate() && AlbumRepository::getInstance()->delete($album_id)) {
                 Application::$app->session->setFlash('success', 'Album Deleted Successfully');
-
                 return;
             }
         }

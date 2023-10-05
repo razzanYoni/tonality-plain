@@ -4,10 +4,12 @@ namespace forms;
 
 require_once ROOT_DIR . "src/forms/Field.php";
 
-use cores\Model;
+use bases\BaseModel;
 
-class Form {
-    public static function begin($action, $method, $options = []) {
+class Form
+{
+    public static function begin($action, $method, $options = []): Form
+    {
         $attributes = [];
         foreach ($options as $key => $value) {
             $attributes[] = "$key=\"$value\"";
@@ -16,11 +18,13 @@ class Form {
         return new Form();
     }
 
-    public static function end() {
+    public static function end(): void
+    {
         echo '</form>';
     }
 
-    public function field(Model $model, $attribute) {
+    public function field(BaseModel $model, $attribute): Field
+    {
         return new Field($model, $attribute);
     }
 }

@@ -9,9 +9,25 @@ use PDOException;
 class PlaylistRepository extends BaseRepository
 {
     protected static BaseRepository $instance;
+
     public static function tableName(): string
     {
         return 'playlists';
+    }
+
+    public static function attributes(): array
+    {
+        return [
+            'user_id',
+            'playlist_name',
+            'description',
+            'cover_url'
+        ];
+    }
+
+    public static function primaryKey(): string
+    {
+        return 'playlist_id';
     }
 
     public static function getInstance()
@@ -24,12 +40,12 @@ class PlaylistRepository extends BaseRepository
 
     public function getPlaylistsByUserId($user_id)
     {
-        return $this->findOne(where : ["user_id" => $user_id]);
+        return $this->findOne(where: ["user_id" => $user_id]);
     }
 
     public function getPlaylistByName($playlist_name)
     {
-        return $this->findAll(where : ["playlist_name" => $playlist_name]);
+        return $this->findAll(where: ["playlist_name" => $playlist_name]);
     }
 
     public function getSongsFromPlaylist($playlist_id): bool|array

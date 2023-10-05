@@ -2,22 +2,23 @@
 
 namespace bases;
 
-use cores,
-    PDOException,
-    Exception,
-    PDO;
+use cores\Application,
+    PDOException;
+use Exception;
 
 abstract class BaseRepository
 {
     protected static BaseRepository $instance;
     abstract public static function tableName(): string;
+    abstract public static function attributes(): array;
+    abstract public static function primaryKey(): string;
+    abstract public static function getInstance();
 
-    public function findOne($where)
-    {
+    public function findOne($where) {
         try {
             $tableName = $this->tableName();
-            $query = "SELECT * FROM {$tableName}";
 
+            $query = "SELECT * FROM {$tableName}";
             if (count($where) > 0) {
                 $query .= " WHERE ";
                 $conditions = [];
@@ -29,10 +30,10 @@ abstract class BaseRepository
                 $query .= implode(" AND ", $conditions);
             }
 
-            $stmt = cores\Application::$app->db->prepare($query);
+            $stmt = Application::$app->db->prepare($query);
 
             foreach ($where as $key => $value) {
-                $stmt->bindValue(":$key", $value, PDO::PARAM_STR);
+                $stmt->bindValue(":$key", $value);
             }
 
             $stmt->execute();
@@ -43,7 +44,90 @@ abstract class BaseRepository
         }
     }
 
-    // Fungsi untuk mengambil semua data
+    public function insert(array $data): bool
+    {
+        try {
+            $tableName = $this->tableName();
+            $attributes = $this->attributes();
+            $params = array_map(fn($attr) => ":$attr", $attributes);
+
+            $query = "INSERT INTO {$tableName} (" . implode(",", $attributes) . ")
+                        VALUES (" . implode(",", $params) . ")";
+
+            $stmt = Application::$app->db->prepare($query);
+
+            foreach ($data as $key => $value) {
+                $stmt->bindValue(":$key", $value);
+            }
+
+            $stmt->execute();
+            return true;
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public function update($id, array $data): bool
+    {
+        try {
+            $tableName = $this->tableName();
+            $updateFields = '';
+
+            foreach ($data as $key => $value) {
+                $updateFields .= "$key = :$key, ";
+            }
+
+            $updateFields = rtrim($updateFields, ', ');
+
+            $whereClause = "{$this->primaryKey()} = :where_{$this->primaryKey()} ";
+
+            $query = "UPDATE {$tableName} SET $updateFields WHERE $whereClause";
+            $stmt = Application::$app->db->prepare($query);
+
+            // Binding nilai update
+            foreach ($data as $key => $value) {
+                $stmt->bindValue(":$key", $value);
+            }
+
+            $stmt->bindValue(":where_{$this->primaryKey()}", $id);
+
+            $stmt->execute();
+            return true;
+
+        } catch (PDOException $e) {
+            // Handle kesalahan koneksi atau query di sini
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public function delete($id): bool
+    {
+        try {
+            $tableName = $this->tableName();
+            $query = "DELETE FROM {$tableName}";
+
+            $query .= " WHERE {$this->primaryKey()} = :where_{$this->primaryKey()}";
+
+            $stmt = Application::$app->db->prepare($query);
+
+            $stmt->bindValue(":where_{$this->primaryKey()}", $id);
+
+            $stmt->execute();
+            return true;
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+
+        } catch (Exception $e) {
+            echo "Error : " . $e->getMessage();
+            return false;
+        }
+    }
+
     public function findAll($order = null, $is_desc = false, $where = [], $limit = null, $offset = null): bool|array
     {
         try {
@@ -77,7 +161,7 @@ abstract class BaseRepository
                 $query .= " OFFSET $offset";
             }
 
-            $stmt = $this->pdo->prepare($query);
+            $stmt = Application::$app->db->prepare($query);
 
             foreach ($where as $key => $value) {
                 $stmt->bindValue(":$key", $value);
@@ -87,17 +171,8 @@ abstract class BaseRepository
             return $stmt->fetchAll();
 
         } catch (PDOException $e) {
-
             echo "Error: " . $e->getMessage();
             return [];
         }
-    }
-
-    public static function getInstance()
-    {
-        if (!isset(self::$instance)) {
-            self::$instance = new static();
-        }
-        return self::$instance;
     }
 }
