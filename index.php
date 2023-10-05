@@ -1,6 +1,6 @@
 <?php
 
-define('ROOT_DIR', __DIR__ . '/');
+const ROOT_DIR = __DIR__ . '/';
 
 require_once 'public/bootstrap.php';
 require_once ROOT_DIR . 'src/cores/Application.php';
@@ -8,6 +8,9 @@ require_once ROOT_DIR . 'src/controllers/AuthorizationController.php';
 require_once ROOT_DIR . 'src/controllers/AlbumController.php';
 require_once ROOT_DIR . 'src/controllers/SongController.php';
 
+use controllers\AlbumController;
+use controllers\AuthorizationController;
+use controllers\SongController;
 use cores\Application;
 
 $app = Application::getInstance();
@@ -17,26 +20,25 @@ $app->on(Application::EVENT_BEFORE_REQUEST, function () {
 });
 
 
-$app->router->get('/album', [\controllers\AlbumController::class, 'album']);
-$app->router->get('/albumAdmin', [\controllers\AlbumController::class, 'albumAdmin']);
+$app->router->get('/album', [AlbumController::class, 'album']);
+$app->router->get('/albumAdmin', [AlbumController::class, 'albumAdmin']);
 
-$app->router->get('/login', [\controllers\AuthorizationController::class, 'login']);
-$app->router->post('/login', [\controllers\AuthorizationController::class, 'login']);
-$app->router->get('/logout', [\controllers\AuthorizationController::class, 'logout']);
-$app->router->get('/register', [\controllers\AuthorizationController::class, 'register']);
-$app->router->post('/register', [\controllers\AuthorizationController::class, 'register']);
+$app->router->get('/login', [AuthorizationController::class, 'login']);
+$app->router->post('/login', [AuthorizationController::class, 'login']);
+$app->router->get('/logout', [AuthorizationController::class, 'logout']);
+$app->router->get('/register', [AuthorizationController::class, 'register']);
+$app->router->post('/register', [AuthorizationController::class, 'register']);
 
-$app->router->get('/song/insertSong', [\controllers\SongController::class, 'insertSong']);
-$app->router->post('/song/insertSong', [\controllers\SongController::class, 'insertSong']);
-$app->router->get('/song/{song_id:\d+}', [\controllers\SongController::class, 'updateSong']);
-$app->router->post('/song/{song_id:\d+}', [\controllers\SongController::class, 'updateSong']);
-
+$app->router->get('/song/insertSong', [SongController::class, 'insertSong']);
+$app->router->post('/song/insertSong', [SongController::class, 'insertSong']);
+$app->router->get('/song/{song_id:\d+}', [SongController::class, 'updateSong']);
+$app->router->post('/song/{song_id:\d+}', [SongController::class, 'updateSong']);
 
 $app->run();
 
 echo $app->controller;
 
-//set router default to login
+// Set router default to login
 if ($_SERVER['REQUEST_URI'] === '/' && !isset($_SESSION['user_id'])) {
     echo("<script>location.href = '/login';</script>");
 } else if ($_SERVER['REQUEST_URI'] === '/' && isset($_SESSION['user_id'])) {
