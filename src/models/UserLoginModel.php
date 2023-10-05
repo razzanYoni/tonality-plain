@@ -4,12 +4,14 @@ namespace models;
 
 require_once ROOT_DIR . "src/cores/Model.php";
 require_once ROOT_DIR . "src/repositories/UserRepository.php";
+require_once ROOT_DIR . "src/models/UserModel.php";
 
-use cores\Application;
-use cores\Model;
-use repositories\UserRepository;
+use cores\Application,
+    cores\Model,
+    cores\UserAuth,
+    repositories\UserRepository;
 
-class LoginForm extends Model {
+class UserLoginModel extends Model {
     public string $username = '';
     public string $password = '';
 
@@ -30,9 +32,12 @@ class LoginForm extends Model {
     }
 
     public function login() {
+        $userAuth = new UserAuth();
         $userModel = new UserModel();
         $user = UserRepository::getInstance()->getUserByUsername($this->username);
         $userModel->constructFromArray($user);
+        $userAuth->constructFromArray($user);
+
         if (!$user) {
             $this->addError('username', 'User does not exist with this username');
             return false;
@@ -43,6 +48,6 @@ class LoginForm extends Model {
             return false;
         }
 
-        return Application::$app->login($userModel);
+        return Application::$app->login($userAuth);
     }
 }

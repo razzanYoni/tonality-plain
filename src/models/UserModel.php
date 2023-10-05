@@ -14,7 +14,6 @@ class UserModel extends BaseModel
     public $username = '';
     public $password = '';
     public $passwordConfirm = '';
-    public $is_admin = 0;
 
     public static function primaryKey(): string
     {
@@ -34,19 +33,29 @@ class UserModel extends BaseModel
         ];
     }
 
+    public function labels()
+    {
+        return[
+            'username' => 'Username',
+            'password' => 'Password',
+            'passwordConfirm' => 'Password Confirm'
+        ];
+    }
+
     public function constructFromArray(array $data): UserModel
     {
         $this->user_id = $data['user_id'];
         $this->username = $data['username'];
         $this->password = $data['password'];
-        $this->is_admin = $data['is_admin'];
         return $this;
     }
 
     public function rules()
     {
         return [
-            'username' => [self::RULE_REQUIRED],
+            'username' => [self::RULE_REQUIRED, [
+                self::RULE_UNIQUE, 'class' => self::class
+            ]],
             'password' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 8]],
             'passwordConfirm' => [[self::RULE_MATCH, 'match' => 'password']],
         ];
@@ -58,18 +67,12 @@ class UserModel extends BaseModel
         return parent::insert();
     }
 
-    public function getUserByUsername($username)
-    {
-        return $this->findOne(where : ["username" => $username]);
-    }
-
     public function toResponse(): array
     {
         return array(
             'user_id' => $this->user_id,
             'username' => $this->username,
             'password' => $this->password,
-            'is_admin' => $this->is_admin
         );
     }
 }
