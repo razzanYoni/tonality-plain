@@ -5,7 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    /* margin: 0; */
+    margin: 0;
 
     color: white;
     font-family: 'Inter';
@@ -178,4 +178,10 @@ form input[type=password] {
 
 .login-text:hover {
     color: #259793;
+}
+
+@media screen and (max-width: 650px) {
+    .login-container {
+        width: 80%;
+    }
 }
