@@ -6,12 +6,12 @@ use bases\BaseModel;
 
 class AlbumModel extends BaseModel
 {
-    public $_albumId;
-    public $_albumName;
-    public $_releaseDate;
-    public $_genre;
-    public $_artist;
-    public $_coverUrl;
+    public $album_id;
+    public $album_name;
+    public $release_date;
+    public $genre;
+    public $artist;
+    public $cover_url;
 
     public static function tableName(): string
     {
@@ -23,26 +23,38 @@ class AlbumModel extends BaseModel
         return 'album_id';
     }
 
+    public function attributes(): array
+    {
+        return [
+            'album_id',
+            'album_name',
+            'release_date',
+            'genre',
+            'artist',
+            'cover_url'
+        ];
+    }
+
     public function constructFromArray(array $data): AlbumModel
     {
-        $this->_albumId = $data['album_id'];
-        $this->_albumName = $data['album_name'];
-        $this->_releaseDate = $data['release_date'];
-        $this->_genre = $data['genre'];
-        $this->_artist = $data['artist'];
-        $this->_coverUrl = $data['cover_url'];
+        $this->album_id = $data['album_id'];
+        $this->album_name = $data['album_name'];
+        $this->release_date = $data['release_date'];
+        $this->genre = $data['genre'];
+        $this->artist = $data['artist'];
+        $this->cover_url = $data['cover_url'];
         return $this;
     }
 
     public function toResponse(): array
     {
         return array(
-            'album_id' => $this->_albumId,
-            'album_name' => $this->_albumName,
-            'release_date' => $this->_releaseDate,
-            'genre' => $this->_genre,
-            'artist' => $this->_artist,
-            'cover_url' => $this->_coverUrl
+            'album_id' => $this->album_id,
+            'album_name' => $this->album_name,
+            'release_date' => $this->release_date,
+            'genre' => $this->genre,
+            'artist' => $this->artist,
+            'cover_url' => $this->cover_url
         );
     }
 }

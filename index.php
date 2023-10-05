@@ -34,6 +34,13 @@ $app->router->post('/song/insertSong', [SongController::class, 'insertSong']);
 $app->router->get('/song/{song_id:\d+}', [SongController::class, 'updateSong']);
 $app->router->post('/song/{song_id:\d+}', [SongController::class, 'updateSong']);
 
+$app->router->get('/album/insertAlbum', [AlbumController::class, 'insertAlbum']);
+$app->router->post('/album/insertAlbum', [AlbumController::class, 'insertAlbum']);
+$app->router->get('/album/{album_id:\d+}', [AlbumController::class, 'updateAlbum']);
+$app->router->post('/album/{album_id:\d+}', [AlbumController::class, 'updateAlbum']);
+$app->router->get('/album/delete/{album_id:\d+}', [AlbumController::class, 'deleteAlbum']);
+$app->router->post('/album/delete/{album_id:\d+}', [AlbumController::class, 'deleteAlbum']);
+
 $app->run();
 
 echo $app->controller;

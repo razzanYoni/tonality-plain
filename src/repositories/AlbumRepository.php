@@ -24,7 +24,7 @@ class AlbumRepository extends BaseRepository
 
     public function getAlbumById($album_id)
     {
-        return $this->findOne(where : ["album_id" => $album_id]);
+        return $this->findOne(["album_id" => $album_id]);
     }
 
     public function getAlbumByName($album_name)
