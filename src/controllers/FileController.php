@@ -1,27 +1,15 @@
 <?php
 
-namespace controllers\file;
+namespace controllers;
 
 use bases\BaseController;
-use bases\BaseService;
 use exceptions\FileTooLargeException;
 use exceptions\InvalidFileFormatException;
 use RuntimeException;
-use services\FileUploadService;
 
-class FileUploadController extends BaseController
+class FileController extends BaseController
 {
-    /* @var FileUploadService $service */
-    protected BaseService $service;
-
-    public static function getInstance($service): FileUploadController
-    {
-        if (!isset(self::$instance)) {
-            self::$instance = new static(FileUploadService::getInstance());
-        }
-        return self::$instance;
-    }
-
+    // TODO: Revise
     public function post($urlParameters): void
     {
         $uploadedFilePath = null;
