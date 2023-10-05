@@ -5,11 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="/css/bootstrap.css">
     <title><?php echo $this->title ?></title>
 </head>
 <body>
@@ -36,7 +31,7 @@
         require_once ROOT_DIR . "src/cores/Application.php";
         use cores\Application;
 
-        if (Application::isGuest()): ?>
+        if (!Application::$app->loggedUser): ?>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="/login">Login</a>
@@ -54,7 +49,7 @@
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/logout">
-                        Welcome <?php echo Application::$app->user->getDisplayName() ?> (Logout)
+                        Welcome <?php echo Application::$app->loggedUser->getUsername() ?> (Logout)
                     </a>
                 </li>
             </ul>
