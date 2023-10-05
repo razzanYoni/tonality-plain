@@ -28,9 +28,9 @@ class FileManager {
         try {
             $ext = pathinfo(($file['name']), PATHINFO_EXTENSION);
             if ($ext === 'mp3') {
-                $relativePath = DEFAULT_FILE_PATH . 'audios/' . $this->generateRandomString() . '-' . basename($file['name']);
+                $relativePath = FILE_UPLOAD_FOLDER . 'audios/' . $this->generateRandomString() . '-' . basename($file['name']);
             } else if ($ext === 'png' || $ext === 'jpg' || $ext === 'jpeg') {
-                $relativePath = DEFAULT_FILE_PATH . 'images/' . $this->generateRandomString() . '-' . basename($file['name']);
+                $relativePath = FILE_UPLOAD_FOLDER . 'images/' . $this->generateRandomString() . '-' . basename($file['name']);
             } else {
                 throw new Exception('Invalid file type');
             }
