@@ -8,11 +8,26 @@ use forms\Form;
 
 ?>
 
-<h1>Login</h1>
 
-<?php $form = Form::begin('', 'post') ?>
-<?php echo $form->field($model, 'username') ?>
-<?php echo $form->field($model, 'password')->passwordField() ?>
-<button class="btn btn-success">Submit</button>
+<div class="login-title">Log in for Tonality</div>
+<?php $form = Form::begin('', 'post', ['class' => 'login-form']); ?>
+
+<div class="login-quest">
+    <div class="form-label">Username</div>
+    <?php echo $form->field($model, 'username')->renderInput() ?>
+</div>
+
+<div class="login-quest">
+    <div class="form-label">Password</div>
+    <?php echo $form->field($model, 'password')->passwordField()->renderInput() ?>
+</div>
+
+<div class="btn-for-login">
+    <button class="login-btn">Log In</button>
+</div>
+
 <?php Form::end() ?>
-<button class="btn btn-success"><a href="/register">Register</a></button>
+
+<div class="sign-up-link">
+    Don't have an account? <a href="/register" class="signup-text">Sign up for Tonality</a>
+</div>
