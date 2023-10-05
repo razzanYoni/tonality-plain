@@ -2,39 +2,36 @@
 
 namespace bases;
 
-require_once ROOT_DIR . "src/cores/Controller.php";
+use cores\Application;
 
-use exceptions,
-    cores\Controller;
-
-class BaseController extends Controller
+class BaseController
 {
-    /**
-     * @throws MethodNotAllowedException
-     */
-    protected function get($urlParameters)
+    public string $layout = 'main';
+    public string $action = '';
+    protected array $middlewares = [];
+
+    public function setLayout($layout): void
     {
-        throw new exceptions\MethodNotAllowedException("Method Not Allowed");
+        $this->layout = $layout;
     }
 
-    /**
-     * @throws MethodNotAllowedException
-     */
-    protected function post($urlParameters)
+    public function render($view, $params = []): string
     {
-        throw new exceptions\MethodNotAllowedException("Method Not Allowed");
+        return Application::$app->router->renderView($view, $params);
     }
 
-    protected function put($urlParameters)
+    public function registerMiddleware(BaseMiddleware $middleware)
     {
-        throw new exceptions\MethodNotAllowedException("Method Not Allowed");
+        $this->middlewares[] = $middleware;
     }
 
-    /**
-     * @throws MethodNotAllowedException
-     */
-    protected function delete($urlParameters)
+
+    public function getMiddlewares(): array
     {
-        throw new exceptions\MethodNotAllowedException("Method Not Allowed");
+        return $this->middlewares;
+    }
+
+    public function __toString(): string {
+        return "Controller";
     }
 }
