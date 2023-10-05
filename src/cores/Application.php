@@ -8,11 +8,12 @@ require_once ROOT_DIR . 'src/cores/Router.php';
 require_once ROOT_DIR . 'src/db/PDOInstance.php';
 require_once ROOT_DIR . 'src/cores/Session.php';
 require_once ROOT_DIR . 'src/cores/View.php';
+require_once ROOT_DIR . 'src/cores/UserAuth.php';
 
 use PDO,
-    models\UserModel,
-    db\PDOInstance;
-use repositories\UserRepository;
+    db\PDOInstance,
+    repositories\UserRepository,
+    bases\BaseController;
 
 class Application {
     const EVENT_BEFORE_REQUEST = 'beforeRequest';
@@ -27,16 +28,16 @@ class Application {
     public Router $router;
     public Request $request;
     public Response $response;
-    public ?Controller $controller = null;
+    public ?BaseController $controller = null;
     public PDO $db;
     public Session $session;
     public View $view;
-    public ?UserModel $loggedUser;
+    public ?UserAuth $loggedUser;
 
     private function __construct($rootDir)
     {
         $this->loggedUser = null;
-        $this->userClass = UserModel::class;
+        $this->userClass = UserAuth::class;
         self::$ROOT_DIR = $rootDir;
         self::$app = $this;
         $this->request = new Request();
@@ -48,9 +49,8 @@ class Application {
 
         $userId = Application::$app->session->get('user_id');
         if ($userId) {
-            $key = $this->userClass::primaryKey();
-            $userModel = new UserModel();
-            $userModel->constructFromArray(UserRepository::getInstance()->findOne(where : [$key => $userId]));
+            $userModel = new UserAuth();
+            $userModel->constructFromArray(UserRepository::getInstance()->getUserById($userId));
             $this->loggedUser = $userModel;
         }
     }
@@ -63,21 +63,22 @@ class Application {
         return self::$app;
     }
 
-    public static function isGuest()
+    public static function isNotUser()
     {
-        return !self::$app->loggedUser;
+        // asumsi admin gabisa masuk ke halaman user
+        return !self::$app->loggedUser || self::$app->loggedUser->isAdmin();
     }
 
     public static function isNotAdmin() {
 
-        return self::isGuest() || !self::$app->loggedUser->get('is_admin');
+        return !self::$app->loggedUser || !self::$app->loggedUser->isAdmin();
     }
 
-    public function login(UserModel $user)
+    public function login(UserAuth $user)
     {
         $this->loggedUser = $user;
-        $user_id = $user->get('user_id');
-        $is_admin = $user->get('is_admin');
+        $user_id = $user->getUserId();
+        $is_admin = $user->isAdmin();
         Application::$app->session->set('user_id', $user_id);
         Application::$app->session->set('is_admin', $is_admin);
 
