@@ -8,6 +8,7 @@ use PDOException;
 
 class PlaylistRepository extends BaseRepository
 {
+    protected static BaseRepository $instance;
     public static function tableName(): string
     {
         return 'playlists';

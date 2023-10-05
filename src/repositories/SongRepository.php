@@ -6,6 +6,7 @@ use bases\BaseRepository;
 
 class SongRepository extends BaseRepository
 {
+    protected static BaseRepository $instance;
     public static function tableName(): string
     {
         return 'songs';
@@ -14,7 +15,7 @@ class SongRepository extends BaseRepository
     public static function getInstance()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new SongRepository();
+            self::$instance = new static();
         }
         return self::$instance;
     }

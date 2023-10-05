@@ -8,6 +8,7 @@ use bases\BaseRepository;
 
 class UserRepository extends BaseRepository
 {
+    protected static BaseRepository $instance;
     public static function tableName(): string
     {
         return 'users';

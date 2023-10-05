@@ -8,6 +8,7 @@ use cores\Application,
 
 class AlbumRepository extends BaseRepository
 {
+    protected static BaseRepository $instance;
     public static function tableName(): string
     {
         return 'albums';
