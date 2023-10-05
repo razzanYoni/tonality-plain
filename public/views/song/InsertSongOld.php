@@ -1,7 +1,6 @@
 <?php
 
-define("ROOT_DIR", __DIR__ . "/");
-require_once ROOT_DIR . "../../components/NavBar.php";
+require_once ROOT_DIR . "public/components/NavBar.php";
 
 ?>
 

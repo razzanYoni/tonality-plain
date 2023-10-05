@@ -42,6 +42,6 @@ class SongForm extends cores\Model {
     }
 
     public function insertSong() : bool {
-        return cores\Application::isAdmin();
+        return cores\Application::isNotAdmin();
     }
 }

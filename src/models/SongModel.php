@@ -2,18 +2,20 @@
 
 namespace models;
 
+require_once ROOT_DIR . "src/bases/BaseModel.php";
+
 use bases\BaseModel;
 
 class SongModel extends BaseModel
 {
-    public $_songId;
-    public $_albumId;
-    public $_title;
-    public $_artist;
-    public $_songNumber;
-    public $_discNumber;
-    public $_duration;
-    public $_audioUrl;
+    public $song_id;
+    public $album_id;
+    public $title;
+    public $artist;
+    public $song_number;
+    public $disc_number;
+    public $duration;
+    public $audio_url;
 
     public static function tableName(): string
     {
@@ -25,45 +27,75 @@ class SongModel extends BaseModel
         return 'song_id';
     }
 
+    public function attributes(): array
+    {
+        return [
+            'album_id',
+            'title',
+            'artist',
+            'song_number',
+            'disc_number',
+            'duration',
+            'audio_url',
+        ];
+    }
+
+    public function rules()
+    {
+        return [
+            'album_id' => [self::RULE_REQUIRED],
+            'title' => [self::RULE_REQUIRED],
+            'artist' => [self::RULE_REQUIRED],
+            'song_number' => [self::RULE_REQUIRED],
+//            'disc_number' => [self::RULE_REQUIRED],
+            'duration' => [self::RULE_REQUIRED],
+            'audio_url' => [self::RULE_REQUIRED],
+        ];
+    }
+
+    public function labels()
+    {
+        return [
+            'album_id' => 'Album ID',
+            'title' => 'Title',
+            'artist' => 'Artist',
+            'song_number' => 'Song Number',
+            'disc_number' => 'Disc Number',
+            'duration' => 'Duration',
+            'audio_url' => 'Audio URL',
+        ];
+    }
+
     public function constructFromArray(array $data): SongModel
     {
-        $this->_songId = $data['song_id'];
-        $this->_albumId = $data['album_id'];
-        $this->_title = $data['title'];
-        $this->_artist = $data['artist'];
-        $this->_songNumber = $data['song_number'];
-        $this->_discNumber = $data['disc_number'];
-        $this->_duration = $data['duration'];
-        $this->_audioUrl = $data['audio_url'];
+        $this->song_id = $data['song_id'];
+        $this->album_id = $data['album_id'];
+        $this->title = $data['title'];
+        $this->artist = $data['artist'];
+        $this->song_number = $data['song_number'];
+        $this->disc_number = $data['disc_number'];
+        $this->duration = $data['duration'];
+        $this->audio_url = $data['audio_url'];
         return $this;
     }
 
-    public function getSongById($song_id)
+    public function insert(): bool
     {
-        return $this->findOne(where : ["song_id" => $song_id]);
-    }
-
-    public function getSongByTitle($title): bool|array
-    {
-        return $this->findAll(where: ["title" => $title]);
-    }
-
-    public function getSongByArtist($artist): bool|array
-    {
-        return $this->findAll(where: ["artist" => $artist]);
+        // TODO : using filemanager to upload audio file
+        return parent::insert();
     }
 
     public function toResponse(): array
     {
         return array(
-            'song_id' => $this->_songId,
-            'album_id' => $this->_albumId,
-            'title' => $this->_title,
-            'artist' => $this->_artist,
-            'song_number' => $this->_songNumber,
-            'disc_number' => $this->_discNumber,
-            'duration' => $this->_duration,
-            'audio_url' => $this->_audioUrl,
+            'song_id' => $this->song_id,
+            'album_id' => $this->album_id,
+            'title' => $this->title,
+            'artist' => $this->artist,
+            'song_number' => $this->song_number,
+            'disc_number' => $this->disc_number,
+            'duration' => $this->duration,
+            'audio_url' => $this->audio_url,
         );
     }
 }
