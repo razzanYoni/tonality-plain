@@ -14,7 +14,7 @@ body {
 
 @font-face {
     font-family: Inter;
-    src: url(/public/assets/fonts/Inter-Regular.ttf);
+    src: url(/public/assets/fonts/Inter-VariableFont_slnt,wght.ttf);
 }
 
 .form-container {

@@ -43,7 +43,7 @@ $app->router->post('/album/delete/{album_id:\d+}', [AlbumController::class, 'del
 
 $app->run();
 
-echo $app->controller;
+// echo $app->controller;
 
 // Set router default to login
 if ($_SERVER['REQUEST_URI'] === '/' && !isset($_SESSION['user_id'])) {
