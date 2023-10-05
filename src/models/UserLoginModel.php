@@ -27,8 +27,8 @@ class UserLoginModel extends BaseModel
     public function labels(): array
     {
         return [
-            'username' => 'Your username',
-            'password' => 'Your Password'
+            'username' => 'Username',
+            'password' => 'Password'
         ];
     }
 
@@ -37,13 +37,13 @@ class UserLoginModel extends BaseModel
         $userAuth = new UserAuth();
         $userModel = new UserModel();
         $user = UserRepository::getInstance()->getUserByUsername($this->username);
-        $userModel->constructFromArray($user);
 
         if (!$user) {
             $this->addError('username', 'User does not exist with this username');
             return false;
         }
 
+        $userModel->constructFromArray($user);
         if (!password_verify($this->password, $userModel->get('password'))) {
             $this->addError('password', 'Password is incorrect');
             return false;
