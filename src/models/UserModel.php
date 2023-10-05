@@ -24,7 +24,7 @@ class UserModel extends BaseModel
         return [
             'username' => 'Username',
             'password' => 'Password',
-            'password_confirm' => 'Password Confirm'
+            'password_confirm' => 'Confirmation Password'
         ];
     }
 

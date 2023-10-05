@@ -14,18 +14,15 @@ $form = new Form();
 <?php $form = Form::begin('', 'post', ['class' => 'register-form']) ?>
 
 <div class="register-quest">
-    <div class="form-label">Username</div>
-    <?php echo $form->field($model, 'username')->renderInput() ?>
+    <?php echo $form->field($model, 'username') ?>
 </div>
 
 <div class="register-quest">
-    <div class="form-label">Password</div>
-    <?php echo $form->field($model, 'password')->passwordField()->renderInput() ?>
+    <?php echo $form->field($model, 'password')->passwordField()?>
 </div>
 
 <div class="register-quest">
-    <div class="form-label">Confirm Password</div>
-    <?php echo $form->field($model, 'password_confirm')->passwordField()->renderInput() ?>
+    <?php echo $form->field($model, 'password_confirm')->passwordField() ?>
 </div>
 
 <div class="btn-for-signup">

@@ -19,7 +19,7 @@ abstract class BaseField
     public function __toString()
     {
         return sprintf('<div class="form-group">
-                <label>%s</label>
+                <div class="form-label">%s</div>
                 %s
                 <div class="invalid-feedback">
                     %s

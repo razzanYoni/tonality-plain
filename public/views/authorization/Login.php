@@ -13,13 +13,11 @@ use forms\Form;
 <?php $form = Form::begin('', 'post', ['class' => 'login-form']); ?>
 
 <div class="login-quest">
-    <div class="form-label">Username</div>
-    <?php echo $form->field($model, 'username')->renderInput() ?>
+    <?php echo $form->field($model, 'username') ?>
 </div>
 
 <div class="login-quest">
-    <div class="form-label">Password</div>
-    <?php echo $form->field($model, 'password')->passwordField()->renderInput() ?>
+    <?php echo $form->field($model, 'password')->passwordField() ?>
 </div>
 
 <div class="btn-for-login">
