@@ -34,12 +34,12 @@ img {
     height: 100px;
 }
 
-/*.invalid-feedback {*/
-/*    color: red;*/
-/*    font-size: 14px;*/
-/*    margin-top: 5px;*/
-/*    margin-bottom: 5px;*/
-/*}*/
+.invalid-feedback {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 
 .logo {
     height: 100px;
