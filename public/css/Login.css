@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Inter;
+    src: url(/public/assets/fonts/Inter-VariableFont_slnt,wght.ttf);
+}
+
 body {
     background-color: #151515;
 
@@ -8,12 +13,7 @@ body {
     /* margin: 0; */
 
     color: white;
-    font-family: 'Inter';
-}
-
-@font-face {
-    font-family: Inter;
-    src: url(/public/assets/fonts/Inter-VariableFont_slnt,wght.ttf);
+    font-family: 'Inter', sans-serif;
 }
 
 .login-container {
@@ -81,6 +81,7 @@ form {
 
 .form-label {
     font-size: 16px;
+    font-weight: bold;
     margin-bottom: 5px;
 }
 
@@ -96,8 +97,8 @@ form input[type=text] {
     padding-left: 10px;
     padding-right: 10px;
 
-    cursor: pointer;
-    font-family: 'Inter';
+    cursor: text;
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
 
     transition: transform 0.3s ease;
@@ -115,8 +116,8 @@ form input[type=password] {
     padding-left: 10px;
     padding-right: 10px;
 
-    cursor: pointer;
-    font-family: 'Inter';
+    cursor: text;
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
 
     transition: transform 0.3s ease;
@@ -136,22 +137,25 @@ form input[type=password] {
     background-color: #259793;
     color: white;
 
+    font-family: Inter, sans-serif;
+    font-weight: bold;
+
     border-style: none;
     border-radius: 15px;
 
     width: 135px;
     height: 40px;
 
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.1s ease, transform 0.2s ease;
 }
 
 .login-btn:hover {
     background-color: #2ebab5;
-    transform: scale(1.05);
+    cursor: pointer;
 }
 
 .sign-up-link {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .signup-text {

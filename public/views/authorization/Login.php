@@ -9,7 +9,7 @@ use forms\Form;
 ?>
 
 
-<div class="login-title">Log in for Tonality</div>
+<div class="login-title">Log in to Tonality</div>
 <?php $form = Form::begin('', 'post', ['class' => 'login-form']); ?>
 
 <div class="login-quest">
