@@ -64,16 +64,18 @@ $app->router->post('/albumAdmin/{album_id:\d+}/updateSong/{song_id:\d+}', [SongC
 $app->router->get('/albumAdmin/{album_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromAlbum']);
 $app->router->post('/albumAdmin/{album_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromAlbum']);
 // User
+// TODO : add schema for add song to playlist
 $app->router->get('/album/{album_id:\d+}/insertSong', [SongController::class, 'insertSongToPlaylist']);
 $app->router->post('/album/{album_id:\d+}/insertSong', [SongController::class, 'insertSongToPlaylist']);
-$app->router->get('/album/{album_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
-$app->router->post('/album/{album_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
+$app->router->get('/playlist/{playlist_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
+$app->router->post('/playlist/{playlist_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
 
 
 $app->run();
 
 //echo $app->controller;
 
+// TODO : default / without direct to 404
 // Set router default to login
 if ($_SERVER['REQUEST_URI'] === '/' && !isset($_SESSION['user_id'])) {
     echo("<script>location.href = '/login';</script>");
