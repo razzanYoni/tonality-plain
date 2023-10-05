@@ -1,6 +1,6 @@
 <?php
 
-/** @var $model \cores\Model */
+/** @var $model \models\UserModel */
 
 require_once ROOT_DIR . "src/forms/Form.php";
 
