@@ -5,6 +5,7 @@ namespace cores;
 require_once ROOT_DIR . "src/controllers/AuthorizationController.php";
 require_once ROOT_DIR . "src/exceptions/NotFoundException.php";
 
+use bases\BaseController;
 use exceptions\NotFoundException;
 
 class Router
@@ -131,10 +132,5 @@ class Router
     public function renderView($view, $params = [])
     {
         return Application::$app->view->renderView($view, $params);
-    }
-
-    public function renderViewOnly($view, $params = [])
-    {
-        return Application::$app->view->renderViewOnly($view, $params);
     }
 }

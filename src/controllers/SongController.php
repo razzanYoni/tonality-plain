@@ -11,16 +11,16 @@ use bases\BaseController,
     middlewares\AdminMiddleware,
     models\SongModel,
     repositories\SongRepository;
+use middlewares\AuthMiddleware;
 
-class SongController extends BaseController
-{
-    public function __construct()
-    {
-        $this->registerMiddleware(new AdminMiddleware(['insertSong', 'updateSong']));
+class SongController extends BaseController {
+    public function __construct() {
+        $this->registerMiddleware(new AdminMiddleware(['insertSongToAlbum', 'updateSongFromAlbum', 'deleteSongFrom']));
+        $this->registerMiddleware(new AuthMiddleware(['insertSongToPlaylist', 'deleteSongFromPlaylist']));
     }
 
-    public function insertSong(Request $request)
-    {
+    // Admin
+    public function insertSongToAlbum(Request $request) {
         $songModel = new SongModel();
         if ($request->getMethod() === 'post') {
             $songModel->loadData($request->getBody());
@@ -34,11 +34,13 @@ class SongController extends BaseController
         // Method : GET
         $this->setLayout('blank');
         return $this->render('song/insertSong', [
-            'model' => $songModel
+            'view' => [
+                'model' => $songModel
+                ]
         ]);
     }
 
-    public function updateSong(Request $request)
+    public function updateSongFromAlbum(Request $request)
     {
         $songModelOld = new SongModel();
         $song_id = $request->getRouteParam('song_id');
@@ -46,6 +48,8 @@ class SongController extends BaseController
             SongRepository::getInstance()
                 ->getSongById($song_id)
         );
+        echo $request->getMethod();
+        echo '<br> Masuk updateSong <br>';
 
         if ($request->getMethod() === 'post') {
             $songModelNew = new SongModel();
@@ -65,8 +69,33 @@ class SongController extends BaseController
         // Method : GET
         $this->setLayout('blank');
         return $this->render('song/updateSong', [
-            'model' => $songModelOld
+            'view' => [
+                'model' => $songModelOld
+                ]
         ]);
+    }
+
+    public function deleteSongFromAlbum(Request $request) {
+        // TODO : implement function
+        // Method : POST
+
+        // Method : GET
+    }
+
+
+    // User
+    public function insertSongToPlaylist(Request $request) {
+        // TODO : implement function
+        // Method : POST
+
+        // Method : GET
+    }
+
+    public function deleteSongFromPlaylist(Request $request) {
+        // TODO : implement function
+        // Method : POST
+
+        // Method : GET
     }
 
     public function __toString(): string

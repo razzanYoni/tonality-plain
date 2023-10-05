@@ -45,9 +45,14 @@ class AuthorizationController extends BaseController
         }
 
         // Method : GET
-        $this->setLayout('blank');
+        $this->setLayout('authorization');
         return $this->render('authorization/register', [
-            'model' => $userRegisterModel
+            'view' => [
+                'model' => $userRegisterModel,
+                ],
+            'layout' => [
+                'title' => 'Register'
+            ]
         ]);
     }
 
@@ -69,9 +74,14 @@ class AuthorizationController extends BaseController
         }
 
         // Method : GET
-        $this->setLayout('Login');
-        return $this->render('authorization/LoginForm', [
-            'model' => $userLoginModel
+        $this->setLayout('authorization');
+        return $this->render('authorization/login', [
+            'view' => [
+                'model' => $userLoginModel,
+                    ],
+            'layout' => [
+                'title' => 'Login'
+            ]
         ]);
     }
 

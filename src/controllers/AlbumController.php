@@ -19,8 +19,20 @@ class AlbumController extends BaseController
 {
     public function __construct()
     {
-        $this->registerMiddleware(new AuthMiddleware(['album']));
-        $this->registerMiddleware(new AdminMiddleware(['albumAdmin', 'insertAlbum', 'updateAlbum', 'deleteAlbum']));
+        $this->registerMiddleware(new AuthMiddleware(['albumUser', 'albumUserById']));
+        $this->registerMiddleware(new AdminMiddleware(['albumAdmin', 'insertAlbum', 'updateAlbum', 'deleteAlbum', 'albumAdminById']));
+    }
+
+    // Admin
+    public function albumAdmin()
+    {
+        // Method : GET
+//        $this->setLayout('main');
+        return $this->render('album/homeAdmin', [
+            'view' => [
+                'name' => Application::$app->loggedUser->getUsername()
+                ]
+        ]);
     }
 
     public function insertAlbum(Request $request)
@@ -32,14 +44,15 @@ class AlbumController extends BaseController
             if ($albumModel->validate() && AlbumRepository::getInstance()->insert($albumModel->toArray())) {
                 Application::$app->session->setFlash('success', 'Album Inserted Successfully');
 
-
                 // Application::$app->response->redirect('/homeAdmin');
                 return;
             }
         }
         $this->setLayout('blank');
         return $this->render('album/insertAlbum', [
-            'model' => $albumModel
+            'view' => [
+                'model' => $albumModel
+                ]
         ]);
     }
 
@@ -67,7 +80,9 @@ class AlbumController extends BaseController
         }
         $this->setLayout('blank');
         return $this->render('album/updateAlbum', [
-            'model' => $albumModelOld
+            'view' => [
+                'model' => $albumModelOld
+                ]
         ]);
     }
 
@@ -85,26 +100,36 @@ class AlbumController extends BaseController
         }
         $this->setLayout('blank');
         return $this->render('album/deleteAlbum', [
-            'model' => $albumModel
+            'view' => [
+                'model' => $albumModel
+                ]
         ]);
     }
 
-    public function album()
+
+    public function albumAdminById()
     {
+        // TODO : implement albumAdminById
+        // Method : GET
+    }
+
+    // User
+    public function albumUser()
+    {
+        // TODO : implement albumUser
         // Method : GET
 //        $this->setLayout('main');
         return $this->render('album/home', [
-            'name' => Application::$app->loggedUser->getUsername()
+            'view' => [
+                'name' => Application::$app->loggedUser->getUsername()
+                ]
         ]);
     }
 
-    public function albumAdmin()
+    public function albumUserById()
     {
+        // TODO : implement albumUserById
         // Method : GET
-//        $this->setLayout('main');
-        return $this->render('album/homeAdmin', [
-            'name' => Application::$app->loggedUser->getUsername()
-        ]);
     }
 
     public function __toString(): string
