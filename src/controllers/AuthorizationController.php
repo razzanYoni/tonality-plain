@@ -47,7 +47,7 @@ class AuthorizationController extends BaseController {
 
         if ($request->getMethod() === 'post') {
             $userLoginModel->loadData($request->getBody());
-            if ($userLoginModel->validate() && $userLoginModel->login()[0]) {
+            if ($userLoginModel->validate() && $userLoginModel->login()) {
                 Application::$app->response->redirect('/');
                 return;
             }

@@ -98,6 +98,9 @@ class Router
         return false;
     }
 
+    /**
+     * @throws NotFoundException
+     */
     public function resolve()
     {
         $method = $this->request->getMethod();
@@ -109,8 +112,10 @@ class Router
             $callback = $this->getCallback();
 
             if ($callback === false) {
-                throw new NotFoundException();
+                return $this->renderView('error/notFound');
+//                throw new NotFoundException();
             }
+
         }
         if (is_string($callback)) {
             return $this->renderView($callback);
