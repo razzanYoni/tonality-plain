@@ -8,10 +8,11 @@ require_once ROOT_DIR . 'src/controllers/AuthorizationController.php';
 require_once ROOT_DIR . 'src/controllers/AlbumController.php';
 require_once ROOT_DIR . 'src/controllers/SongController.php';
 
-use controllers\AlbumController;
-use controllers\AuthorizationController;
-use controllers\SongController;
-use cores\Application;
+use cores\Application,
+    controllers\AuthorizationController,
+    controllers\AlbumController,
+    controllers\PlaylistController,
+    controllers\SongController;
 
 $app = Application::getInstance();
 
@@ -19,29 +20,59 @@ $app->on(Application::EVENT_BEFORE_REQUEST, function () {
 //    echo "Before request event is triggered";
 });
 
-
-$app->router->get('/album', [AlbumController::class, 'album']);
-$app->router->get('/albumAdmin', [AlbumController::class, 'albumAdmin']);
-
+// Authorization
+$app->router->get('/register', [AuthorizationController::class, 'register']);
+$app->router->post('/register', [AuthorizationController::class, 'register']);
 $app->router->get('/login', [AuthorizationController::class, 'login']);
 $app->router->post('/login', [AuthorizationController::class, 'login']);
 $app->router->get('/logout', [AuthorizationController::class, 'logout']);
-$app->router->get('/register', [AuthorizationController::class, 'register']);
-$app->router->post('/register', [AuthorizationController::class, 'register']);
 
-$app->router->get('/song/insertSong', [SongController::class, 'insertSong']);
-$app->router->post('/song/insertSong', [SongController::class, 'insertSong']);
-$app->router->get('/song/{song_id:\d+}', [SongController::class, 'updateSong']);
-$app->router->post('/song/{song_id:\d+}', [SongController::class, 'updateSong']);
 
-$app->router->get('/album/insertAlbum', [AlbumController::class, 'insertAlbum']);
-$app->router->post('/album/insertAlbum', [AlbumController::class, 'insertAlbum']);
-$app->router->get('/album/{album_id:\d+}', [AlbumController::class, 'updateAlbum']);
-$app->router->post('/album/{album_id:\d+}', [AlbumController::class, 'updateAlbum']);
-$app->router->get('/album/delete/{album_id:\d+}', [AlbumController::class, 'deleteAlbum']);
-$app->router->post('/album/delete/{album_id:\d+}', [AlbumController::class, 'deleteAlbum']);
+// Album
+// Admin
+$app->router->get('/albumAdmin', [AlbumController::class, 'albumAdmin']);
+$app->router->get('/albumAdmin/insertAlbum', [AlbumController::class, 'insertAlbum']);
+$app->router->post('/albumAdmin/insertAlbum', [AlbumController::class, 'insertAlbum']);
+$app->router->get('/albumAdmin/{album_id:\d+}/updateAlbum', [AlbumController::class, 'updateAlbum']);
+$app->router->post('/albumAdmin/{album_id:\d+}/updateAlbum', [AlbumController::class, 'updateAlbum']);
+$app->router->get('/albumAdmin/{album_id:\d+}/deleteAlbum', [AlbumController::class, 'deleteAlbum']);
+$app->router->post('/albumAdmin/{album_id:\d+}/deleteAlbum', [AlbumController::class, 'deleteAlbum']);
+$app->router->get('/albumAdmin/{album_id:\d+}', [AlbumController::class, 'albumAdminById']);
+// User
+$app->router->get('/album', [AlbumController::class, 'albumUser']);
+$app->router->get('/album/{album_id:\d+}', [AlbumController::class, 'albumUser']);
+$app->router->get('/album/{album_id:\d+}', [AlbumController::class, 'albumUserById']);
+
+
+// Playlist
+$app->router->get('/playlist', [PlaylistController::class, 'playlist']);
+$app->router->get('/playlist/insertPlaylist', [PlaylistController::class, 'insertPlaylist']);
+$app->router->post('/playlist/insertPlaylist', [PlaylistController::class, 'insertPlaylist']);
+$app->router->get('/playlist/updatePlaylist', [PlaylistController::class, 'updatePlaylist']);
+$app->router->post('/playlist/updatePlaylist', [PlaylistController::class, 'updatePlaylist']);
+$app->router->get('/playlist/deletePlaylist', [PlaylistController::class, 'deletePlaylist']);
+$app->router->post('/playlist/deletePlaylist', [PlaylistController::class, 'deletePlaylist']);
+$app->router->get('/playlist/{playlist_id:\d+}', [PlaylistController::class, 'playlistById']);
+
+
+// Song
+// Admin
+$app->router->get('/albumAdmin/insertSong', [SongController::class, 'insertSongToAlbum']);
+$app->router->post('/albumAdmin/insertSong', [SongController::class, 'insertSongToAlbum']);
+$app->router->get('/albumAdmin/{album_id:\d+}/updateSong/{song_id:\d+}', [SongController::class, 'updateSongFromAlbum']);
+$app->router->post('/albumAdmin/{album_id:\d+}/updateSong/{song_id:\d+}', [SongController::class, 'updateSongFromAlbum']);
+$app->router->get('/albumAdmin/{album_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromAlbum']);
+$app->router->post('/albumAdmin/{album_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromAlbum']);
+// User
+$app->router->get('/album/{album_id:\d+}/insertSong', [SongController::class, 'insertSongToPlaylist']);
+$app->router->post('/album/{album_id:\d+}/insertSong', [SongController::class, 'insertSongToPlaylist']);
+$app->router->get('/album/{album_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
+$app->router->post('/album/{album_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
+
 
 $app->run();
+
+//echo $app->controller;
 
 // Set router default to login
 if ($_SERVER['REQUEST_URI'] === '/' && !isset($_SESSION['user_id'])) {
