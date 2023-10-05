@@ -2,7 +2,7 @@
 
 namespace cores;
 
-require_once ROOT_DIR . "src/controllers/auth/LoginController.php";
+require_once ROOT_DIR . "src/controllers/AuthorizationController.php";
 require_once ROOT_DIR . "src/exceptions/NotFoundException.php";
 
 use cores\Application,
@@ -32,6 +32,16 @@ class Router
     public function post(string $url, $callback)
     {
         $this->routeMap['post'][$url] = $callback;
+    }
+
+    public function put(string $url, $callback)
+    {
+        $this->routeMap['put'][$url] = $callback;
+    }
+
+    public function delete(string $url, $callback)
+    {
+        $this->routeMap['delete'][$url] = $callback;
     }
 
     /**
