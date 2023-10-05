@@ -1,8 +1,9 @@
 <?php
 
-namespace db;
+namespace cores;
 
-use PDO, PDOException;
+use PDO;
+use PDOException;
 
 class PDOInstance
 {

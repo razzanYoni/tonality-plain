@@ -5,16 +5,15 @@ namespace cores;
 require_once ROOT_DIR . 'src/cores/Request.php';
 require_once ROOT_DIR . 'src/cores/Response.php';
 require_once ROOT_DIR . 'src/cores/Router.php';
-require_once ROOT_DIR . 'src/db/PDOInstance.php';
+require_once ROOT_DIR . 'src/cores/PDOInstance.php';
 require_once ROOT_DIR . 'src/cores/Session.php';
 require_once ROOT_DIR . 'src/cores/View.php';
 require_once ROOT_DIR . 'src/bases/BaseController.php';
 require_once ROOT_DIR . 'src/cores/UserAuth.php';
 
-use PDO,
-    db\PDOInstance,
-    repositories\UserRepository,
-    bases\BaseController;
+use bases\BaseController,
+    PDO,
+    repositories\UserRepository;
 
 class Application {
     const EVENT_BEFORE_REQUEST = 'beforeRequest';
