@@ -36,7 +36,6 @@ class UserLoginModel extends Model {
         $userModel = new UserModel();
         $user = UserRepository::getInstance()->getUserByUsername($this->username);
         $userModel->constructFromArray($user);
-        $userAuth->constructFromArray($user);
 
         if (!$user) {
             $this->addError('username', 'User does not exist with this username');
@@ -47,6 +46,7 @@ class UserLoginModel extends Model {
             $this->addError('password', 'Password is incorrect');
             return false;
         }
+        $userAuth->constructFromArray($user);
 
         return Application::$app->login($userAuth);
     }

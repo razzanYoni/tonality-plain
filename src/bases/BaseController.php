@@ -6,7 +6,7 @@ use cores\Application;
 
 class BaseController
 {
-    public string $layout = 'main';
+    public string $layout = 'blank';
     public string $action = '';
     protected array $middlewares = [];
 

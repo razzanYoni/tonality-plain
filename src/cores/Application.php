@@ -8,6 +8,7 @@ require_once ROOT_DIR . 'src/cores/Router.php';
 require_once ROOT_DIR . 'src/db/PDOInstance.php';
 require_once ROOT_DIR . 'src/cores/Session.php';
 require_once ROOT_DIR . 'src/cores/View.php';
+require_once ROOT_DIR . 'src/bases/BaseController.php';
 require_once ROOT_DIR . 'src/cores/UserAuth.php';
 
 use PDO,
@@ -24,7 +25,7 @@ class Application {
     public static Application $app;
     public static string $ROOT_DIR;
     public string $userClass;
-    public string $layout = 'main';
+    public string $layout = 'blank';
     public Router $router;
     public Request $request;
     public Response $response;
@@ -98,7 +99,7 @@ class Application {
         try {
             echo $this->router->resolve();
         } catch (\Exception $e) {
-            echo $this->router->renderView('_error', [
+            echo $this->router->renderView('error/_error', [
                 'exception' => $e,
             ]);
         }
