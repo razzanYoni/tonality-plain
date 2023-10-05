@@ -2,6 +2,9 @@
 
 namespace middlewares;
 
+require_once ROOT_DIR . 'src/bases/BaseMiddleware.php';
+require_once ROOT_DIR . 'src/cores/Application.php';
+
 use bases\BaseMiddleware;
 use cores\Application;
 use exceptions;
@@ -23,7 +26,7 @@ class AdminMiddleware extends BaseMiddleware {
 
     public function execute()
     {
-        if(Application::$app::isAdmin()) {
+        if(Application::$app::isNotAdmin()) {
             if (empty($this->actions) || in_array(Application::$app->controller->action, $this->actions)) {
                 throw new exceptions\ForbiddenException(message: "You don't have permission to access this page", code: 403);
             }

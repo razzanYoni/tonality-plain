@@ -3,6 +3,7 @@
 namespace middlewares;
 
 require_once ROOT_DIR . "src/bases/BaseMiddleware.php";
+require_once ROOT_DIR . "src/exceptions/ForbiddenException.php";
 
 use exceptions\ForbiddenException,
     bases\BaseMiddleware;
@@ -25,7 +26,7 @@ class AuthMiddleware extends BaseMiddleware
 
     public function execute()
     {
-        if (\cores\Application::$app::isGuest()) {
+        if (\cores\Application::$app::isNotUser()) {
             if (empty($this->actions) || in_array(\cores\Application::$app->controller->action, $this->actions)) {
                 throw new ForbiddenException(message: "You don't have permission to access this page", code: 403);
             }
