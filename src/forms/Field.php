@@ -4,6 +4,7 @@ namespace forms;
 
 require_once ROOT_DIR . "src/bases/BaseField.php";
 require_once ROOT_DIR . "src/models/UserModel.php";
+require_once ROOT_DIR . "src/models/SongModel.php";
 
 use bases\BaseField;
 use cores\Model;
@@ -23,10 +24,9 @@ class Field extends BaseField {
     public function renderInput()
     {
         return sprintf(
-//            '<input type="%s" class="form-control%s" name="%s" value="%s">',
-            '<input type="%s" name="%s" value="%s">',
+            '<input type="%s" class="form-control%s" name="%s" value="%s">',
             $this->type,
-//            $this->model->hasError($this->attribute) ? ' is-invalid' : '',
+            $this->model->hasError($this->attribute) ? ' is-invalid' : '',
             $this->attribute,
             $this->model->{$this->attribute},
         );
