@@ -13,18 +13,16 @@
     <script src="/public/js/Login.js"></script>
     <title>
         <?php
-            if (isset($title))
-            {
-                echo $title;
-            }
+        if (isset($title)) {
+            echo $title;
+        }
         ?>
     </title>
 </head>
 <body>
 
 <div class="login-container">
-    <img class="logo" src="/public/assets/icons/logo.jpeg"></img>
-<!--    <object data='--><?php //echo ROOT_DIR . 'public/icons/logo.svg'?><!--' width='300' height="300"/>-->
+    <img class="logo" src="/public/assets/icons/logo.svg" alt="Tonality Logo">
     {{content}}
 </div>
 </body>
