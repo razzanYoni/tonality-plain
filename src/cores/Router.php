@@ -5,9 +5,6 @@ namespace cores;
 require_once ROOT_DIR . "src/controllers/AuthorizationController.php";
 require_once ROOT_DIR . "src/exceptions/NotFoundException.php";
 
-use bases\BaseController;
-use exceptions\NotFoundException;
-
 class Router
 {
     private Request $request;
@@ -20,29 +17,26 @@ class Router
         $this->response = $response;
     }
 
-    public function get(string $url, $callback)
+    public function get(string $url, $callback): void
     {
         $this->routeMap['get'][$url] = $callback;
     }
 
-    public function post(string $url, $callback)
+    public function post(string $url, $callback): void
     {
         $this->routeMap['post'][$url] = $callback;
     }
 
-    public function put(string $url, $callback)
+    public function put(string $url, $callback): void
     {
         $this->routeMap['put'][$url] = $callback;
     }
 
-    public function delete(string $url, $callback)
+    public function delete(string $url, $callback): void
     {
         $this->routeMap['delete'][$url] = $callback;
     }
 
-    /**
-     * @return array
-     */
     public function getRouteMap($method): array
     {
         return $this->routeMap[$method] ?? [];
@@ -94,9 +88,6 @@ class Router
         return false;
     }
 
-    /**
-     * @throws NotFoundException
-     */
     public function resolve()
     {
         $method = $this->request->getMethod();
@@ -129,7 +120,7 @@ class Router
         return call_user_func($callback, $this->request, $this->response);
     }
 
-    public function renderView($view, $params = [])
+    public function renderView($view, $params = []): array|string
     {
         return Application::$app->view->renderView($view, $params);
     }
