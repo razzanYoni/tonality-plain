@@ -57,8 +57,8 @@ $app->router->get('/playlist/{playlist_id:\d+}', [PlaylistController::class, 'pl
 
 // Song
 // Admin
-$app->router->get('/albumAdmin/insertSong', [SongController::class, 'insertSongToAlbum']);
-$app->router->post('/albumAdmin/insertSong', [SongController::class, 'insertSongToAlbum']);
+$app->router->get('/albumAdmin/{album_id:\d+}/insertSong', [SongController::class, 'insertSongToAlbum']);
+$app->router->post('/albumAdmin/{album_id:\d+}/insertSong', [SongController::class, 'insertSongToAlbum']);
 $app->router->get('/albumAdmin/{album_id:\d+}/updateSong/{song_id:\d+}', [SongController::class, 'updateSongFromAlbum']);
 $app->router->post('/albumAdmin/{album_id:\d+}/updateSong/{song_id:\d+}', [SongController::class, 'updateSongFromAlbum']);
 $app->router->get('/albumAdmin/{album_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromAlbum']);
