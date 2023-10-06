@@ -49,7 +49,7 @@ class AlbumController extends BaseController
             }
         }
         $this->setLayout('album');
-        return $this->render('album/insertAlbum', [
+        return $this->render('albumAdmin/insertAlbum', [
             'view' => [
                 'model' => $albumModel
                 ],
@@ -83,7 +83,7 @@ class AlbumController extends BaseController
             }
         }
         $this->setLayout('album');
-        return $this->render('album/updateAlbum', [
+        return $this->render('albumAdmin/updateAlbum', [
             'view' => [
                 'model' => $albumModelOld
             ],
@@ -106,7 +106,7 @@ class AlbumController extends BaseController
             }
         }
         $this->setLayout('Album');
-        return $this->render('album/deleteAlbum', [
+        return $this->render('albumAdmin/deleteAlbum', [
             'view' => [
                 'model' => $albumModel
             ],
@@ -121,43 +121,81 @@ class AlbumController extends BaseController
     {
         $album_id = $request->getRouteParam('album_id');
         $albumModel = new AlbumModel();
-        $albumModelOld->constructFromArray(
+        $album = $albumModel->constructFromArray(
             AlbumRepository::getInstance()
                 ->getAlbumById($album_id)
         );
 
-        if ($album) {
-            return $this->render('album/detailAlbum', [
-                'view' => [
-                    'album' => $album,
-                ],
-                'layout' => [
-                    'title' => 'Album Detail - Tonality',
-                ],
-            ]);
-        } else {
-            Application::$app->session->setFlash('error', 'Album not found');
-            Application::$app->response->redirect('/albumAdmin');
-        }
-    }
+        $where = ['album_id' => $album_id];
 
-    // User
-    public function albumUser()
-    {
-        // TODO : implement albumUser
-        // Method : GET
-//        $this->setLayout('main');
-        return $this->render('album/home', [
+        if ($request->getMethod() === 'get') {
+            if ($albumModel->validate() && AlbumRepository::getInstance()->findOne($where)) {
+                Application::$app->session->setFlash('success', 'Album Retrieved Successfully');
+                return;
+            }
+        }
+        $this->setLayout('Album');
+        return $this->render('albumAdmin/detailAlbum', [
             'view' => [
-                'name' => Application::$app->loggedUser->getUsername()
-                ]
+                'album' => $album,
+            ],
+            'layout' => [
+                'title' => 'Album Detail - Tonality',
+            ],
         ]);
     }
 
-    public function albumUserById()
+    // User
+    public function albumUser(Request $request)
     {
-        // TODO : implement albumUserById
-        // Method : GET
+        $albumRepository = AlbumRepository::getInstance();
+        $albums = $albumRepository->findAll();
+
+        // print_r($albums);
+
+        if ($request->getMethod() === 'get') {
+            if ($albums) {
+                Application::$app->session->setFlash('success', 'Albums Retrieved Successfully');
+                return;
+            }
+        }
+
+       $this->setLayout('main');
+        return $this->render('album', [
+            'view' => [
+                'allAlbums' => $albums
+            ],
+            'layout' => [
+                'title' => 'Tonality'
+            ]
+        ]);
+    }
+
+    public function albumUserById(Request $request)
+    {
+        $album_id = $request->getRouteParam('album_id');
+
+        $albumRepository = AlbumRepository::getInstance();
+        $album = $albumRepository->getSongsFromAlbum($album_id);
+
+        // print_r($album);
+
+        if ($request->getMethod() === 'get') {
+            if ($album) {
+                Application::$app->session->setFlash('success', 'Albums Retrieved Successfully');
+                return;
+            }
+        }
+
+       $this->setLayout('album');
+        return $this->render('album/albumContent', [
+            'view' => [
+                'album' => $album
+            ],
+            'layout' => [
+                'title' => 'Tonality'
+            ]
+        ]);
     }
 
     public function __toString(): string
