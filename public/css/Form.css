@@ -14,7 +14,7 @@ body {
 
 @font-face {
     font-family: Inter;
-    src: url(/public/assets/fonts/Inter-VariableFont_slnt\,wght.ttf);
+    src: url(/public/assets/fonts/Inter-VariableFont_slnt,wght.ttf);
 }
 
 .form-container {
@@ -41,6 +41,12 @@ h1 {
     /* background-color: aliceblue; */
     height: 430px;
     width: 300px;
+}
+.invalid-feedback {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .song-quest {
