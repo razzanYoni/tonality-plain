@@ -44,15 +44,18 @@ class AlbumController extends BaseController
             if ($albumModel->validate() && AlbumRepository::getInstance()->insert($albumModel->toArray())) {
                 Application::$app->session->setFlash('success', 'Album Inserted Successfully');
 
-                // Application::$app->response->redirect('/homeAdmin');
+                Application::$app->response->redirect('/albumAdmin/insertAlbum');
                 return;
             }
         }
-        $this->setLayout('blank');
+        $this->setLayout('album');
         return $this->render('album/insertAlbum', [
             'view' => [
                 'model' => $albumModel
-                ]
+                ],
+            'layout' => [
+                'title' => 'Add Album - Tonality'
+            ]
         ]);
     }
 
@@ -75,14 +78,18 @@ class AlbumController extends BaseController
                         data: $albumModelNew->toArray()
                     )) {
                 Application::$app->session->setFlash('success', 'Album Edited Successfully');
+                Application::$app->response->redirect('/albumAdmin/{album_id:\d+}/updateAlbum');
                 return;
             }
         }
-        $this->setLayout('blank');
+        $this->setLayout('album');
         return $this->render('album/updateAlbum', [
             'view' => [
                 'model' => $albumModelOld
-                ]
+            ],
+            'layout' => [
+                'title' => 'Update Album - Tonality'
+            ]
         ]);
     }
 
@@ -98,19 +105,40 @@ class AlbumController extends BaseController
                 return;
             }
         }
-        $this->setLayout('blank');
+        $this->setLayout('Album');
         return $this->render('album/deleteAlbum', [
             'view' => [
                 'model' => $albumModel
-                ]
+            ],
+            'layout' => [
+                'title' => 'Delete Album - Tonality'
+            ]
         ]);
     }
 
 
-    public function albumAdminById()
+    public function albumAdminById(Request $request)
     {
-        // TODO : implement albumAdminById
-        // Method : GET
+        $album_id = $request->getRouteParam('album_id');
+        $albumModel = new AlbumModel();
+        $albumModelOld->constructFromArray(
+            AlbumRepository::getInstance()
+                ->getAlbumById($album_id)
+        );
+
+        if ($album) {
+            return $this->render('album/detailAlbum', [
+                'view' => [
+                    'album' => $album,
+                ],
+                'layout' => [
+                    'title' => 'Album Detail - Tonality',
+                ],
+            ]);
+        } else {
+            Application::$app->session->setFlash('error', 'Album not found');
+            Application::$app->response->redirect('/albumAdmin');
+        }
     }
 
     // User

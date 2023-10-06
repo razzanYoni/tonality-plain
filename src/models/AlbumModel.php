@@ -34,4 +34,25 @@ class AlbumModel extends BaseModel
             'cover_url' => $this->cover_url
         );
     }
+
+    public function rules() {
+        return [
+            'album_name' => [self::RULE_REQUIRED],
+            'release_date' => [self::RULE_REQUIRED],
+            'genre' => [self::RULE_REQUIRED],
+            'artist' => [self::RULE_REQUIRED],
+            'cover_url' => [self::RULE_REQUIRED]
+        ];
+    }
+
+    public function labels()
+    {
+        return [
+            'album_name' => 'Album Name',
+            'release_date' => 'Release Date',
+            'genre' => 'Genre',
+            'artist' => 'Artist',
+            'cover_url' => 'Cover Photo'
+        ];
+    }
 }

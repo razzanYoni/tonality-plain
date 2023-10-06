@@ -39,10 +39,30 @@ class Field extends BaseField
         return $this;
     }
 
-    public function fileField()
+    public function imageFileField()
     {
         $this->type = self::TYPE_FILE;
-        return $this;
+        // return $this;
+        return sprintf(
+            '<input type="%s" class="form-control%s" name="%s" value="%s" id="input-file" accept="image/*">',
+            $this->type,
+            $this->model->hasError($this->attribute) ? ' is-invalid' : '',
+            $this->attribute,
+            $this->model->get($this->attribute),
+        );
+    }
+
+    public function audioFileField()
+    {
+        $this->type = self::TYPE_FILE;
+        // return $this;
+        return sprintf(
+            '<input type="%s" class="form-control%s" name="%s" value="%s" id="input-file" accept="audio/*">',
+            $this->type,
+            $this->model->hasError($this->attribute) ? ' is-invalid' : '',
+            $this->attribute,
+            $this->model->get($this->attribute),
+        );
     }
 
     public function dateField()

@@ -15,8 +15,22 @@ document.addEventListener("DOMContentLoaded", function () {
             // Mengganti teks pada label dengan nama file yang dipilih
             fileLabel.innerHTML = `${fileName}`;
         } else {
-            // Jika tidak ada file yang dipilih, kembalikan teks label ke "Choose An Audio File"
-            fileLabel.innerHTML = 'Choose An Audio File';
+            // Jika tidak ada file yang dipilih, kembalikan teks label ke "Choose A File"
+            fileLabel.innerHTML = 'Choose A File';
         }
+    });
+
+
+    const cancelButton = document.querySelector('.cancel-btn');
+
+    // Menambahkan event listener untuk menghapus semua input saat tombol "Cancel" diklik
+    cancelButton.addEventListener('click', function() {
+        // Mendapatkan semua elemen input dalam form
+        const formInputs = document.querySelectorAll('input[type="text"], input[type="file"], input[type="date"]');
+
+        // Menghapus nilai dari semua elemen input
+        formInputs.forEach(function(input) {
+            input.value = '';
+        });
     });
 });
