@@ -9,6 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/Global.css" type="text/css">
     <link rel="stylesheet" href="/public/css/Authorization.css" type="text/css">
     <script src="/public/js/Login.js"></script>
     <title>
@@ -21,10 +22,6 @@
     </title>
 </head>
 <body>
-
-<div class="login-container">
-    <img class="logo" src="/public/assets/icons/logo.svg" alt="Tonality Logo">
-    {{content}}
-</div>
+{{content}}
 </body>
 </html>

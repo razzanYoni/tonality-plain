@@ -19,7 +19,7 @@ class AuthorizationController extends BaseController
     {
     } // doesn't have middleware
 
-    public function register(Request $request)
+    public function signup(Request $request)
     {
 
         if (isset(Application::$app->loggedUser)) {
@@ -46,7 +46,7 @@ class AuthorizationController extends BaseController
 
         // Method : GET
         $this->setLayout('authorization');
-        return $this->render('authorization/register', [
+        return $this->render('authorization/Signup', [
             'view' => [
                 'model' => $userRegisterModel,
                 ],
@@ -75,7 +75,7 @@ class AuthorizationController extends BaseController
 
         // Method : GET
         $this->setLayout('authorization');
-        return $this->render('authorization/login', [
+        return $this->render('authorization/Login', [
             'view' => [
                 'model' => $userLoginModel,
                     ],

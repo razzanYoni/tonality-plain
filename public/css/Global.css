@@ -1,0 +1,15 @@
+@font-face {
+    font-family: Inter;
+    src: url(/public/assets/fonts/Inter-Variable.ttf);
+}
+
+body {
+    background-color: #000000;
+
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+
+    color: white;
+    font-family: 'Inter', sans-serif;
+}

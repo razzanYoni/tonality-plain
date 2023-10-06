@@ -27,8 +27,8 @@ class AlbumController extends BaseController
     public function albumAdmin()
     {
         // Method : GET
-//        $this->setLayout('main');
-        return $this->render('album/homeAdmin', [
+        $this->setLayout('Album');
+        return $this->render('album/AlbumAdmin', [
             'view' => [
                 'name' => Application::$app->loggedUser->getUsername()
                 ]
@@ -48,8 +48,8 @@ class AlbumController extends BaseController
                 return;
             }
         }
-        $this->setLayout('album');
-        return $this->render('album/insertAlbum', [
+        $this->setLayout('Album');
+        return $this->render('album/InsertAlbum', [
             'view' => [
                 'model' => $albumModel
                 ],
@@ -82,8 +82,8 @@ class AlbumController extends BaseController
                 return;
             }
         }
-        $this->setLayout('album');
-        return $this->render('album/updateAlbum', [
+        $this->setLayout('Album');
+        return $this->render('album/UpdateAlbum', [
             'view' => [
                 'model' => $albumModelOld
             ],
@@ -106,7 +106,7 @@ class AlbumController extends BaseController
             }
         }
         $this->setLayout('Album');
-        return $this->render('album/deleteAlbum', [
+        return $this->render('album/DeleteAlbum', [
             'view' => [
                 'model' => $albumModel
             ],
@@ -127,7 +127,7 @@ class AlbumController extends BaseController
         );
 
         if ($album) {
-            return $this->render('album/detailAlbum', [
+            return $this->render('album/DetailAlbum', [
                 'view' => [
                     'album' => $album,
                 ],
@@ -147,7 +147,7 @@ class AlbumController extends BaseController
         // TODO : implement albumUser
         // Method : GET
 //        $this->setLayout('main');
-        return $this->render('album/home', [
+        return $this->render('album/Album', [
             'view' => [
                 'name' => Application::$app->loggedUser->getUsername()
                 ]

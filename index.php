@@ -21,8 +21,8 @@ $app->on(Application::EVENT_BEFORE_REQUEST, function () {
 });
 
 // Authorization
-$app->router->get('/register', [AuthorizationController::class, 'register']);
-$app->router->post('/register', [AuthorizationController::class, 'register']);
+$app->router->get('/signup', [AuthorizationController::class, 'signup']);
+$app->router->post('/signup', [AuthorizationController::class, 'signup']);
 $app->router->get('/login', [AuthorizationController::class, 'login']);
 $app->router->post('/login', [AuthorizationController::class, 'login']);
 $app->router->get('/logout', [AuthorizationController::class, 'logout']);
