@@ -99,7 +99,7 @@ class AlbumController extends BaseController
         if ($request->getMethod() === 'delete') {
             $albumModel->loadData($request->getBody());
             $album_id = $request->getBody();
-            print_r($album_id);
+            // print_r($album_id);
             if ($albumModel->validate() && AlbumRepository::getInstance()->delete($album_id)) {
                 Application::$app->session->setFlash('success', 'Album Deleted Successfully');
                 return;
