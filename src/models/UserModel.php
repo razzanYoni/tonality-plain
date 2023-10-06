@@ -4,9 +4,8 @@ namespace models;
 
 require_once ROOT_DIR . "src/bases/BaseModel.php";
 
-use bases\BaseModel;
-use bases\BaseRepository;
-use repositories\UserRepository;
+use bases\BaseModel,
+    repositories\UserRepository;
 
 class UserModel extends BaseModel
 {
@@ -24,7 +23,7 @@ class UserModel extends BaseModel
         return [
             'username' => 'Username',
             'password' => 'Password',
-            'password_confirm' => 'Confirmation Password'
+            'password_confirm' => 'Confirm Password'
         ];
     }
 
