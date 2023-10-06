@@ -26,7 +26,7 @@ $form = new Form();
 </div>
 
 <div class="btn-for-signup">
-    <button class="login-btn">Sign Up</button>
+    <button class="signup-btn">Sign Up</button>
 </div>
 
 <?php Form::end() ?>

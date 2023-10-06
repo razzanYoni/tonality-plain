@@ -26,6 +26,6 @@ use forms\Form;
 
 <?php Form::end() ?>
 
-<div class="sign-up-link">
+<div class="signup-link">
     Don't have an account? <a href="/register" class="signup-text">Sign up for Tonality</a>
 </div>

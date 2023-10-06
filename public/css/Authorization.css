@@ -140,7 +140,8 @@ form input[type=password] {
     margin-bottom: 10px;
 }
 
-.login-btn {
+.login-btn,
+.signup-btn {
     background-color: #259793;
     color: white;
 
@@ -156,12 +157,13 @@ form input[type=password] {
     transition: background-color 0.1s ease, transform 0.2s ease;
 }
 
-.login-btn:hover {
+.login-btn:hover,
+.signup-btn:hover {
     background-color: #2ebab5;
     cursor: pointer;
 }
 
-.sign-up-link {
+.signup-link {
     margin-top: 20px;
 }
 
