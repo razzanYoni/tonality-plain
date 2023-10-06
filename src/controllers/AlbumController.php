@@ -49,7 +49,7 @@ class AlbumController extends BaseController
             }
         }
         $this->setLayout('Album');
-        return $this->render('albumAdmin/insertAlbum', [
+        return $this->render('album/insertAlbum', [
             'view' => [
                 'model' => $albumModel
                 ],
@@ -83,7 +83,7 @@ class AlbumController extends BaseController
             }
         }
         $this->setLayout('Album');
-        return $this->render('albumAdmin/updateAlbum', [
+        return $this->render('album/updateAlbum', [
             'view' => [
                 'model' => $albumModelOld
             ],
@@ -106,7 +106,7 @@ class AlbumController extends BaseController
             }
         }
         $this->setLayout('Album');
-        return $this->render('albumAdmin/deleteAlbum', [
+        return $this->render('album/deleteAlbum', [
             'view' => [
                 'model' => $albumModel
             ],
@@ -134,7 +134,7 @@ class AlbumController extends BaseController
             }
         }
         $this->setLayout('Album');
-        return $this->render('albumAdmin/detailAlbum', [
+        return $this->render('album/albumContent', [
             'view' => [
                 'album' => $album,
             ],
