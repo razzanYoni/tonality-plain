@@ -20,8 +20,9 @@ body {
     background-color: #000000;
     border-radius: 15px;
 
-    height: 550px;
-    width: 550px;
+    min-height: 550px;
+    min-width: 400px;
+    padding: 40px 80px;
 
     justify-content: center;
     align-items: center;
@@ -60,7 +61,6 @@ form {
 }
 
 .login-form {
-    height: 200px;
     width: 300px;
 
     margin-top: 25px;
@@ -70,7 +70,6 @@ form {
 }
 
 .register-form {
-    height: 260px;
     width: 300px;
 
     margin-top: 16px;
