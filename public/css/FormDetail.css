@@ -43,6 +43,13 @@ h1 {
     width: 300px;
 }
 
+.invalid-feedback {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .song-quest {
     margin-bottom: 10px;
 }

@@ -22,11 +22,13 @@ class SongController extends BaseController {
     // Admin
     public function insertSongToAlbum(Request $request) {
         $songModel = new SongModel();
+        $album_id = $request->getRouteParam('album_id');
         if ($request->getMethod() === 'post') {
+            $songModel->set('album_id', $album_id);
             $songModel->loadData($request->getBody());
             if ($songModel->validate() && SongRepository::getInstance()->insert($songModel->toArray())) {
                 Application::$app->session->setFlash('success', 'Song inserted successfully');
-                echo("<script>location.href = '/song/insertSong';</script>");
+                echo("<script>location.href = '/albumAdmin/{$album_id}/insertSong';</script>");
                 return;
             }
         }

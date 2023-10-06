@@ -10,6 +10,7 @@ abstract class BaseModel
     const RULE_EMAIL = 'email';
     const RULE_MIN = 'min';
     const RULE_MAX = 'max';
+    const RULE_MIN_VALUE = 'minValue';
     const RULE_MATCH = 'match';
     const RULE_UNIQUE = 'unique';
 
@@ -84,6 +85,9 @@ abstract class BaseModel
                 if ($ruleName === self::RULE_MAX && strlen($value) > $rule['max']) {
                     $this->addErrorByRule($attribute, self::RULE_MAX);
                 }
+                if ($ruleName === self::RULE_MIN_VALUE && (int)$value < $rule['minValue']) {
+                    $this->addErrorByRule($attribute, self::RULE_MIN_VALUE, ['minValue' => $rule['minValue']]);
+                }
                 if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) {
                     $this->addErrorByRule($attribute, self::RULE_MATCH, ['match' => $rule['match']]);
                 }
@@ -116,6 +120,7 @@ abstract class BaseModel
             self::RULE_EMAIL => 'This field must be valid email address',
             self::RULE_MIN => 'Min length of this field must be {min}',
             self::RULE_MAX => 'Max length of this field must be {max}',
+            self::RULE_MIN_VALUE => 'Min value of this field must be {minValue}',
             self::RULE_MATCH => 'This field must be the same as {match}',
             self::RULE_UNIQUE => 'Record with with this {field} already exists',
         ];
