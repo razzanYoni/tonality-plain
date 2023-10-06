@@ -99,8 +99,8 @@ class Router
             $callback = $this->getCallback();
 
             if ($callback === false) {
-                return $this->renderView('error/notFound');
-//                throw new NotFoundException();
+                // return $this->renderView('error/notFound');
+               throw new NotFoundException("not found", 404);
             }
 
         }
