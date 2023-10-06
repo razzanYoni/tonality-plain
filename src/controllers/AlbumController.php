@@ -28,7 +28,7 @@ class AlbumController extends BaseController
     {
         // Method : GET
         $this->setLayout('Album');
-        return $this->render('album/AlbumAdmin', [
+        return $this->render('album/Album', [
             'view' => [
                 'name' => Application::$app->loggedUser->getUsername()
                 ]
@@ -155,12 +155,12 @@ class AlbumController extends BaseController
         if ($request->getMethod() === 'get') {
             if ($albums) {
                 Application::$app->session->setFlash('success', 'Albums Retrieved Successfully');
-                return;
+//                return;
             }
         }
 
-       $this->setLayout('main');
-        return $this->render('album', [
+       $this->setLayout('Album');
+        return $this->render('album/Album', [
             'view' => [
                 'allAlbums' => $albums
             ],
