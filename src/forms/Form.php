@@ -10,11 +10,11 @@ class Form
 {
     public static function begin($action, $method, $options = []): Form
     {
-        $attributes = [];
+        $attributes = '';
         foreach ($options as $key => $value) {
-            $attributes[] = "$key=\"$value\"";
+            $attributes .= "$key=\"$value\"  ";
         }
-        echo sprintf('<form action="%s" method="%s" %s>', $action, $method, implode(" ", $attributes));
+        echo sprintf('<form action="%s" method="%s" %s>', $action, $method, $attributes);
         return new Form();
     }
 
@@ -23,8 +23,8 @@ class Form
         echo '</form>';
     }
 
-    public function field(BaseModel $model, $attribute, $options = []): Field
+    public function field(BaseModel $model, $attribute, $options = [], $arguments = ''): Field
     {
-        return new Field($model, $attribute, $options);
+        return new Field($model, $attribute, $options, $arguments);
     }
 }
