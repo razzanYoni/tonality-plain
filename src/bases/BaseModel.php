@@ -30,7 +30,7 @@ abstract class BaseModel
         return $this->$attr;
     }
 
-    public function loadData($data)
+    public function loadData($data): void
     {
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
@@ -39,12 +39,12 @@ abstract class BaseModel
         }
     }
 
-    public function attributes()
+    public function attributes(): array
     {
         return [];
     }
 
-    public function labels()
+    public function labels(): array
     {
         return [];
     }
@@ -54,12 +54,12 @@ abstract class BaseModel
         return $this->labels()[$attribute] ?? $attribute;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [];
     }
 
-    public function validate()
+    public function validate(): bool
     {
         foreach ($this->rules() as $attribute => $rules) {
 
@@ -88,14 +88,17 @@ abstract class BaseModel
                     $this->addErrorByRule($attribute, self::RULE_MATCH, ['match' => $rule['match']]);
                 }
                 if ($ruleName === self::RULE_UNIQUE) {
+
                     $className = $rule['class'];
                     $uniqueAttr = $rule['attribute'] ?? $attribute;
                     $tableName = $className::tableName();
+
                     $db = Application::$app->db;
                     $statement = $db->prepare("SELECT * FROM $tableName WHERE $uniqueAttr = :$uniqueAttr");
                     $statement->bindValue(":$uniqueAttr", $value);
                     $statement->execute();
                     $record = $statement->fetchObject();
+
                     if ($record) {
                         $this->addErrorByRule($attribute, self::RULE_UNIQUE);
                     }
@@ -106,7 +109,7 @@ abstract class BaseModel
         return empty($this->errors);
     }
 
-    public function errorMessages()
+    public function errorMessages(): array
     {
         return [
             self::RULE_REQUIRED => 'This field is required',
@@ -118,12 +121,12 @@ abstract class BaseModel
         ];
     }
 
-    public function errorMessage($rule)
+    public function errorMessage($rule): string
     {
         return $this->errorMessages()[$rule];
     }
 
-    protected function addErrorByRule(string $attribute, string $rule, $params = [])
+    protected function addErrorByRule(string $attribute, string $rule, $params = []): void
     {
         $params['field'] ??= $attribute;
         $errorMessage = $this->errorMessage($rule);
@@ -133,7 +136,7 @@ abstract class BaseModel
         $this->errors[$attribute][] = $errorMessage;
     }
 
-    public function addError(string $attribute, string $message)
+    public function addError(string $attribute, string $message): void
     {
         $this->errors[$attribute][] = $message;
     }

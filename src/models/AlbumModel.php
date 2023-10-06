@@ -35,7 +35,8 @@ class AlbumModel extends BaseModel
         );
     }
 
-    public function rules() {
+    public function rules(): array
+    {
         return [
             'album_name' => [self::RULE_REQUIRED],
             'release_date' => [self::RULE_REQUIRED],
@@ -45,7 +46,7 @@ class AlbumModel extends BaseModel
         ];
     }
 
-    public function labels()
+    public function labels(): array
     {
         return [
             'album_name' => 'Album Name',
