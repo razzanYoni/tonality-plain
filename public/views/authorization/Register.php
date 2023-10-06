@@ -32,5 +32,5 @@ $form = new Form();
 <?php Form::end() ?>
 
 <div class="login-link">
-    Don't have an account? <a href="/login" class="login-text">Log in to Tonality</a>
+    Have an account? <a href="/login" class="login-text">Log in to Tonality</a>
 </div>
