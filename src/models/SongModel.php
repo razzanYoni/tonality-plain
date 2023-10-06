@@ -20,10 +20,10 @@ class SongModel extends BaseModel
     public function rules(): array
     {
         return [
-            'album_id' => [self::RULE_REQUIRED],
             'title' => [self::RULE_REQUIRED],
             'artist' => [self::RULE_REQUIRED],
-            'song_number' => [self::RULE_REQUIRED],
+            'song_number' => [self::RULE_REQUIRED, [self::RULE_MIN_VALUE, 'minValue' => 1]],
+            'disc_number' => [[self::RULE_MIN_VALUE, 'minValue' => 1]],
             'duration' => [self::RULE_REQUIRED],
             'audio_url' => [self::RULE_REQUIRED],
         ];
@@ -32,7 +32,6 @@ class SongModel extends BaseModel
     public function labels(): array
     {
         return [
-            'album_id' => 'Album ID',
             'title' => 'Title',
             'artist' => 'Artist',
             'song_number' => 'Song Number',
