@@ -49,7 +49,7 @@ class AlbumController extends BaseController
             }
         }
         $this->setLayout('Album');
-        return $this->render('albumAdmin/insertAlbum', [
+        return $this->render('album/insertAlbum', [
             'view' => [
                 'model' => $albumModel
                 ],
@@ -83,7 +83,7 @@ class AlbumController extends BaseController
             }
         }
         $this->setLayout('Album');
-        return $this->render('albumAdmin/updateAlbum', [
+        return $this->render('album/updateAlbum', [
             'view' => [
                 'model' => $albumModelOld
             ],
@@ -99,14 +99,14 @@ class AlbumController extends BaseController
         if ($request->getMethod() === 'delete') {
             $albumModel->loadData($request->getBody());
             $album_id = $request->getBody();
-            print_r($album_id);
+            // print_r($album_id);
             if ($albumModel->validate() && AlbumRepository::getInstance()->delete($album_id)) {
                 Application::$app->session->setFlash('success', 'Album Deleted Successfully');
                 return;
             }
         }
         $this->setLayout('Album');
-        return $this->render('albumAdmin/deleteAlbum', [
+        return $this->render('album/deleteAlbum', [
             'view' => [
                 'model' => $albumModel
             ],
@@ -134,7 +134,7 @@ class AlbumController extends BaseController
             }
         }
         $this->setLayout('Album');
-        return $this->render('albumAdmin/detailAlbum', [
+        return $this->render('album/albumContent', [
             'view' => [
                 'album' => $album,
             ],
