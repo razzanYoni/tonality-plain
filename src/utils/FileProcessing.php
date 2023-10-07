@@ -26,7 +26,7 @@ class FileProcessing
         $originalFilename = $uploadedFile['name'];
         $temporaryLocation = $uploadedFile['tmp_name'];
 
-        if ($originalFilename === null) {
+        if ($originalFilename === '') {
             return 'default-cover.jpg';
         }
 
