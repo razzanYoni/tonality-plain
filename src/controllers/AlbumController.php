@@ -27,11 +27,26 @@ class AlbumController extends BaseController
     public function albumAdmin()
     {
         // Method : GET
-        $this->setLayout('Album');
-        return $this->render('album/Album', [
+        $albumRepository = AlbumRepository::getInstance();
+        $albums = $albumRepository->findAll();
+
+        // print_r($albums);
+
+        if ($request->getMethod() === 'get') {
+            if ($albums) {
+                Application::$app->session->setFlash('success', 'Albums Retrieved Successfully');
+//                return;
+            }
+        }
+
+       $this->setLayout('AlbumPage');
+        return $this->render('album/AlbumAdmin', [
             'view' => [
-                'name' => Application::$app->loggedUser->getUsername()
-                ]
+                'allAlbums' => $albums
+            ],
+            'layout' => [
+                'title' => 'Tonality'
+            ]
         ]);
     }
 
@@ -48,8 +63,8 @@ class AlbumController extends BaseController
                 return;
             }
         }
-        $this->setLayout('Album');
-        return $this->render('albumAdmin/insertAlbum', [
+        $this->setLayout('AlbumForm');
+        return $this->render('album/insertAlbum', [
             'view' => [
                 'model' => $albumModel
                 ],
@@ -82,8 +97,8 @@ class AlbumController extends BaseController
                 return;
             }
         }
-        $this->setLayout('Album');
-        return $this->render('albumAdmin/updateAlbum', [
+        $this->setLayout('AlbumForm');
+        return $this->render('album/updateAlbum', [
             'view' => [
                 'model' => $albumModelOld
             ],
@@ -105,7 +120,7 @@ class AlbumController extends BaseController
                 return;
             }
         }
-        $this->setLayout('Album');
+        $this->setLayout('AlbumForm');
         return $this->render('albumAdmin/deleteAlbum', [
             'view' => [
                 'model' => $albumModel
@@ -159,7 +174,7 @@ class AlbumController extends BaseController
             }
         }
 
-       $this->setLayout('Album');
+       $this->setLayout('AlbumPage');
         return $this->render('album/Album', [
             'view' => [
                 'allAlbums' => $albums
