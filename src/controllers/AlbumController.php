@@ -200,6 +200,10 @@ class AlbumController extends BaseController
         $songRepository = SongRepository::getInstance();
         $songs = $songRepository->getSongsFromAlbum($album_id);
 
+        $countSongs = $songRepository->getCountSongsFromAlbum($album_id);
+
+        $duration = $songRepository->getAlbumDuration($album_id);
+
         if (!$songs) {
             $songs = [];
         }
@@ -210,7 +214,9 @@ class AlbumController extends BaseController
         return $this->render('album/AlbumContentAdmin', [
             'view' => [
                 'album' => $albumModel,
-                'songs' => $songs
+                'songs' => $songs,
+                'count_song' => $countSongs,
+                'duration' => $duration
             ],
             'layout' => [
                 'title' => 'Album Detail - Tonality',
@@ -305,6 +311,10 @@ class AlbumController extends BaseController
         $songRepository = SongRepository::getInstance();
         $songs = $songRepository->getSongsFromAlbum($album_id);
 
+        $countSongs = $songRepository->getCountSongsFromAlbum($album_id);
+
+        $duration = $songRepository->getAlbumDuration($album_id);
+
         if (!$songs) {
             $songs = [];
         }
@@ -312,10 +322,12 @@ class AlbumController extends BaseController
         Application::$app->session->setFlash('success', 'Album Retrieved Successfully');
 
        $this->setLayout('AlbumContent');
-        return $this->render('album/albumContent', [
+        return $this->render('album/albumContentUser', [
             'view' => [
                 'album' => $albumModel,
-                'songs' => $songs
+                'songs' => $songs,
+                'count_song' => $countSongs,
+                'duration' => $duration
             ],
             'layout' => [
                 'title' => 'Album Detail - Tonality'

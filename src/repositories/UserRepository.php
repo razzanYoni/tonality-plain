@@ -51,4 +51,14 @@ class UserRepository extends BaseRepository
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         return parent::insert($data);
     }
+
+    public function getAllUsers($order = null, $is_desc = false, $limit = ROWS_PER_PAGE, $offset = null): bool|array
+    {
+        return parent::findAll(
+            order: $order,
+            is_desc: $is_desc,
+            limit: $limit,
+            offset: $offset
+        );
+    }
 }
