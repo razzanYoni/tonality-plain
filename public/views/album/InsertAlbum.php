@@ -31,12 +31,12 @@ use forms\Form;
 </div>
 
 <div class="album-quest">
-    <?php echo $form->field($model, 'release_date', ["value" => '2001-01-01'])->dateField()->renderInput() ?>
+    <?php echo $form->field($model, 'release_date', ["value" => '2001-01-01'])->dateField() ?>
 </div>
 
 <div class="cancel-submit">
     <button class="cancel-btn">Cancel</button>
-    <button class="add-btn" formaction="/albumAdmin/insertAlbum"">Add Song</button>
+    <button class="add-btn" formaction="/albumAdmin/insertAlbum"">Add Album</button>
 </div>
 
 <?php Form::end() ?>

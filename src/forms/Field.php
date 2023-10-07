@@ -18,10 +18,11 @@ class Field extends BaseField
     const TYPE_DATE = 'date';
     protected array $options = [];
 
-    public function __construct(BaseModel $model, string $attribute, $options = [])
+    public function __construct(BaseModel $model, string $attribute, $options = [], $arguments = '')
     {
         $this->type = self::TYPE_TEXT;
         $this->options = $options;
+        $this->arguments = $arguments;
         parent::__construct($model, $attribute);
     }
 
@@ -33,7 +34,7 @@ class Field extends BaseField
         }
 
         return sprintf(
-            '<input type="%s" name="%s" value="%s" "%s">',
+            '<input type="%s" name="%s" value="%s" %s>',
             $this->type,
             $this->attribute,
             $this->model->get($this->attribute),

@@ -27,6 +27,7 @@ class AlbumController extends BaseController
     public function albumAdmin(Request $request)
     {
         // Method : GET
+
         $albumRepository = AlbumRepository::getInstance();
         $albums = $albumRepository->findAll();
 
@@ -42,6 +43,7 @@ class AlbumController extends BaseController
 
         $this->setLayout('AlbumPage');
         return $this->render('album/albumAdmin', [
+
             'view' => [
                 'albums' => $albums
             ],
@@ -115,7 +117,7 @@ class AlbumController extends BaseController
         if ($request->getMethod() === 'delete') {
             $albumModel->loadData($request->getBody());
             $album_id = $request->getBody();
-            print_r($album_id);
+            // print_r($album_id);
             if ($albumModel->validate() && AlbumRepository::getInstance()->delete($album_id)) {
                 Application::$app->session->setFlash('success', 'Album Deleted Successfully');
                 return;
@@ -123,6 +125,7 @@ class AlbumController extends BaseController
         }
         $this->setLayout('AlbumForm');
         return $this->render('albumAdmin/deleteAlbum', [
+
             'view' => [
                 'model' => $albumModel
             ],
@@ -149,8 +152,8 @@ class AlbumController extends BaseController
                 return;
             }
         }
-        $this->setLayout('Album');
-        return $this->render('albumAdmin/detailAlbum', [
+        $this->setLayout('AlbumPage');
+        return $this->render('album/albumContent', [
             'view' => [
                 'album' => $album,
             ],
@@ -202,7 +205,7 @@ class AlbumController extends BaseController
             }
         }
 
-       $this->setLayout('album');
+       $this->setLayout('AlbumPage');
         return $this->render('album/albumContent', [
             'view' => [
                 'album' => $album

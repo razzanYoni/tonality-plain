@@ -40,7 +40,12 @@ class PlaylistRepository extends BaseRepository
 
     public function getPlaylistsByUserId($user_id)
     {
-        return $this->findOne(where: ["user_id" => $user_id]);
+        return $this->findAll(where: ["user_id" => $user_id]);
+    }
+
+    public function getPlaylistById($playlist_id)
+    {
+        return $this->findOne(where: ["playlist_id" => $playlist_id]);
     }
 
     public function getPlaylistByName($playlist_name)

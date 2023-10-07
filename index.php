@@ -7,6 +7,7 @@ require_once ROOT_DIR . 'src/cores/Application.php';
 require_once ROOT_DIR . 'src/controllers/AuthorizationController.php';
 require_once ROOT_DIR . 'src/controllers/AlbumController.php';
 require_once ROOT_DIR . 'src/controllers/SongController.php';
+require_once ROOT_DIR . 'src/controllers/PlaylistController.php';
 
 use cores\Application,
     controllers\AuthorizationController,
@@ -48,17 +49,17 @@ $app->router->get('/album/{album_id:\d+}', [AlbumController::class, 'albumUserBy
 $app->router->get('/playlist', [PlaylistController::class, 'playlist']);
 $app->router->get('/playlist/insertPlaylist', [PlaylistController::class, 'insertPlaylist']);
 $app->router->post('/playlist/insertPlaylist', [PlaylistController::class, 'insertPlaylist']);
-$app->router->get('/playlist/updatePlaylist', [PlaylistController::class, 'updatePlaylist']);
-$app->router->post('/playlist/updatePlaylist', [PlaylistController::class, 'updatePlaylist']);
-$app->router->get('/playlist/deletePlaylist', [PlaylistController::class, 'deletePlaylist']);
-$app->router->post('/playlist/deletePlaylist', [PlaylistController::class, 'deletePlaylist']);
+$app->router->get('/playlist/{playlist_id:\d+}/updatePlaylist', [PlaylistController::class, 'updatePlaylist']);
+$app->router->post('/playlist/{playlist_id:\d+}/updatePlaylist', [PlaylistController::class, 'updatePlaylist']);
+$app->router->get('/playlist/{playlist_id:\d+}/deletePlaylist', [PlaylistController::class, 'deletePlaylist']);
+$app->router->post('/playlist/{playlist_id:\d+}/deletePlaylist', [PlaylistController::class, 'deletePlaylist']);
 $app->router->get('/playlist/{playlist_id:\d+}', [PlaylistController::class, 'playlistById']);
 
 
 // Song
 // Admin
-$app->router->get('/albumAdmin/insertSong', [SongController::class, 'insertSongToAlbum']);
-$app->router->post('/albumAdmin/insertSong', [SongController::class, 'insertSongToAlbum']);
+$app->router->get('/albumAdmin/{album_id:\d+}/insertSong', [SongController::class, 'insertSongToAlbum']);
+$app->router->post('/albumAdmin/{album_id:\d+}/insertSong', [SongController::class, 'insertSongToAlbum']);
 $app->router->get('/albumAdmin/{album_id:\d+}/updateSong/{song_id:\d+}', [SongController::class, 'updateSongFromAlbum']);
 $app->router->post('/albumAdmin/{album_id:\d+}/updateSong/{song_id:\d+}', [SongController::class, 'updateSongFromAlbum']);
 $app->router->get('/albumAdmin/{album_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromAlbum']);
@@ -70,19 +71,15 @@ $app->router->post('/album/{album_id:\d+}/insertSong', [SongController::class, '
 $app->router->get('/playlist/{playlist_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
 $app->router->post('/playlist/{playlist_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
 
-
-$app->run();
-
-//echo $app->controller;
-
-// TODO : default / without direct to 404
 // Set router default to login
 if ($_SERVER['REQUEST_URI'] === '/' && !isset($_SESSION['user_id'])) {
-    echo("<script>location.href = '/login';</script>");
+    Application::$app->response->redirect('/login');
 } else if ($_SERVER['REQUEST_URI'] === '/' && isset($_SESSION['user_id'])) {
     if ($_SESSION['is_admin'] === '1') {
-        echo("<script>location.href = '/albumAdmin';</script>");
+        Application::$app->response->redirect('/albumAdmin');
     } else {
-        echo("<script>location.href = '/album';</script>");
+        Application::$app->response->redirect('/album');
     }
 }
+
+$app->run();

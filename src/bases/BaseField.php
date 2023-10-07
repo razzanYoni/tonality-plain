@@ -9,6 +9,7 @@ abstract class BaseField
     public BaseModel $model;
     public string $attribute;
     public string $type;
+    public string $arguments;
 
     public function __construct(BaseModel $model, string $attribute)
     {
@@ -18,16 +19,19 @@ abstract class BaseField
 
     public function __toString()
     {
-        return sprintf('<div class="form-group">
-                <div class="form-label">%s</div>
-                %s
-                <div class="invalid-feedback">
-                    %s
-                </div>
-            </div>',
+        return sprintf(
+            '<div class="form-label">%s</div>
+                        %s
+                        
+                        %s
+                
+                    <div class="invalid-feedback">
+                        %s
+                    </div>',
             $this->model->getLabel($this->attribute),
             $this->renderInput(),
-            $this->model->getFirstError($this->attribute)
+            $this->arguments,
+            $this->model->getFirstError($this->attribute),
         );
     }
 

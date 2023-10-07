@@ -7,11 +7,14 @@ function NavBar(): string
 {
     $username = Application::$app->loggedUser->getUsername();
 
+    $albumLink = '/album';
     $additionalAdminNavLinks = '';
     if (Application::$app->loggedUser->isAdmin()) {
         $additionalAdminNavLinks = <<<"EOT"
-            <li><a href="/playlist">Users</a></li>
+            <li><a href="/users">Users</a></li>
             EOT;
+
+        $albumLink = '/albumAdmin';
     }
 
     return <<<"EOT"
@@ -20,7 +23,7 @@ function NavBar(): string
             <img class="logo" src="/public/assets/icons/logo.svg" alt="Tonality Logo" />
             <span class="tonality-text">Tonality</span>
             <ul class="nav-links">
-              <li><a href="/album">Albums</a></li>
+              <li><a href=$albumLink>Albums</a></li>
               <li><a href="/playlist">Playlists</a>
               $additionalAdminNavLinks
             </ul>

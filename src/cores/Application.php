@@ -99,7 +99,7 @@ class Application {
             echo $this->router->resolve();
         } catch (\Exception $e) {
             echo $this->router->renderView('error/_error', [
-                'exception' => $e,
+                'view' => [ 'exception' => $e],
             ]);
         }
     }
