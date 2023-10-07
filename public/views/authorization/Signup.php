@@ -34,7 +34,7 @@ use models\UserModel;
     </div>
 
     <div class="signup-btn-container">
-        <button class="signup-btn">Log In</button>
+        <button class="signup-btn">Sign Up</button>
     </div>
 
     <?php Form::end() ?>
