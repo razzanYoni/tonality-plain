@@ -13,12 +13,12 @@ require_once ROOT_DIR . "public/components/NavBar.php";
     <script src="/public/js/Form.js"></script>
     <link rel="stylesheet" href="/public/css/Global.css" type="text/css">
     <link rel="stylesheet" href="/public/css/NavBar.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/Form.css" type="text/css">
     <title>
         <?php
-            if (isset($title))
-            {
-                echo $title;
-            }
+        if (isset($title)) {
+            echo $title;
+        }
         ?>
     </title>
 </head>
@@ -26,7 +26,7 @@ require_once ROOT_DIR . "public/components/NavBar.php";
     <?php
         echo NavBar();
     ?>
-    <div class="form-container">
+    <div class="form-body">
         {{content}}
     </div>
 </body>
