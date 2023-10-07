@@ -53,7 +53,7 @@ class SongRepository extends BaseRepository
 
     public function getSongsFromPlaylist($playlist_id): bool|array
     {
-        return $this->findAll(where: ["playlist_id" => $playlist_id]);
+        return $this->findAll(where: ["playlist_id" => $playlist_id], natural_join: ["appears_on"]);
     }
 
     public function getCountSongsFromAlbum($album_id): int
