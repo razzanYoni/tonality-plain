@@ -3,6 +3,8 @@
 namespace repositories;
 
 use bases\BaseRepository;
+use cores\Application;
+use PDOException;
 
 class SongRepository extends BaseRepository
 {
@@ -44,6 +46,25 @@ class SongRepository extends BaseRepository
         return $this->findOne(["song_id" => $song_id]);
     }
 
+    public function getSongsFromAlbum($album_id): bool|array
+    {
+        return $this->findAll(where: ["album_id" => $album_id]);
+    }
+
+    public function getSongsFromPlaylist($playlist_id): bool|array
+    {
+        return $this->findAll(where: ["playlist_id" => $playlist_id]);
+    }
+
+    public function getCountSongsFromAlbum($album_id): int
+    {
+        return $this->aggregate(
+            method: 'COUNT',
+            alias: 'total_songs',
+            where : ["album_id" => $album_id],
+        )['total_songs'];
+    }
+
     public function getSongByTitle($title): bool|array
     {
         return $this->findAll(where: ["title" => $title]);
@@ -52,5 +73,21 @@ class SongRepository extends BaseRepository
     public function getSongByArtist($artist): bool|array
     {
         return $this->findAll(where: ["artist" => $artist]);
+    }
+
+    public function getAlbumDuration($album_id): bool|int
+    {
+        $result = parent::aggregate(
+            method: 'SUM',
+            alias: 'total_duration',
+            where: ["album_id" => $album_id],
+            column: 'duration'
+        );
+
+        if ($result && isset($result['total_duration'])) {
+            return (int)$result['total_duration'];
+        } else {
+            return 0;
+        }
     }
 }

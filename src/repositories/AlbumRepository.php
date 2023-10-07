@@ -42,48 +42,54 @@ class AlbumRepository extends BaseRepository
         return self::$instance;
     }
 
+    public function getAllAlbum($order = null, $is_desc = false, $where = [], $where_like = '',$limit = ROWS_PER_PAGE, $offset = null): bool|array
+    {
+        if ($where_like === '') {
+            $where_like = [];
+        } else {
+            $where_like = [
+                "album_name" => $where_like,
+                "artist" => $where_like,
+            ];
+        }
+
+        return parent::findAll(
+            order: $order,
+            is_desc: $is_desc,
+            where: $where,
+            where_like:  $where_like,
+            limit: $limit,
+            offset: $offset
+        );
+    }
+
+    public function getCountAlbums($where, $where_like = ''): int
+    {
+        if ($where_like === '') {
+            $where_like = [];
+        } else {
+            $where_like = [
+                "album_name" => $where_like,
+                "artist" => $where_like,
+            ];
+        }
+
+        return parent::aggregate(
+            method: 'COUNT',
+            alias: 'count_albums',
+            where: $where,
+            where_like: $where_like
+        )['count_albums'];
+    }
+
     public function getAlbumById($album_id)
     {
         return $this->findOne(["album_id" => $album_id]);
     }
 
-    public function getAlbumByName($album_name)
-    {
-        return $this->findAll(where: ["album_name" => $album_name]);
-    }
-
-    public function getAlbumByArtist($artist): bool|array
-    {
-        return $this->findAll(where: ["artist" => $artist]);
-    }
-
-    public function getAlbumByGenre($genre): bool|array
-    {
-        return $this->findAll(where: ["genre" => $genre]);
-    }
-
     public function getAlbumGenres(): bool|array
     {
-        $query = "SELECT DISTINCT genre FROM albums";
-        $stmt = Application::$app->db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-
-    public function getSongsFromAlbum($album_id): bool|array
-    {
-        try {
-            $query = "SELECT * FROM songs WHERE album_id = :album_id";
-            $stmt = Application::$app->db->prepare($query);
-
-            $stmt->bindParam(':album_id', $album_id);
-
-            $stmt->execute();
-            return $stmt->fetchAll();
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-            return [];
-        }
+        return parent::findAll(options: 'DISTINCT genre');
     }
 
     public function insert(array $data): bool

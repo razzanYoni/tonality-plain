@@ -3,18 +3,34 @@ require_once ROOT_DIR . "src/cores/Application.php";
 
 use cores\Application;
 
-function NavBar(): string
+function NavBar($currentPage): string
 {
     $username = Application::$app->loggedUser->getUsername();
 
-    $albumLink = '/album';
+    $albumLink = '<li><a href=';
+    $albumLinkTemp = '/album';
     $additionalAdminNavLinks = '';
     if (Application::$app->loggedUser->isAdmin()) {
-        $additionalAdminNavLinks = <<<"EOT"
-            <li><a href="/users">Users</a></li>
-            EOT;
+        $userLink = '';
+        if ($currentPage === "Users") {
+            $userLink .= '<li><a href="/users" style="font-weight: bold;">Users</a></li>';
+        } else {
+            $userLink .= '<li><a href="/users">Users</a></li>';
+        }
+        $additionalAdminNavLinks .= $userLink;
+        $albumLinkTemp = '/albumAdmin';
+    }
+    $albumLink .= "$albumLinkTemp";
+    if ($currentPage === "Albums") {
+        $albumLink .= ' style="font-weight: bold;"';
+    }
+    $albumLink .= '>Albums</a></li>';
 
-        $albumLink = '/albumAdmin';
+    $playlistLink = '';
+    if ($currentPage === "Playlists") {
+        $playlistLink .= '<li><a href="/playlist" style="font-weight: bold;">Playlists</a></li>';
+    } else {
+        $playlistLink .= '<li><a href="/playlist">Playlists</a></li>';
     }
 
     return <<<"EOT"
@@ -23,14 +39,14 @@ function NavBar(): string
             <img class="logo" src="/public/assets/icons/logo.svg" alt="Tonality Logo" />
             <span class="tonality-text">Tonality</span>
             <ul class="nav-links">
-              <li><a href=$albumLink>Albums</a></li>
-              <li><a href="/playlist">Playlists</a>
-              $additionalAdminNavLinks
+                $albumLink
+                $playlistLink
+                $additionalAdminNavLinks
             </ul>
           </div>
           <div class="right-navbar-items">
             <div class="search-bar right-side">
-              <input type="text" placeholder="What do you want to listen to?" />
+              <input type="text" placeholder="What do you want to listen to?" id="search" />
             </div>
             <div class="username">$username</div>
             <a href="/logout" class="logout">Log Out</a>

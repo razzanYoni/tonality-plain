@@ -2,6 +2,8 @@
 
 /** @var $title string */
 require_once ROOT_DIR . "public/components/NavBar.php";
+require_once ROOT_DIR . "public/components/AlbumCard.php";
+
 
 ?>
 
@@ -11,9 +13,12 @@ require_once ROOT_DIR . "public/components/NavBar.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/public/js/Form.js"></script>
-    <link rel="stylesheet" href="/public/css/Form.css" type="text/css">
-    <link rel="stylesheet" href="/public/css/NavBar.css" type="text/css">
     <link rel="stylesheet" href="/public/css/Global.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/NavBar.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/Album.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/AlbumCardNew.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/AlbumPage.css" type="text/css">
+
     <title>
         <?php
             if (isset($title))
@@ -25,10 +30,10 @@ require_once ROOT_DIR . "public/components/NavBar.php";
 </head>
 <body>
     <?php
-        echo NavBar("Playlists");
+        echo NavBar("Albums");
     ?>
-    <div class="form-container">
-        {{content}}
-    </div>
+
+    {{content}}
+
 </body>
 </html>

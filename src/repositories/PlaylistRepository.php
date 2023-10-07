@@ -52,20 +52,4 @@ class PlaylistRepository extends BaseRepository
     {
         return $this->findAll(where: ["playlist_name" => $playlist_name]);
     }
-
-    public function getSongsFromPlaylist($playlist_id): bool|array
-    {
-        try {
-            $query = "SELECT * FROM songs WHERE playlist_id = :playlist_id";
-            $stmt = Application::$app->db->prepare($query);
-
-            $stmt->bindParam(':playlist_id', $playlist_id);
-
-            $stmt->execute();
-            return $stmt->fetchAll();
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-            return [];
-        }
-    }
 }
