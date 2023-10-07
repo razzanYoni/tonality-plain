@@ -26,7 +26,7 @@ class Field extends BaseField
         parent::__construct($model, $attribute);
     }
 
-    public function renderInput()
+    public function renderInput(): string
     {
         $optionsString = '';
         foreach ($this->options as $key => $value) {
@@ -42,25 +42,25 @@ class Field extends BaseField
         );
     }
 
-    public function numberField()
+    public function numberField(): static
     {
         $this->type = self::TYPE_NUMBER;
         return $this;
     }
 
-    public function passwordField()
+    public function passwordField(): static
     {
         $this->type = self::TYPE_PASSWORD;
         return $this;
     }
 
-    public function fileField()
+    public function fileField(): static
     {
         $this->type = self::TYPE_FILE;
-         return $this;
+        return $this;
     }
 
-    public function dateField()
+    public function dateField(): static
     {
         $this->type = self::TYPE_DATE;
         return $this;
