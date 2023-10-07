@@ -12,6 +12,7 @@ use cores\Application,
     cores\Request;
 use repositories\PlaylistRepository,
     models\PlaylistModel;
+use repositories\SongRepository;
 
 class PlaylistController extends BaseController {
     public function __construct() {
@@ -127,8 +128,8 @@ class PlaylistController extends BaseController {
     public function playlistById(Request $request) {
         $playlist_id = $request->getRouteParam('playlist_id');
 
-        $playlistRepository = PlaylistRepository::getInstance();
-        $playlist = $playlistRepository->getSongsFromPlaylist($playlist_id);
+        $songRepository = SongRepository::getInstance();
+        $playlist = $songRepository->getSongsFromPlaylist($playlist_id);
 
         print_r($playlist);
 
