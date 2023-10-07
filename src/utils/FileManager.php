@@ -27,10 +27,10 @@ class FileManager {
     public function uploadFile($file) {
         try {
             $ext = pathinfo(($file['name']), PATHINFO_EXTENSION);
-            if ($ext === 'mp3') {
+            if ($ext === 'mp3' || $ext === 'wav') {
                 $relativePath = FILE_UPLOAD_FOLDER . 'audios/' . $this->generateRandomString() . '-' . basename($file['name']);
             } else if ($ext === 'png' || $ext === 'jpg' || $ext === 'jpeg') {
-                $relativePath = FILE_UPLOAD_FOLDER . 'images/' . $this->generateRandomString() . '-' . basename($file['name']);
+                $relativePath = FILE_UPLOAD_FOLDER . 'covers/' . $this->generateRandomString() . '-' . basename($file['name']);
             } else {
                 throw new Exception('Invalid file type');
             }
