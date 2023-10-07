@@ -5,7 +5,7 @@
 
 .album-card {
     display: inline-block;
-    width: 200px; /* Set a fixed width for the album card */
+    width: 230px; /* Set a fixed width for the album card */
     margin: 10px;
     text-align: center;
     text-decoration: none;

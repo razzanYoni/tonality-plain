@@ -20,7 +20,7 @@ require_once ROOT_DIR . "public/components/Pagination.php";
     <link rel="stylesheet" href="/public/css/NavBar.css" type="text/css">
     <link rel="stylesheet" href="/public/css/Pagination.css" type="text/css">
 
-    <link rel="stylesheet" href="/public/css/AlbumCardNew.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/AlbumCard.css" type="text/css">
     <link rel="stylesheet" href="/public/css/AlbumPage.css" type="text/css">
 
     <title>
