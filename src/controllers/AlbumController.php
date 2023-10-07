@@ -24,7 +24,7 @@ class AlbumController extends BaseController
     }
 
     // Admin
-    public function albumAdmin()
+    public function albumAdmin(Request $request)
     {
         // Method : GET
         $albumRepository = AlbumRepository::getInstance();
@@ -35,14 +35,15 @@ class AlbumController extends BaseController
         if ($request->getMethod() === 'get') {
             if ($albums) {
                 Application::$app->session->setFlash('success', 'Albums Retrieved Successfully');
-//                return;
+                // return;
             }
         }
 
-       $this->setLayout('AlbumPage');
-        return $this->render('album/AlbumAdmin', [
+
+        $this->setLayout('AlbumPage');
+        return $this->render('album/albumAdmin', [
             'view' => [
-                'allAlbums' => $albums
+                'albums' => $albums
             ],
             'layout' => [
                 'title' => 'Tonality'
