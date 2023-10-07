@@ -14,7 +14,8 @@ use cores\Application,
     cores\Request;
 use repositories\AlbumRepository,
     models\AlbumModel;
-use repositories\SongRepository;
+use repositories\SongRepository,
+    exceptions\NotFoundException;
 
 class AlbumController extends BaseController
 {
@@ -82,7 +83,7 @@ class AlbumController extends BaseController
         }
 
         $this->setLayout('AlbumPage');
-        return $this->render('album/AlbumAdmin', [
+        return $this->render('album/albumAdmin', [
 
             'view' => [
                 'albums' => $albums
@@ -160,7 +161,7 @@ class AlbumController extends BaseController
             $albumModel->loadData($request->getBody());
             $album_id = $request->getBody();
             // print_r($album_id);
-            if ($albumModel->validate() && AlbumRepository::getInstance()->delete($album_id)) {
+            if (AlbumRepository::getInstance()->delete($album_id)) {
                 Application::$app->session->setFlash('success', 'Album Deleted Successfully');
                 return;
             }
@@ -178,27 +179,38 @@ class AlbumController extends BaseController
     }
 
 
+    /**
+     * @throws NotFoundException
+     */
     public function albumAdminById(Request $request)
     {
         $album_id = $request->getRouteParam('album_id');
-        $albumModel = new AlbumModel();
-        $album = $albumModel->constructFromArray(
-            AlbumRepository::getInstance()
-                ->getAlbumById($album_id)
-        );
-        $where = ['album_id' => $album_id];
 
-        if ($request->getMethod() === 'get') {
-            if ($albumModel->validate() && AlbumRepository::getInstance()->findOne($where)) {
-                Application::$app->session->setFlash('success', 'Album Retrieved Successfully');
-                // return;
-            }
+        $album = AlbumRepository::getInstance()->getAlbumById($album_id);
+
+        if (!$album) {
+            Application::$app->session->setFlash('error', 'Album Not Found');
+            throw new NotFoundException("Album Not Found", 404);
+            // return;
         }
+
+        $albumModel = new AlbumModel();
+        $albumModel = $albumModel->constructFromArray($album);
+
+        $songRepository = SongRepository::getInstance();
+        $songs = $songRepository->getSongsFromAlbum($album_id);
+
+        if (!$songs) {
+            $songs = [];
+        }
+
+        Application::$app->session->setFlash('success', 'Album Retrieved Successfully');
 
         $this->setLayout('AlbumContent');
         return $this->render('album/AlbumContentAdmin', [
             'view' => [
-                'album' => $album,
+                'album' => $albumModel,
+                'songs' => $songs
             ],
             'layout' => [
                 'title' => 'Album Detail - Tonality',
@@ -209,6 +221,7 @@ class AlbumController extends BaseController
     // User
     public function albumUser(Request $request)
     {
+        // Method : GET
         $requestBody = $request->getBody();
 
         $page = 1;
@@ -278,29 +291,34 @@ class AlbumController extends BaseController
     public function albumUserById(Request $request)
     {
         $album_id = $request->getRouteParam('album_id');
-        $albumModel = new AlbumModel();
-        $album = $albumModel->constructFromArray(
-            AlbumRepository::getInstance()
-                ->getAlbumById($album_id)
-        );
-        $where = ['album_id' => $album_id];
 
-        // print_r($album);
+        $album = AlbumRepository::getInstance()->getAlbumById($album_id);
 
-        if ($request->getMethod() === 'get') {
-            if ($albumModel->validate() && AlbumRepository::getInstance()->findOne($where)) {
-                Application::$app->session->setFlash('success', 'Albums Retrieved Successfully');
-                // return;
-            }
+        if (!$album) {
+            Application::$app->session->setFlash('error', 'Album Not Found');
+            throw new NotFoundException("Album Not Found", 404);
         }
 
+        $albumModel = new AlbumModel();
+        $albumModel = $albumModel->constructFromArray($album);
+
+        $songRepository = SongRepository::getInstance();
+        $songs = $songRepository->getSongsFromAlbum($album_id);
+
+        if (!$songs) {
+            $songs = [];
+        }
+
+        Application::$app->session->setFlash('success', 'Album Retrieved Successfully');
+
        $this->setLayout('AlbumContent');
-        return $this->render('album/AlbumContentUser', [
+        return $this->render('album/albumContent', [
             'view' => [
-                'album' => $album
+                'album' => $albumModel,
+                'songs' => $songs
             ],
             'layout' => [
-                'title' => 'Tonality'
+                'title' => 'Album Detail - Tonality'
             ]
         ]);
     }
