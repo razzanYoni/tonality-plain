@@ -2,8 +2,8 @@
 
 namespace repositories;
 
-use bases\BaseRepository,
-    utils\FileProcessing;
+use bases\BaseRepository;
+use utils\FileProcessing;
 
 class SongRepository extends BaseRepository
 {
@@ -60,7 +60,7 @@ class SongRepository extends BaseRepository
         return $this->aggregate(
             method: 'COUNT',
             alias: 'total_songs',
-            where : ["album_id" => $album_id],
+            where: ["album_id" => $album_id],
         )['total_songs'];
     }
 
@@ -106,5 +106,11 @@ class SongRepository extends BaseRepository
     {
         $data['audio_filename'] = FileProcessing::getInstance()->processFile();
         return parent::insert($data);
+    }
+
+    public function update($id, array $data): bool
+    {
+        $data['audio_filename'] = FileProcessing::getInstance()->processFile();
+        return parent::update($id, $data);
     }
 }

@@ -63,6 +63,18 @@ abstract class BaseModel
 
     public function validate(): bool
     {
+        // Get error code for file upload
+        $fileError = 0;
+        if (!empty($_FILES['cover_filename'])) {
+            $fileError = $_FILES['cover_filename']['error'];
+        }
+        if (!empty($_FILES['audio_filename'])) {
+            $fileError = $_FILES['audio_filename']['error'];
+        }
+
+        // Explanation for file error codes:
+        // https://www.php.net/manual/en/features.file-upload.errors.php
+
         foreach ($this->rules() as $attribute => $rules) {
 
             $value = $this->{$attribute};
@@ -74,7 +86,7 @@ abstract class BaseModel
                 if (!is_string($rule)) {
                     $ruleName = $rule[0];
                 }
-                if ($ruleName === self::RULE_REQUIRED && !$value) {
+                if ($ruleName === self::RULE_REQUIRED && (!$value || $fileError === 4)) {
                     $this->addErrorByRule($attribute, self::RULE_REQUIRED);
                 }
                 if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
@@ -108,17 +120,7 @@ abstract class BaseModel
                     }
                 }
                 if ($ruleName === self::RULE_MAX_FILE_SIZE ) {
-                    $fileError = 0;
-
-                    if (!empty($_FILES['cover_filename'])) {
-                        $fileError = $_FILES['cover_filename']['error'];
-                    }
-                    if (!empty($_FILES['audio_filename'])) {
-                        $fileError = $_FILES['audio_filename']['error'];
-                    }
-
                     if ($fileError === 1) {
-                        // https://www.php.net/manual/en/features.file-upload.errors.php
                         $this->addErrorByRule($attribute, self::RULE_MAX_FILE_SIZE);
                     }
                 }

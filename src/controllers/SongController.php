@@ -64,6 +64,11 @@ class SongController extends BaseController {
             $songModelNew = new SongModel();
             $songModelNew->set('song_id', $song_id);
             $songModelNew->loadData($request->getBody());
+
+            if (!empty($_FILES['audio_filename'])) {
+                $songModelNew->set('audio_filename', $_FILES['audio_filename']['name']);
+            }
+
             if ($songModelNew->validate() && SongRepository::getInstance()
                     ->update(
                         $song_id,
@@ -76,8 +81,8 @@ class SongController extends BaseController {
         }
 
         // Method : GET
-        $this->setLayout('blank');
-        return $this->render('song/updateSong', [
+        $this->setLayout('AlbumForm');
+        return $this->render('song/UpdateSong', [
             'view' => [
                 'model' => $songModelOld
                 ]

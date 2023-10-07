@@ -1,24 +1,83 @@
 <?php
 
-/** @var $model \models\SongModel */
+/** @var $model SongModel */
 
 require_once ROOT_DIR . "src/forms/Form.php";
 
 use forms\Form;
+use models\SongModel;
 
 $form = new Form();
+
+// Get the current URL
+$currentUrl = $_SERVER['REQUEST_URI'];
+
+// Split the URL into parts using the "/" delimiter
+$urlParts = explode('/', $currentUrl);
+
+// Find the index of "albumAdmin" in the URL
+$albumAdminIndex = array_search('albumAdmin', $urlParts);
+
+// Find the index of "updateSong" in the URL
+$updateSongIndex = array_search('updateSong', $urlParts);
+
+if ($albumAdminIndex !== false) {
+    // Get the album ID (after "albumAdmin/")
+    $albumId = $urlParts[$albumAdminIndex + 1];
+} else {
+    // "albumAdmin" not found in the URL
+    echo "Not found";
+}
+
+if ($updateSongIndex !== false) {
+    // Get the song ID (after "updateSong/")
+    $songId = $urlParts[$updateSongIndex + 1];
+} else {
+    // "updateSong" not found in the URL
+    echo "Not found";
+}
+
 ?>
 
-<?php $form = Form::begin('', 'post') ?>
-<?php echo $form->field($model, 'album_id') ?>
-<?php echo $form->field($model, 'title') ?>
-<?php echo $form->field($model, 'artist') ?>
-<?php echo $form->field($model, 'song_number') ?>
-<?php echo $form->field($model, 'disc_number') ?>
-<?php echo $form->field($model, 'audio_filename')->fileField() ?>
-<?php echo $form->field($model, 'duration') ?>
+<div class="form-container">
+  <h1>
+    Edit Song
+  </h1>
 
-<!-- TODO : implement cancel button -->
-<!--<button>Cancel</button>-->
-<button class="btn btn-success">Submit</button>
-<?php Form::end() ?>
+    <?php $form = Form::begin('', 'post', ['class' => 'form-list'], enctype: "multipart/form-data"); ?>
+
+  <div class="song-quest">
+      <?php echo $form->field($model, 'title') ?>
+  </div>
+
+  <div class="song-quest">
+      <?php echo $form->field($model, 'artist') ?>
+  </div>
+
+  <div class="song-quest">
+      <?php echo $form->field($model, 'song_number', ["min" => '1'])->numberField() ?>
+  </div>
+
+  <div class="song-quest">
+      <?php echo $form->field($model, 'disc_number', ["min" => '1'])->numberField() ?>
+  </div>
+
+  <div class="song-quest">
+      <?php echo $form->field($model, 'duration')->numberField() ?>
+  </div>
+
+  <div class="song-quest">
+      <?php echo $form->field($model, 'audio_filename',
+          ["id" => "input-file", "accept" => "audio/*"],
+          '<label for="input-file" class="custom-file-upload" id="file-label">Select a File</label>'
+      )->fileField() ?>
+  </div>
+
+  <div class="cancel-submit">
+    <button class="cancel-btn">Cancel</button>
+    <button class="add-btn" formaction="/albumAdmin/<?php echo $albumId ?>/updateSong/<?php echo $songId ?>">Edit Song
+    </button>
+  </div>
+
+    <?php Form::end() ?>
+</div>
