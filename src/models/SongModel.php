@@ -36,8 +36,8 @@ class SongModel extends BaseModel
             'artist' => 'Artist',
             'song_number' => 'Song Number',
             'disc_number' => 'Disc Number',
-            'duration' => 'Duration',
-            'audio_filename' => 'Audio URL',
+            'duration' => 'Duration (in seconds)',
+            'audio_filename' => 'Audio File',
         ];
     }
 
