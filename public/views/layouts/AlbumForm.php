@@ -27,10 +27,8 @@ require_once ROOT_DIR . "public/components/NavBar.php";
     <?php
         echo NavBar();
     ?>
-    <div class="form-container">
     <div class="form-body">
         {{content}}
-    </div>
     </div>
 </body>
 </html>

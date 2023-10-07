@@ -1,47 +1,36 @@
-body {
-    background-color: #000000;
-
+.form-body {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-
-    font-family: "Inter", sans-serif;
-}
-
-@font-face {
-    font-family: Inter;
-    src: url(/public/assets/fonts/Inter-Variable.ttf);
+    justify-content: center;
+    margin-top: 40px;
 }
 
 .form-container {
-    background-color: #171717;
+    background-color: #151515;
     border-radius: 15px;
 
-    height: 600px;
-    width: 500px;
+    padding: 20px 0;
+
+    min-height: 550px;
+    min-width: 400px;
 
     display: flex;
+    flex: auto;
     flex-direction: column;
     align-items: center;
-
-    margin-top: 20px;
 }
 
 h1 {
-    color: white;
-    font-family: 'Inter', sans-serif;
     font-size: 25px;
+    text-align: center;
 }
 
 .form-list {
-    /* background-color: aliceblue; */
-    height: 430px;
-    width: 300px;
+    display: flex;
+    flex-direction: column;
 }
+
 .invalid-feedback {
     color: red;
     font-size: 14px;
@@ -54,7 +43,7 @@ h1 {
 }
 
 .album-quest {
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 
 .playlist-quest {
@@ -71,7 +60,8 @@ h1 {
     color: white;
 }
 
-form input[type=text] {
+form input[type=text],
+form input[type=password] {
     background-color: #000000;
     border-radius: 15px;
     border-color: white;
@@ -83,7 +73,7 @@ form input[type=text] {
     padding-left: 10px;
     padding-right: 10px;
 
-    cursor: pointer;
+    cursor: text;
     font-family: 'Inter', sans-serif;
     font-size: 14px;
 
@@ -146,7 +136,7 @@ label {
 }
 
 .cancel-submit {
-    margin-top: 30px;
+    margin-top: 10px;
     width: 300px;
     justify-content: center;
     display: flex;
@@ -154,6 +144,8 @@ label {
 
 .cancel-btn {
     background-color: #EB4646;
+
+    font-family: 'Inter', 'sans-serif';
     color: white;
 
     border-style: none;
@@ -168,11 +160,14 @@ label {
 
 .cancel-btn:hover {
     background-color: #FF5959; /* Warna latar berubah saat tombol dihover */
-    transform: scale(1.05);
+    cursor: pointer;
+    /*transform: scale(1.05);*/
 }
 
 .add-btn {
     background-color: #259793;
+
+    font-family: 'Inter', 'sans-serif';
     color: white;
 
     border-style: none;
@@ -187,7 +182,8 @@ label {
 
 .add-btn:hover {
     background-color: #2ebab5; /* Warna latar berubah saat tombol dihover */
-    transform: scale(1.05);
+    cursor: pointer;
+    /*transform: scale(1.05);*/
 }
 
 @media screen and (max-width: 600px) {

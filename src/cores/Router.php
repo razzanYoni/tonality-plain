@@ -2,6 +2,8 @@
 
 namespace cores;
 
+use exceptions\NotFoundException;
+
 require_once ROOT_DIR . "src/controllers/AuthorizationController.php";
 require_once ROOT_DIR . "src/exceptions/NotFoundException.php";
 
