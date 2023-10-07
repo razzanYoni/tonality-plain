@@ -11,7 +11,7 @@ abstract class BaseRepository
     protected static BaseRepository $instance;
     abstract public static function tableName(): string;
     abstract public static function attributes(): array;
-    abstract public static function primaryKey(): string;
+    abstract public static function primaryKey(): string | array;
     abstract public static function getInstance();
 
     public function findOne($where) {
@@ -109,11 +109,24 @@ abstract class BaseRepository
             $tableName = $this->tableName();
             $query = "DELETE FROM {$tableName}";
 
-            $query .= " WHERE {$this->primaryKey()} = :where_{$this->primaryKey()}";
-
-            $stmt = Application::$app->db->prepare($query);
-
-            $stmt->bindValue(":where_{$this->primaryKey()}", $id);
+            if (is_string($this->primaryKey())) {
+                // string
+                $query .= " WHERE {$this->primaryKey()} = :where_{$this->primaryKey()}";
+                $stmt = Application::$app->db->prepare($query);
+                $stmt->bindValue(":where_{$this->primaryKey()}", $id);
+            } else {
+                // array
+                $conditions = [];
+                $query .= " WHERE ";
+                foreach ($id as $key => $value) {
+                    $conditions[] = "$key = :where_$key";
+                }
+                $query .= implode(" AND ", $conditions);
+                $stmt = Application::$app->db->prepare($query);
+                foreach ($id as $key => $value) {
+                    $stmt->bindValue(":where_$key", $value);
+                }
+            }
 
             $stmt->execute();
             return true;
@@ -128,7 +141,16 @@ abstract class BaseRepository
         }
     }
 
-    public function findAll($order = null, $is_desc = false, $where = [], $where_like = [],$limit = null, $offset = null, $options = ''): bool|array
+    public function findAll(
+        $order = null,
+        $is_desc = false,
+        $where = [],
+        $where_like = [],
+        $limit = null,
+        $offset = null,
+        $options = '',
+        $natural_join = []
+    ): bool|array
     {
         try {
             $tableName = $this->tableName();
@@ -138,6 +160,12 @@ abstract class BaseRepository
                 $query = "SELECT *";
             }
             $query .= " FROM {$tableName}";
+
+            if (count($natural_join) > 0) {
+                foreach ($natural_join as $table) {
+                    $query .= " NATURAL JOIN {$table}";
+                }
+            }
 
             if (count($where) > 0) {
                 $query .= " WHERE ";
