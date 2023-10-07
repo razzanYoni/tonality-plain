@@ -14,6 +14,7 @@ use cores\Application,
     cores\Request;
 use repositories\AlbumRepository,
     models\AlbumModel;
+use repositories\SongRepository;
 
 class AlbumController extends BaseController
 {
@@ -27,11 +28,51 @@ class AlbumController extends BaseController
     public function albumAdmin(Request $request)
     {
         // Method : GET
+        $requestBody = $request->getBody();
+
+        $page = 1;
+        if (isset($requestBody['page'])) {
+            $page = $requestBody['page'];
+        }
+
+        $limit = ROWS_PER_PAGE;
+        $offset = ($page - 1) * ROWS_PER_PAGE;
+
+        $where = [];
+        if (isset($requestBody['genre'])) {
+            $where['genre'] = $requestBody['genre'];
+        }
+
+        $where_like = '';
+        if (isset($requestBody['search'])) {
+            $where_like = $requestBody['search'];
+        }
+
+        $orderBy = 'album_name';
+        if (isset($requestBody['order'])) {
+            $orderBy[$requestBody['order']] = $requestBody['order'];
+        }
+
+        $is_desc = false;
+        if (isset($requestBody['is_desc'])) {
+            $is_desc = $requestBody['is_desc'] === 'desc';
+        }
 
         $albumRepository = AlbumRepository::getInstance();
-        $albums = $albumRepository->findAll();
+        $albums = $albumRepository->getAllAlbum(
+            order: $orderBy,
+            is_desc: $is_desc,
+            where: $where,
+            where_like: $where_like,
+            limit: $limit,
+            offset: $offset,
+        );
 
-        // print_r($albums);
+        $countAlbums = $albumRepository->getCountAlbums(
+            where: $where,
+            where_like: $where_like,
+        );
+        $totalPage = ceil($countAlbums / ROWS_PER_PAGE);
 
         if ($request->getMethod() === 'get') {
             if ($albums) {
@@ -40,7 +81,6 @@ class AlbumController extends BaseController
             }
         }
 
-
         $this->setLayout('AlbumPage');
         return $this->render('album/albumAdmin', [
 
@@ -48,7 +88,9 @@ class AlbumController extends BaseController
                 'albums' => $albums
             ],
             'layout' => [
-                'title' => 'Tonality'
+                'title' => 'Tonality',
+                'totalPage' => $totalPage,
+                'page' => $page,
             ]
         ]);
     }
@@ -170,8 +212,6 @@ class AlbumController extends BaseController
         $albumRepository = AlbumRepository::getInstance();
         $albums = $albumRepository->findAll();
 
-        // print_r($albums);
-
         if ($request->getMethod() === 'get') {
             if ($albums) {
                 Application::$app->session->setFlash('success', 'Albums Retrieved Successfully');
@@ -179,8 +219,8 @@ class AlbumController extends BaseController
             }
         }
 
-       $this->setLayout('AlbumPage');
-        return $this->render('album/Album', [
+        $this->setLayout('AlbumPage');
+        return $this->render('album/albumUser', [
             'view' => [
                 'allAlbums' => $albums
             ],
@@ -194,8 +234,8 @@ class AlbumController extends BaseController
     {
         $album_id = $request->getRouteParam('album_id');
 
-        $albumRepository = AlbumRepository::getInstance();
-        $album = $albumRepository->getSongsFromAlbum($album_id);
+        $songRepository = SongRepository::getInstance();
+        $album = $songRepository->getSongsFromAlbum($album_id);
 
         // print_r($album);
 
