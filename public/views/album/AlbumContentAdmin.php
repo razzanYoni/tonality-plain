@@ -5,16 +5,14 @@ require_once ROOT_DIR . "src/repositories/AlbumRepository.php";
 require_once ROOT_DIR . "src/repositories/SongRepository.php";
 require_once ROOT_DIR . "public/components/AlbumCard.php";
 
-use controllers\AlbumController;
-use repositories\AlbumRepository;
 use repositories\SongRepository;
-use models\AlbumModel;
+
 ?>
 
 <div class="album-detail-container">
     <div class="cover-detail">
         <div class="album-cover">
-            <img src="">
+            <img class="album-cover-image" src="<?php echo '/' . STORAGE_FOLDER . '/' . $album->get('cover_filename')?>" alt="Album Cover Image">
         </div>
         <div class="album-detail">
             <div class="album-title">
@@ -38,10 +36,10 @@ use models\AlbumModel;
     </div>
     <div class="edit-delete">
         <button class="edit-btn" onclick="window.location.href='/albumAdmin/<?php echo $album->get('album_id'); ?>/updateAlbum'">
-            <img src="public/assets/icons/pen-solid.svg" alt="Edit">
+            <img src="/public/assets/icons/pen-solid.svg" alt="Edit">
         </button>
         <button class="delete-btn" onclick="window.location.href='/albumAdmin/<?php echo $album->get('album_id'); ?>/deleteAlbum'">
-            <img src="public/assets/icons/trash-solid.svg" alt="Delete">
+            <img src="/public/assets/icons/trash-solid.svg" alt="Delete">
         </button>
     </div>
 </div>
