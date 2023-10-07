@@ -9,7 +9,9 @@ function NavBar($currentPage): string
 
     $albumLink = '<li><a href=';
     $albumLinkTemp = '/album';
+    $playlistLink = '';
     $additionalAdminNavLinks = '';
+
     if (Application::$app->loggedUser->isAdmin()) {
         $userLink = '';
         if ($currentPage === "Users") {
@@ -19,19 +21,20 @@ function NavBar($currentPage): string
         }
         $additionalAdminNavLinks .= $userLink;
         $albumLinkTemp = '/albumAdmin';
+    } else {
+        if ($currentPage === "Playlists") {
+            $playlistLink .= '<li><a href="/playlist" style="font-weight: bold;">Playlists</a></li>';
+        } else {
+            $playlistLink .= '<li><a href="/playlist">Playlists</a></li>';
+        }
     }
+
     $albumLink .= "$albumLinkTemp";
     if ($currentPage === "Albums") {
         $albumLink .= ' style="font-weight: bold;"';
     }
     $albumLink .= '>Albums</a></li>';
 
-    $playlistLink = '';
-    if ($currentPage === "Playlists") {
-        $playlistLink .= '<li><a href="/playlist" style="font-weight: bold;">Playlists</a></li>';
-    } else {
-        $playlistLink .= '<li><a href="/playlist">Playlists</a></li>';
-    }
 
     return <<<"EOT"
         <nav class="navbar">
