@@ -77,5 +77,5 @@ VALUES (1, 'playlist1', 'description1', 'cover1'),
 INSERT INTO appears_on (song_id, playlist_id)
 VALUES (1, 1),
        (2, 2),
-       (4, 1)
+       (3, 1)
 ;
