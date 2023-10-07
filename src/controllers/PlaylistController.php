@@ -24,21 +24,21 @@ class PlaylistController extends BaseController {
         $user_id = Application::$app->loggedUser->getUserId();
 
         $playlistRepository = PlaylistRepository::getInstance();
-        $playlist = $playlistRepository->getPlaylistsByUserId($user_id);
+        $playlists = $playlistRepository->getPlaylistsByUserId($user_id);
 
-        print_r($playlist);
+        // print_r($playlist);
 
         if ($request->getMethod() === 'get') {
-            if ($playlist) {
+            if ($playlists) {
                 Application::$app->session->setFlash('success', 'Playlist Songs Retrieved Successfully');
                 return;
             }
         }
 
-       $this->setLayout('playlist');
-        return $this->render('playlist/playlistContent', [
+       $this->setLayout('PlaylistPage');
+        return $this->render('playlist/PlaylistPage', [
             'view' => [
-                'playlist' => $playlist
+                'playlist' => $playlists
             ],
             'layout' => [
                 'title' => 'Tonality'
@@ -128,22 +128,26 @@ class PlaylistController extends BaseController {
     public function playlistById(Request $request) {
         $playlist_id = $request->getRouteParam('playlist_id');
 
-        $songRepository = SongRepository::getInstance();
-        $playlist = $songRepository->getSongsFromPlaylist($playlist_id);
+        $playlistModel = new PlaylistModel();
+        $playlist = $playlistModel->constructFromArray(
+            PlaylistRepository::getInstance()
+                ->getplaylistById($playlist_id)
+        );
+        $where = ['playlist_id' => $playlist_id];
 
         print_r($playlist);
 
         if ($request->getMethod() === 'get') {
-            if ($playlist) {
+            if ($playlist->validate() && PlaylistRepository::getInstance()->findOne($where)) {
                 Application::$app->session->setFlash('success', 'Playlist Songs Retrieved Successfully');
 
                 Application::$app->response->redirect('/playlist/{playlist_id:\d+}');
-                return;
+                // return;
             }
         }
 
-       $this->setLayout('playlist');
-        return $this->render('playlist/playlistContent', [
+       $this->setLayout('PlaylistContent');
+        return $this->render('playlist/PlaylistContent', [
             'view' => [
                 'playlist' => $playlist
             ],

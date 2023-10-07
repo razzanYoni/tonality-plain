@@ -16,7 +16,6 @@ require_once ROOT_DIR . "public/components/AlbumCard.php";
     <link rel="stylesheet" href="/public/css/Global.css" type="text/css">
     <link rel="stylesheet" href="/public/css/NavBar.css" type="text/css">
     <link rel="stylesheet" href="/public/css/AlbumContent.css" type="text/css">
-    <link rel="stylesheet" href="/public/css/Album.css" type="text/css">
     <link rel="stylesheet" href="/public/css/AlbumCard.css" type="text/css">
     <link rel="stylesheet" href="/public/css/AlbumPage.css" type="text/css">
 
@@ -31,7 +30,7 @@ require_once ROOT_DIR . "public/components/AlbumCard.php";
 </head>
 <body>
     <?php
-        echo NavBar("Albums");
+        echo NavBar(currentPage: "Playlist");
     ?>
 
     {{content}}
