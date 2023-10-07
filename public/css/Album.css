@@ -96,3 +96,7 @@
 .single-song:nth-child(even) {
     background-color: #000000;
 }
+
+table {
+    border-collapse: collapse;
+}

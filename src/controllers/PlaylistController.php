@@ -36,7 +36,7 @@ class PlaylistController extends BaseController {
         }
 
        $this->setLayout('playlist');
-        return $this->render('playlist/playlistContent', [
+        return $this->render('playlist/PlaylistContent', [
             'view' => [
                 'playlist' => $playlist
             ],
