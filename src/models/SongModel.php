@@ -15,7 +15,7 @@ class SongModel extends BaseModel
     protected $song_number;
     protected $disc_number;
     protected $duration;
-    protected $audio_url;
+    protected $audio_filename;
 
     public function rules(): array
     {
@@ -25,7 +25,7 @@ class SongModel extends BaseModel
             'song_number' => [self::RULE_REQUIRED, [self::RULE_MIN_VALUE, 'minValue' => 1]],
             'disc_number' => [[self::RULE_MIN_VALUE, 'minValue' => 1]],
             'duration' => [self::RULE_REQUIRED],
-            'audio_url' => [self::RULE_REQUIRED],
+            'audio_filename' => [self::RULE_REQUIRED, self::RULE_MAX_FILE_SIZE],
         ];
     }
 
@@ -37,7 +37,7 @@ class SongModel extends BaseModel
             'song_number' => 'Song Number',
             'disc_number' => 'Disc Number',
             'duration' => 'Duration',
-            'audio_url' => 'Audio URL',
+            'audio_filename' => 'Audio URL',
         ];
     }
 
@@ -50,7 +50,7 @@ class SongModel extends BaseModel
         $this->song_number = $data['song_number'];
         $this->disc_number = $data['disc_number'];
         $this->duration = $data['duration'];
-        $this->audio_url = $data['audio_url'];
+        $this->audio_filename = $data['audio_filename'];
         return $this;
     }
 
@@ -63,7 +63,7 @@ class SongModel extends BaseModel
             'song_number' => $this->song_number,
             'disc_number' => $this->disc_number,
             'duration' => $this->duration,
-            'audio_url' => $this->audio_url,
+            'audio_filename' => $this->audio_filename,
         );
     }
 }

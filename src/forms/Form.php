@@ -8,13 +8,13 @@ use bases\BaseModel;
 
 class Form
 {
-    public static function begin($action, $method, $options = []): Form
+    public static function begin($action, $method, $options = [], $enctype = 'application/x-www-form-urlencoded'): Form
     {
         $attributes = '';
         foreach ($options as $key => $value) {
             $attributes .= "$key=\"$value\"  ";
         }
-        echo sprintf('<form action="%s" method="%s" %s>', $action, $method, $attributes);
+        echo sprintf('<form action="%s" method="%s" enctype="%s" %s>', $action, $method, $enctype, $attributes);
         return new Form();
     }
 

@@ -15,7 +15,7 @@ use models\AlbumModel;
        Add New Album
     </h1>
 
-    <?php $form = Form::begin('', 'post', ['class' => 'form-list']); ?>
+    <?php $form = Form::begin('', 'post', ['class' => 'form-list'], enctype: "multipart/form-data"); ?>
 
     <div class="album-quest">
         <?php echo $form->field($model, 'album_name') ?>
@@ -30,7 +30,7 @@ use models\AlbumModel;
     </div>
 
     <div class="album-quest">
-        <?php echo $form->field($model, 'cover_url', ["id" => "input-file", "accept" => "image/*"])->fileField();
+        <?php echo $form->field($model, 'cover_filename', ["id" => "input-file", "accept" => "image/*"])->fileField();
         echo '<label for="input-file" class="custom-file-upload" id="file-label">Choose Your Album Cover</label>';
         ?>
     </div>

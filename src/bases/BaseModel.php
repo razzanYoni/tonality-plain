@@ -13,6 +13,7 @@ abstract class BaseModel
     const RULE_MIN_VALUE = 'minValue';
     const RULE_MATCH = 'match';
     const RULE_UNIQUE = 'unique';
+    const RULE_MAX_FILE_SIZE = 'maxFileSize';
 
     public array $errors = [];
 
@@ -92,7 +93,6 @@ abstract class BaseModel
                     $this->addErrorByRule($attribute, self::RULE_MATCH, ['match' => $rule['match']]);
                 }
                 if ($ruleName === self::RULE_UNIQUE) {
-
                     $className = $rule['class'];
                     $uniqueAttr = $rule['attribute'] ?? $attribute;
                     $tableName = $className::tableName();
@@ -105,6 +105,14 @@ abstract class BaseModel
 
                     if ($record) {
                         $this->addErrorByRule($attribute, self::RULE_UNIQUE);
+                    }
+                }
+                if ($ruleName === self::RULE_MAX_FILE_SIZE) {
+                    $fileError = $_FILES['cover_filename']['error'] ?? $_FILES['audio_filename']['error'];
+
+                    if ($fileError === 1) {
+                        // https://www.php.net/manual/en/features.file-upload.errors.php
+                        $this->addErrorByRule($attribute, self::RULE_MAX_FILE_SIZE);
                     }
                 }
             }
@@ -123,6 +131,7 @@ abstract class BaseModel
             self::RULE_MIN_VALUE => 'Min value of this field must be {minValue}',
             self::RULE_MATCH => 'This field must be the same as {match}',
             self::RULE_UNIQUE => 'Record with with this {field} already exists',
+            self::RULE_MAX_FILE_SIZE => 'File size must not exceed 20 MB',
         ];
     }
 

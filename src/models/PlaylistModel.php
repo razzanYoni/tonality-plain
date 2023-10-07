@@ -10,7 +10,7 @@ class PlaylistModel extends BaseModel
     protected $user_id;
     protected $playlist_name;
     protected $description;
-    protected $cover_url;
+    protected $cover_filename;
 
     public function constructFromArray(array $data): PlaylistModel
     {
@@ -18,7 +18,7 @@ class PlaylistModel extends BaseModel
         $this->user_id = $data['user_id'];
         $this->playlist_name = $data['playlist_name'];
         $this->description = $data['description'];
-        $this->cover_url = $data['cover_url'];
+        $this->cover_filename = $data['cover_filename'];
         return $this;
     }
 
@@ -28,7 +28,7 @@ class PlaylistModel extends BaseModel
             'user_id' => $this->user_id,
             'playlist_name' => $this->playlist_name,
             'description' => $this->description,
-            'cover_url' => $this->cover_url,
+            'cover_filename' => $this->cover_filename,
         );
     }
 }

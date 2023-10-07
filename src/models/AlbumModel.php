@@ -11,7 +11,7 @@ class AlbumModel extends BaseModel
     protected $release_date;
     protected $genre;
     protected $artist;
-    protected $cover_url;
+    protected $cover_filename;
 
     public function constructFromArray(array $data): AlbumModel
     {
@@ -20,7 +20,7 @@ class AlbumModel extends BaseModel
         $this->release_date = $data['release_date'];
         $this->genre = $data['genre'];
         $this->artist = $data['artist'];
-        $this->cover_url = $data['cover_url'];
+        $this->cover_filename = $data['cover_filename'];
         return $this;
     }
 
@@ -31,7 +31,7 @@ class AlbumModel extends BaseModel
             'release_date' => $this->release_date,
             'genre' => $this->genre,
             'artist' => $this->artist,
-            'cover_url' => $this->cover_url
+            'cover_filename' => $this->cover_filename
         );
     }
 
@@ -42,7 +42,7 @@ class AlbumModel extends BaseModel
             'release_date' => [self::RULE_REQUIRED],
             'genre' => [self::RULE_REQUIRED],
             'artist' => [self::RULE_REQUIRED],
-            'cover_url' => [self::RULE_REQUIRED]
+            'cover_filename' => [self::RULE_MAX_FILE_SIZE]
         ];
     }
 
@@ -53,7 +53,7 @@ class AlbumModel extends BaseModel
             'release_date' => 'Release Date',
             'genre' => 'Genre',
             'artist' => 'Artist',
-            'cover_url' => 'Cover Photo'
+            'cover_filename' => 'Cover Photo'
         ];
     }
 }

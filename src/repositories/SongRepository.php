@@ -24,7 +24,7 @@ class SongRepository extends BaseRepository
             'song_number',
             'disc_number',
             'duration',
-            'audio_url',
+            'audio_filename',
         ];
     }
 

@@ -15,7 +15,7 @@ $form = new Form();
 <?php echo $form->field($model, 'artist') ?>
 <?php echo $form->field($model, 'song_number') ?>
 <?php echo $form->field($model, 'disc_number') ?>
-<?php echo $form->field($model, 'audio_url')->fileField() ?>
+<?php echo $form->field($model, 'audio_filename')->fileField() ?>
 <?php echo $form->field($model, 'duration') ?>
 
 <!-- TODO : implement cancel button -->
