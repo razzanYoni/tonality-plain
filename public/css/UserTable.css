@@ -1,0 +1,57 @@
+.user-table {
+    justify-content: center;
+    display: flex;
+    flex-flow: column;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 30px;
+
+
+
+    .user-title {
+        text-align: left;
+        width: 700px;
+    }
+
+}
+
+.user-duration-body {
+    text-align: center;
+}
+
+.user-number {
+    width: 40px;
+    text-align: center;
+}
+
+.single-user {
+    height: 50px;
+    border-radius: 15px;
+}
+
+.single-user:nth-child(odd) {
+    background-color: #151515;
+}
+
+.single-user:nth-child(even) {
+    background-color: #000000;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+thead {
+    border-bottom: 2px solid #1BCEC8;
+    height: 40px;
+}
+
+.single-user td:first-child {
+    border-radius: 10px 0 0 10px;
+    overflow: hidden;
+}
+
+.single-user td:last-child {
+    border-radius: 0 10px 10px 0;
+    overflow: hidden;
+}
