@@ -9,7 +9,7 @@ class FileProcessing
     public static function getInstance(): FileProcessing
     {
         if (!isset(self::$instance)) {
-            self::$instance = new FileProcessing();
+            self::$instance = new static();
         }
         return self::$instance;
     }
