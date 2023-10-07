@@ -21,7 +21,7 @@ class PlaylistRepository extends BaseRepository
             'user_id',
             'playlist_name',
             'description',
-            'cover_url'
+            'cover_filename'
         ];
     }
 

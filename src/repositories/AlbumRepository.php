@@ -2,9 +2,12 @@
 
 namespace repositories;
 
+require_once ROOT_DIR . 'src/utils/FileProcessing.php';
+
 use cores\Application,
     bases\BaseRepository,
-    PDOException;
+    PDOException,
+    utils\FileProcessing;
 
 class AlbumRepository extends BaseRepository
 {
@@ -22,7 +25,7 @@ class AlbumRepository extends BaseRepository
             'release_date',
             'genre',
             'artist',
-            'cover_url'
+            'cover_filename'
         ];
     }
 
@@ -81,5 +84,11 @@ class AlbumRepository extends BaseRepository
             echo "Error: " . $e->getMessage();
             return [];
         }
+    }
+
+    public function insert(array $data): bool
+    {
+        $data['cover_filename'] = FileProcessing::getInstance()->processFile();
+        return parent::insert($data);
     }
 }

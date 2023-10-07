@@ -25,7 +25,7 @@ use controllers\AlbumController;
 </div>
 
 <div class="album-quest">
-<?php echo $form->field($model, 'cover_url', ["id" => "input-file", "accept" => "image/*"])->fileField();
+<?php echo $form->field($model, 'cover_filename', ["id" => "input-file", "accept" => "image/*"])->fileField();
   echo '<label for="input-file" class="custom-file-upload" id="file-label">Choose Your Album Cover</label>';
 ?>
 </div>
