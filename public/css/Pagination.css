@@ -1,9 +1,30 @@
 .pagination {
-    margin-top: 10px;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
 }
 
 .pagination-item {
-    display: inline;
+    display: inline-block;
+
+    text-align: center;
+
+    min-width: 20px;
+    min-height: 20px;
+
+    padding: 5px;
+
+    margin: 0 5px;
+
+    background-color: #151515;
+    border-radius: 5px;
+
+    color: white;
+    text-decoration: none;
+
+    transition: background-color 0.2s;
+}
+
+.pagination-item:hover {
+    background-color: #2b2b2b;
 }
