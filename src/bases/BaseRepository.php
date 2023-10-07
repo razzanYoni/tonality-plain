@@ -128,11 +128,16 @@ abstract class BaseRepository
         }
     }
 
-    public function findAll($order = null, $is_desc = false, $where = [], $limit = null, $offset = null): bool|array
+    public function findAll($order = null, $is_desc = false, $where = [], $where_like = [],$limit = null, $offset = null, $options = ''): bool|array
     {
         try {
             $tableName = $this->tableName();
-            $query = "SELECT * FROM {$tableName}";
+            if ($options !== '') {
+                $query = "SELECT {$options}";
+            } else {
+                $query = "SELECT *";
+            }
+            $query .= " FROM {$tableName}";
 
             if (count($where) > 0) {
                 $query .= " WHERE ";
@@ -143,6 +148,21 @@ abstract class BaseRepository
                 }
 
                 $query .= implode(" AND ", $conditions);
+            }
+
+            if (count($where_like) > 0) {
+                if (count($where) > 0) {
+                    $query .= " AND ";
+                } else {
+                    $query .= " WHERE ";
+                }
+                $conditions = [];
+
+                foreach ($where_like as $key => $value) {
+                    $conditions[] = "$key LIKE :wl_$key";
+                }
+
+                $query .= implode(" OR ", $conditions);
             }
 
             if ($order) {
@@ -167,6 +187,11 @@ abstract class BaseRepository
                 $stmt->bindValue(":$key", $value);
             }
 
+            foreach ($where_like as $key => $value) {
+                $stmt->bindValue(":wl_$key", '%' . $value . '%');
+            }
+
+
             $stmt->execute();
             return $stmt->fetchAll();
 
@@ -175,4 +200,56 @@ abstract class BaseRepository
             return [];
         }
     }
+
+    public function aggregate($method, $alias, $where = [], $where_like = [], $column = "*")
+    {
+        try {
+            $tableName = $this->tableName();
+            $query = "SELECT {$method}({$column}) AS {$alias} FROM {$tableName}";
+
+            if (count($where) > 0) {
+                $query .= " WHERE ";
+                $conditions = [];
+
+                foreach ($where as $key => $value) {
+                    $conditions[] = "$key = :$key";
+                }
+
+                $query .= implode(" AND ", $conditions);
+            }
+
+            if (count($where_like) > 0) {
+                if (count($where) > 0) {
+                    $query .= " AND ";
+                } else {
+                    $query .= " WHERE ";
+                }
+                $conditions = [];
+
+                foreach ($where_like as $key => $value) {
+                    $conditions[] = "$key LIKE :wl_$key";
+                }
+
+                $query .= implode(" OR ", $conditions);
+            }
+
+            $stmt = Application::$app->db->prepare($query);
+
+            foreach ($where as $key => $value) {
+                $stmt->bindValue(":$key", $value);
+            }
+
+            foreach ($where_like as $key => $value) {
+                $stmt->bindValue(":wl_$key", '%' . $value . '%');
+            }
+
+            $stmt->execute();
+            return $stmt->fetch();
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return 0;
+        }
+    }
+
 }
