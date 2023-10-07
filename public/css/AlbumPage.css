@@ -10,7 +10,7 @@
     display: flex;
     flex-flow: column;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 20px;
     padding: 10px;
     height: 550px;
 }
