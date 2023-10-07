@@ -24,14 +24,32 @@ class AlbumController extends BaseController
     }
 
     // Admin
-    public function albumAdmin()
+    public function albumAdmin(Request $request)
     {
         // Method : GET
+
+        $albumRepository = AlbumRepository::getInstance();
+        $albums = $albumRepository->findAll();
+
+        // print_r($albums);
+
+        if ($request->getMethod() === 'get') {
+            if ($albums) {
+                Application::$app->session->setFlash('success', 'Albums Retrieved Successfully');
+                // return;
+            }
+        }
+
+
         $this->setLayout('AlbumPage');
-        return $this->render('album/Album', [
+        return $this->render('album/albumAdmin', [
+
             'view' => [
-                'name' => Application::$app->loggedUser->getUsername()
-                ]
+                'albums' => $albums
+            ],
+            'layout' => [
+                'title' => 'Tonality'
+            ]
         ]);
     }
 
@@ -106,7 +124,8 @@ class AlbumController extends BaseController
             }
         }
         $this->setLayout('AlbumForm');
-        return $this->render('album/deleteAlbum', [
+        return $this->render('albumAdmin/deleteAlbum', [
+
             'view' => [
                 'model' => $albumModel
             ],
