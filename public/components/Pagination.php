@@ -14,7 +14,7 @@ function pagination($totalPage, $currentPage = 1) : string
 
     $first = '';
     if ($currentPage > 1) {
-        $first = '<a href="' . str_replace('page=' . $currentPage, 'page=1', $uri) . '" class="pagination-item">1</a>';
+        $first = '<a href="' . str_replace('page=' . $currentPage, 'page=1', $uri) . '" class="pagination-item">First</a>';
     }
 
     $prev = '';
@@ -22,7 +22,7 @@ function pagination($totalPage, $currentPage = 1) : string
         $prev = '<a href="' . str_replace('page=' . $currentPage, 'page=' . ($currentPage - 1), $uri) . '" class="pagination-item">Prev</a>';
     }
 
-    $current = "<a href='" . str_replace('page=' . $currentPage, 'page=' . $currentPage, $uri) . "' class='pagination-item'>{$currentPage}</a>";
+    $current = "<a href='" . str_replace('page=' . $currentPage, 'page=' . $currentPage, $uri) . "' class='pagination-item current'>{$currentPage}</a>";
 
     $next = '';
     if ($currentPage < $totalPage - 1) {
