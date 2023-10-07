@@ -30,7 +30,7 @@ require_once ROOT_DIR . "public/components/AlbumCard.php";
 </head>
 <body>
     <?php
-        echo NavBar();
+        echo NavBar("Albums");
     ?>
 
     {{content}}
