@@ -312,7 +312,7 @@ class AlbumController extends BaseController
         Application::$app->session->setFlash('success', 'Album Retrieved Successfully');
 
        $this->setLayout('AlbumContent');
-        return $this->render('album/albumContent', [
+        return $this->render('album/albumContentUser', [
             'view' => [
                 'album' => $albumModel,
                 'songs' => $songs
