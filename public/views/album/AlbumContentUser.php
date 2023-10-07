@@ -13,13 +13,14 @@ require_once ROOT_DIR . "src/repositories/SongRepository.php";
 require_once ROOT_DIR . "public/components/AlbumCard.php";
 require_once ROOT_DIR . "src/utils/TimeConverter.php";
 
-$durationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($duration);
+$albumDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($duration);
 ?>
 
 <div class="album-detail-container">
   <div class="cover-detail">
     <div class="album-cover">
-      <img src="">
+      <img class="album-cover-image" src="<?php echo '/' . STORAGE_FOLDER . '/' . $album->get('cover_filename') ?>"
+           alt="Album Cover Image">
     </div>
     <div class="album-detail">
       <div class="album-title">
@@ -36,9 +37,9 @@ $durationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($duration);
         <span> songs</span>
       </div>
       <div class="album-duration">
-          <?php echo $durationTuple[0] ?>
+          <?php echo $albumDurationTuple[0] ?>
         <span> minutes </span>
-          <?php echo $durationTuple[1] ?>
+          <?php echo $albumDurationTuple[1] ?>
         <span> seconds</span>
       </div>
     </div>
@@ -52,11 +53,13 @@ $durationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($duration);
     <th class="song-duration">Duration</th>
     </thead>
     <tbody>
-    <?php foreach ($songs as $key => $song): ?>
+    <?php foreach ($songs as $key => $song):
+        $songDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($song['duration']);
+        ?>
       <tr class="single-song">
         <td class="song-number"><?php echo $key + 1; ?></td>
         <td class="song-title"><?php echo $song['title']; ?></td>
-        <td class="song-duration-body"><?php echo $song['duration']; ?></td>
+        <td class="song-duration-body"><?php echo $songDurationTuple[0] . ":" . $songDurationTuple[1]; ?></td>
       </tr>
     <?php endforeach; ?>
     </tbody>
