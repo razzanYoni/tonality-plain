@@ -16,13 +16,5 @@ const ROWS_PER_PAGE = 10; // Application Logic
 const STORAGE_FOLDER = 'storage';
 const MAX_SIZE = 10 * 1024 * 1024; //10MB
 
-// Bcrypt
-const BCRYPT_COST = 12;
-
-// Session
-const COOKIES_LIFETIME = 24 * 60 * 60;
-const SESSION_EXPIRATION_TIME = 24 * 60 * 60;
-const SESSION_REGENERATION_TIME = 30 * 60;
-
 // Debounce
-const DEBOUNCE_TIMEOUT = 300;
+const DEBOUNCE_TIMEOUT = 300; // 300ms
