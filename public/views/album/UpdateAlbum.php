@@ -13,29 +13,25 @@ use controllers\AlbumController;
 <h1>Update Album</h1>
 <?php $form = Form::begin('', 'post', ['class' => 'form-list']); ?>
 <div class="album-quest">
-    <div class="form-label">Album Name</div>
-    <?php echo $form->field($model, 'album_name')->renderInput() ?>
+    <?php echo $form->field($model, 'album_name') ?>
 </div>
 
 <div class="album-quest">
-    <div class="form-label">Artist</div>
-    <?php echo $form->field($model, 'artist')->renderInput() ?>
+    <?php echo $form->field($model, 'artist') ?>
 </div>
 
 <div class="album-quest">
-    <div class="form-label">Genre</div>
-    <?php echo $form->field($model, 'genre')->renderInput() ?>
+    <?php echo $form->field($model, 'genre')?>
 </div>
 
 <div class="album-quest">
-    <div class="form-label">Cover Photo</div>
-    <?php echo $form->field($model, 'cover_url')->imageFileField() ?>
-    <label for="input-file" class="custom-file-upload" id="file-label">Choose Your Album Cover</label>
+<?php echo $form->field($model, 'cover_url', ["id" => "input-file", "accept" => "image/*"])->fileField();
+  echo '<label for="input-file" class="custom-file-upload" id="file-label">Choose Your Album Cover</label>';
+?>
 </div>
 
 <div class="album-quest">
-    <div class="form-label">Release Date</div>
-    <?php echo $form->field($model, 'release_date')->dateField(['value' => '2001-01-01', 'label' => 'Release Date'])->renderInput() ?>
+    <?php echo $form->field($model, 'release_date', ["value" => '2001-01-01'])->dateField()->renderInput() ?>
 </div>
 
 <div class="cancel-submit">
