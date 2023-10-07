@@ -59,21 +59,19 @@ VALUES ('admin', '$2y$10$RtzpjVTqsEeKl4FRZbVp/OZEMfbr9Jt6SaO6lxQLfbIwnW8kbzgF.',
 ;
 
 INSERT INTO albums (album_name, release_date, genre, artist, cover_filename)
-VALUES ('album1', NOW(), 'genre1', 'artist1', 'cover1'),
-       ('album2', NOW(), 'genre2', 'artist2', 'cover2'),
-       ('album3', NOW(), 'genre3', 'artist3', 'cover3')
+VALUES ('Ghost Stories', '2014-05-16', 'Rock', 'Coldplay', '65217844a88044.61464355.jpg'),
+       ('Geography', '2018-04-06', 'Rnb', 'Tom Misch', '6521788938a005.12095312.jpg')
+;
+
+INSERT INTO songs (album_id, title, artist, song_number, disc_number, duration, audio_filename)
+VALUES (1, 'Always in My Head', 'Coldplay', 1, 1, 216, '652188a3e6bd13.96301007.mp3'),
+       (1, 'Magic', 'Coldplay', 2, 1, 285, '65218aca2523b9.50538391.mp3'),
+       (2, 'Before Paris', 'Tom Misch', 1, 1, 149, '65218b58110113.45995036.mp3')
 ;
 
 INSERT INTO playlists (user_id, playlist_name, description, cover_filename)
 VALUES (1, 'playlist1', 'description1', 'cover1'),
        (2, 'playlist2', 'description2', 'cover2')
-;
-
-INSERT INTO songs (album_id, title, artist, song_number, disc_number, duration, audio_filename)
-VALUES (1, 'song1', 'artist1', 1, 1, 100, 'audio1'),
-       (2, 'song2', 'artist2', 1, 1, 200, 'audio2'),
-       (3, 'song3', 'artist3', 1, 1, 300, 'audio3'),
-       (3, 'song4', 'artist4', 2, 1, 400, 'audio4')
 ;
 
 INSERT INTO appears_on (song_id, playlist_id)
