@@ -4,9 +4,7 @@ namespace repositories;
 
 require_once ROOT_DIR . 'src/utils/FileProcessing.php';
 
-use cores\Application,
-    bases\BaseRepository,
-    PDOException,
+use bases\BaseRepository,
     utils\FileProcessing;
 
 class AlbumRepository extends BaseRepository
