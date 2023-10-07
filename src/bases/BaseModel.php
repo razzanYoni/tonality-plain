@@ -107,9 +107,14 @@ abstract class BaseModel
                         $this->addErrorByRule($attribute, self::RULE_UNIQUE);
                     }
                 }
-                if ($ruleName === self::RULE_MAX_FILE_SIZE && !empty($_FILES)) {
-                    if ($_FILES['cover_filename'] || $_FILES['audio_filename'] !== null) {
-                        $fileError = $_FILES['cover_filename']['error'] ?? $_FILES['audio_filename']['error'];
+                if ($ruleName === self::RULE_MAX_FILE_SIZE ) {
+                    $fileError = 0;
+
+                    if (!empty($_FILES['cover_filename'])) {
+                        $fileError = $_FILES['cover_filename']['error'];
+                    }
+                    if (!empty($_FILES['audio_filename'])) {
+                        $fileError = $_FILES['audio_filename']['error'];
                     }
 
                     if ($fileError === 1) {
