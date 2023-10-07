@@ -10,6 +10,7 @@ use bases\BaseController,
     middlewares\AuthMiddleware;
 use cores\Application,
     cores\Request;
+use exceptions\BadRequestException;
 use repositories\PlaylistRepository,
     models\PlaylistModel;
 use repositories\SongRepository;
@@ -20,16 +21,55 @@ class PlaylistController extends BaseController {
     }
 
     public function playlist(Request $request) {
-        // TODO : implement playlist use user_id from Application::$app->loggedUser
+        // Method : GET
         $user_id = Application::$app->loggedUser->getUserId();
 
-        $playlistRepository = PlaylistRepository::getInstance();
-        $playlists = $playlistRepository->getPlaylistsByUserId($user_id);
+        $requestBody = $request->getBody();
 
-        // print_r($playlist);
+        $page = 1;
+        if (isset($requestBody['page'])) {
+            $page = $requestBody['page'];
+        }
+
+        $limit = ROWS_PER_PAGE;
+        $offset = ($page - 1) * ROWS_PER_PAGE;
+
+        $where = array();
+        $where['user_id'] = $user_id;
+
+        $where_like = '';
+        if (isset($requestBody['search'])) {
+            $where_like = $requestBody['search'];
+        }
+
+        $orderBy = 'playlist_name';
+        if (isset($requestBody['order'])) {
+            $orderBy[$requestBody['order']] = $requestBody['order'];
+        }
+
+        $is_desc = false;
+        if (isset($requestBody['is_desc'])) {
+            $is_desc = $requestBody['is_desc'] === 'desc';
+        }
+
+        $playlistRepository = PlaylistRepository::getInstance();
+        $playlist = $playlistRepository->getPlaylistsByUserId(
+            order: $orderBy,
+            is_desc: $is_desc,
+            where: $where,
+            where_like: $where_like,
+            limit: $limit,
+            offset: $offset
+        );
+
+        $countPlaylist = $playlistRepository->getCountPlaylistByUserId(
+            where: $where,
+            where_like: $where_like
+        );
+        $totalPages = ceil($countPlaylist / ROWS_PER_PAGE);
 
         if ($request->getMethod() === 'get') {
-            if ($playlists) {
+            if ($playlist) {
                 Application::$app->session->setFlash('success', 'Playlist Songs Retrieved Successfully');
                 return;
             }
@@ -38,10 +78,12 @@ class PlaylistController extends BaseController {
        $this->setLayout('PlaylistPage');
         return $this->render('playlist/PlaylistPage', [
             'view' => [
-                'playlist' => $playlists
+                'playlist' => $playlist
             ],
             'layout' => [
-                'title' => 'Tonality'
+                'title' => 'Tonality',
+                'totalPages' => $totalPages,
+                'page' => $page,
             ]
         ]);
     }
@@ -51,7 +93,7 @@ class PlaylistController extends BaseController {
 
         if ($request->getMethod() === 'post') {
             $playlistModel->loadData($request->getBody());
-            if ($playlistModel->validate() && AlbumRepository::getInstance()->insert($playlistModel->toArray())) {
+            if ($playlistModel->validate() && PlaylistRepository::getInstance()->insert($playlistModel->toArray())) {
                 Application::$app->session->setFlash('success', 'Playlist Inserted Successfully');
 
                 Application::$app->response->redirect('/playlist/insertPlaylist');
@@ -125,31 +167,41 @@ class PlaylistController extends BaseController {
         ]);
     }
 
+    /**
+     * @throws BadRequestException
+     */
     public function playlistById(Request $request) {
         $playlist_id = $request->getRouteParam('playlist_id');
 
-        $playlistModel = new PlaylistModel();
-        $playlist = $playlistModel->constructFromArray(
-            PlaylistRepository::getInstance()
-                ->getplaylistById($playlist_id)
-        );
-        $where = ['playlist_id' => $playlist_id];
+        $playlistRepository = PlaylistRepository::getInstance();
 
-        print_r($playlist);
-
-        if ($request->getMethod() === 'get') {
-            if ($playlist->validate() && PlaylistRepository::getInstance()->findOne($where)) {
-                Application::$app->session->setFlash('success', 'Playlist Songs Retrieved Successfully');
-
-                Application::$app->response->redirect('/playlist/{playlist_id:\d+}');
-                // return;
-            }
+        if ($playlistRepository->IsPlaylistIsOwned($playlist_id)) {
+            Application::$app->session->setFlash('error', 'Playlist Not Found');
+            throw new BadRequestException("Playlist Not Found", 404);
         }
 
-       $this->setLayout('PlaylistContent');
-        return $this->render('playlist/PlaylistContent', [
+        $playlist = $playlistRepository->getPlaylistById($playlist_id);
+        if (!$playlist) {
+            Application::$app->session->setFlash('error', 'Playlist Not Found');
+            throw new BadRequestException("Playlist Not Found", 404);
+        }
+
+        $playlistModel = new PlaylistModel();
+        $playlistModel->constructFromArray($playlist);
+
+        $songRepository = SongRepository::getInstance();
+        $songs = $songRepository->getSongsFromPlaylist($playlist_id);
+
+        if (!$songs) {
+            $songs = [];
+            // return;
+        }
+
+       $this->setLayout('playlist');
+        return $this->render('playlist/playlistContent', [
             'view' => [
-                'playlist' => $playlist
+                'playlist' => $playlistModel,
+                'songs' => $songs
             ],
             'layout' => [
                 'title' => 'Tonality'
