@@ -61,8 +61,8 @@ use repositories\SongRepository;
                     <td class="song-number"><?php echo $key + 1; ?></td>
                     <td class="song-title"><?php echo $song['title']; ?></td>
                     <td class="song-duration-body"><?php echo $song['duration']; ?></td>
-                    <td><a href="/albumAdmin/<?php echo $album->get('album_id'); ?>/updateAlbum"><img src="public/assets/icons/pen-solid.svg" alt="Edit"></a></td>
-                    <td><a href="/albumAdmin/<?php echo $album->get('album_id'); ?>/deleteAlbum"><img src="public/assets/icons/trash-solid.svg" alt="Delete"></a></td>
+                    <td><a href="/albumAdmin/<?php echo $album->get('album_id'); ?>/updateSong/<?php echo $song['song_id']; ?>"> <img src="public/assets/icons/pen-solid.svg" alt="Edit"></a></td>
+                    <td><a href="/albumAdmin/<?php echo $album->get('album_id'); ?>/deleteSong/<?php echo $song['song_id']; ?>"><img src="public/assets/icons/trash-solid.svg" alt="Delete"></a></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
