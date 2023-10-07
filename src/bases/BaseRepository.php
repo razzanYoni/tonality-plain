@@ -39,7 +39,7 @@ abstract class BaseRepository
             $stmt->execute();
             return $stmt->fetch();
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+//            echo "Error: " . $e->getMessage();
             return null;
         }
     }
@@ -64,7 +64,7 @@ abstract class BaseRepository
             return true;
 
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+//            echo "Error: " . $e->getMessage();
             return false;
         }
     }
@@ -98,7 +98,7 @@ abstract class BaseRepository
 
         } catch (PDOException $e) {
             // Handle kesalahan koneksi atau query di sini
-            echo "Error: " . $e->getMessage();
+//            echo "Error: " . $e->getMessage();
             return false;
         }
     }
@@ -132,11 +132,11 @@ abstract class BaseRepository
             return true;
 
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+//            echo "Error: " . $e->getMessage();
             return false;
 
         } catch (Exception $e) {
-            echo "Error : " . $e->getMessage();
+//            echo "Error : " . $e->getMessage();
             return false;
         }
     }
@@ -224,7 +224,7 @@ abstract class BaseRepository
             return $stmt->fetchAll();
 
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+//            echo "Error: " . $e->getMessage();
             return [];
         }
     }
@@ -275,7 +275,7 @@ abstract class BaseRepository
             return $stmt->fetch();
 
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+//            echo "Error: " . $e->getMessage();
             return 0;
         }
     }
