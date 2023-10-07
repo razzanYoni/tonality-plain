@@ -8,12 +8,14 @@ require_once ROOT_DIR . 'src/controllers/AuthorizationController.php';
 require_once ROOT_DIR . 'src/controllers/AlbumController.php';
 require_once ROOT_DIR . 'src/controllers/SongController.php';
 require_once ROOT_DIR . 'src/controllers/PlaylistController.php';
+require_once ROOT_DIR . 'src/controllers/UserController.php';
 
 use cores\Application,
     controllers\AuthorizationController,
     controllers\AlbumController,
     controllers\PlaylistController,
-    controllers\SongController;
+    controllers\SongController,
+    controllers\UserController;
 
 $app = Application::getInstance();
 
@@ -70,6 +72,9 @@ $app->router->get('/album/{album_id:\d+}/insertSong', [SongController::class, 'i
 $app->router->post('/album/{album_id:\d+}/insertSong', [SongController::class, 'insertSongToPlaylist']);
 $app->router->get('/playlist/{playlist_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
 $app->router->post('/playlist/{playlist_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
+
+
+$app->router->get('/users', [UserController::class, 'getAllUsers']);
 
 // Set router default to login
 if ($_SERVER['REQUEST_URI'] === '/' && !isset($_SESSION['user_id'])) {
