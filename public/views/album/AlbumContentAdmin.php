@@ -1,4 +1,9 @@
 <?php
+
+/* @var $song array
+ *
+ **/
+
 require_once ROOT_DIR . "src/models/AlbumModel.php";
 require_once ROOT_DIR . "src/controllers/AlbumController.php";
 require_once ROOT_DIR . "src/repositories/AlbumRepository.php";
@@ -25,11 +30,11 @@ use repositories\SongRepository;
                 <?php echo $album->get('release_date')?>
             </div>
             <div class="album-songs">
-            <?php echo SongRepository::getInstance()->getCountSongsFromAlbum($album->get('album_id'))?>
+                <?php echo $count_song ?>
                 <span> songs</span>
             </div>
             <div class="album-duration">
-                <?php echo SongRepository::getInstance()->getAlbumDuration($album->get('album_id'))?>
+                <?php echo $duration ?>
                 <span> minutes</span>
             </div>
         </div>
@@ -51,7 +56,6 @@ use repositories\SongRepository;
             <th class="song-duration">Duration</th>
         </thead>
         <tbody>
-            <?php $songs = SongRepository::getInstance()->getSongsFromAlbum($album->get('album_id')) ?>
             <?php foreach ($songs as $key => $song): ?>
                 <tr class="single-song">
                     <td class="song-number"><?php echo $key + 1; ?></td>
