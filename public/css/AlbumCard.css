@@ -9,14 +9,14 @@
     margin: 10px;
     text-align: center;
     text-decoration: none;
-    background-color: #2b2b2b;
+    background-color: #151515;
     border-radius: 5px; /* Apply border-radius to the default state */
     overflow: hidden; /* Prevents content from overflowing rounded corners */
     transition: background-color 0.2s; /* Add a smooth transition */
 }
 
 .album-card:hover {
-    background-color: #3d3d3d;
+    background-color: #2b2b2b;
     border-radius: 5px; /* Apply border-radius to the hover state */
 }
 
