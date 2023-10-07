@@ -27,7 +27,7 @@ class AlbumController extends BaseController
     public function albumAdmin()
     {
         // Method : GET
-        $this->setLayout('Album');
+        $this->setLayout('AlbumPage');
         return $this->render('album/Album', [
             'view' => [
                 'name' => Application::$app->loggedUser->getUsername()
@@ -48,7 +48,7 @@ class AlbumController extends BaseController
                 return;
             }
         }
-        $this->setLayout('Album');
+        $this->setLayout('AlbumForm');
         return $this->render('album/insertAlbum', [
             'view' => [
                 'model' => $albumModel
@@ -82,7 +82,7 @@ class AlbumController extends BaseController
                 return;
             }
         }
-        $this->setLayout('Album');
+        $this->setLayout('AlbumForm');
         return $this->render('album/updateAlbum', [
             'view' => [
                 'model' => $albumModelOld
@@ -105,7 +105,7 @@ class AlbumController extends BaseController
                 return;
             }
         }
-        $this->setLayout('Album');
+        $this->setLayout('AlbumForm');
         return $this->render('album/deleteAlbum', [
             'view' => [
                 'model' => $albumModel
@@ -133,7 +133,7 @@ class AlbumController extends BaseController
                 return;
             }
         }
-        $this->setLayout('Album');
+        $this->setLayout('AlbumPage');
         return $this->render('album/albumContent', [
             'view' => [
                 'album' => $album,
@@ -159,7 +159,7 @@ class AlbumController extends BaseController
             }
         }
 
-       $this->setLayout('Album');
+       $this->setLayout('AlbumPage');
         return $this->render('album/Album', [
             'view' => [
                 'allAlbums' => $albums
@@ -186,7 +186,7 @@ class AlbumController extends BaseController
             }
         }
 
-       $this->setLayout('album');
+       $this->setLayout('AlbumPage');
         return $this->render('album/albumContent', [
             'view' => [
                 'album' => $album
