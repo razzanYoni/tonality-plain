@@ -107,8 +107,10 @@ abstract class BaseModel
                         $this->addErrorByRule($attribute, self::RULE_UNIQUE);
                     }
                 }
-                if ($ruleName === self::RULE_MAX_FILE_SIZE) {
-                    $fileError = $_FILES['cover_filename']['error'] ?? $_FILES['audio_filename']['error'];
+                if ($ruleName === self::RULE_MAX_FILE_SIZE && !empty($_FILES)) {
+                    if ($_FILES['cover_filename'] || $_FILES['audio_filename'] !== null) {
+                        $fileError = $_FILES['cover_filename']['error'] ?? $_FILES['audio_filename']['error'];
+                    }
 
                     if ($fileError === 1) {
                         // https://www.php.net/manual/en/features.file-upload.errors.php
