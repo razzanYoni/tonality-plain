@@ -8,7 +8,6 @@ require_once ROOT_DIR . "src/controllers/AlbumController.php";
 require_once ROOT_DIR . "src/repositories/AlbumRepository.php";
 require_once ROOT_DIR . "public/components/AlbumCard.php";
 
-use controllers\AlbumController;
 use models\AlbumModel;
 
 ?>

@@ -14,6 +14,7 @@
     width: 220px;
     height: 220px;
     background-color: #D9D9D9;
+    border-radius: 5px;
 }
 
 .album-detail {
@@ -34,21 +35,26 @@
 
 }
 
-.edit-btn {
-    background-color: black;
-    border-color: black;
-    border-radius: 30px;
-    width: 30px;
-    height: 30px;
-    margin-right: 0.5rem;
-}
-
+.edit-btn,
 .delete-btn {
     background-color: black;
     border-color: black;
     border-radius: 30px;
     width: 30px;
     height: 30px;
+    padding: 6px;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+    cursor: pointer;
+}
+
+.edit-btn {
+    margin-right: 0.5rem;
+}
+
+.delete-btn {
     margin-left: 0.5rem;
 }
 
