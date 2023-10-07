@@ -71,18 +71,18 @@ class PlaylistController extends BaseController {
         if ($request->getMethod() === 'get') {
             if ($playlist) {
                 Application::$app->session->setFlash('success', 'Playlist Songs Retrieved Successfully');
-                return;
+//                return;
             }
         }
 
-       $this->setLayout('PlaylistPage');
-        return $this->render('playlist/PlaylistPage', [
+       $this->setLayout('playlistPage');
+        return $this->render('playlist/playlistPage', [
             'view' => [
-                'playlist' => $playlist
+                'playlists' => $playlist
             ],
             'layout' => [
-                'title' => 'Tonality',
-                'totalPages' => $totalPages,
+                'title' => 'Playlist - Tonality',
+                'totalPage' => $totalPages,
                 'page' => $page,
             ]
         ]);
@@ -100,7 +100,7 @@ class PlaylistController extends BaseController {
                 return;
             }
         }
-        $this->setLayout('playlist');
+        $this->setLayout('playlistForm');
         return $this->render('playlist/insertPlaylist', [
             'view' => [
                 'model' => $playlistModel
@@ -175,12 +175,13 @@ class PlaylistController extends BaseController {
 
         $playlistRepository = PlaylistRepository::getInstance();
 
-        if ($playlistRepository->IsPlaylistIsOwned($playlist_id)) {
+        if (!$playlistRepository->IsPlaylistIsOwned($playlist_id)) {
             Application::$app->session->setFlash('error', 'Playlist Not Found');
             throw new BadRequestException("Playlist Not Found", 404);
         }
 
         $playlist = $playlistRepository->getPlaylistById($playlist_id);
+
         if (!$playlist) {
             Application::$app->session->setFlash('error', 'Playlist Not Found');
             throw new BadRequestException("Playlist Not Found", 404);
@@ -192,16 +193,19 @@ class PlaylistController extends BaseController {
         $songRepository = SongRepository::getInstance();
         $songs = $songRepository->getSongsFromPlaylist($playlist_id);
 
+        $duration = $songRepository->getPlaylistDuration($playlist_id);
+
         if (!$songs) {
             $songs = [];
             // return;
         }
 
-       $this->setLayout('playlist');
+       $this->setLayout('playlistContent');
         return $this->render('playlist/playlistContent', [
             'view' => [
                 'playlist' => $playlistModel,
-                'songs' => $songs
+                'songs' => $songs,
+                'duration' => $duration,
             ],
             'layout' => [
                 'title' => 'Tonality'

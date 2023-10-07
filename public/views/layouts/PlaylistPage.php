@@ -5,7 +5,6 @@
  *  @var $page int
  * */
 require_once ROOT_DIR . "public/components/NavBar.php";
-require_once ROOT_DIR . "public/components/AlbumCard.php";
 require_once ROOT_DIR . "public/components/Pagination.php";
 
 ?>
@@ -20,8 +19,8 @@ require_once ROOT_DIR . "public/components/Pagination.php";
     <link rel="stylesheet" href="/public/css/NavBar.css" type="text/css">
     <link rel="stylesheet" href="/public/css/Pagination.css" type="text/css">
 
-    <link rel="stylesheet" href="/public/css/AlbumCardNew.css" type="text/css">
-    <link rel="stylesheet" href="/public/css/AlbumPage.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/PlaylistCard.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/PlaylistPage.css" type="text/css">
 
     <title>
         <?php
@@ -34,15 +33,15 @@ require_once ROOT_DIR . "public/components/Pagination.php";
 </head>
 <body>
     <?php
-        echo NavBar(currentPage: "Playlist");
+        echo NavBar(currentPage: "Playlists");
     ?>
 
     <div class="album-container">
         {{content}}
     </div>
 
-    <!-- <?php
+    <?php
         echo Pagination(totalPage: $totalPage, currentPage: $page);
-    ?> -->
+    ?>
 </body>
 </html>

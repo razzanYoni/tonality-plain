@@ -24,7 +24,7 @@ use models\PlaylistModel;
                 <?php echo $playlist->get('description')?>
             </div>
             <div class="playlist-duration">
-                <?php echo SongRepository::getInstance()->getPlaylistDuration($playlist->get('playlist_id'))?>
+                <?php echo $duration ?>
                 <span> minutes</span>
             </div>
         </div>
@@ -38,7 +38,6 @@ use models\PlaylistModel;
             <th class="song-duration">Duration</th>
         </thead>
         <tbody>
-            <?php $songs = SongRepository::getInstance()->getSongsFromPlaylist($playlist->get('playlist_id')) ?>
             <?php foreach ($songs as $key => $song): ?>
                 <tr class="single-song">
                     <td class="song-number"><?php echo $key + 1; ?></td>

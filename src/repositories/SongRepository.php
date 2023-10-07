@@ -90,4 +90,16 @@ class SongRepository extends BaseRepository
             return 0;
         }
     }
+
+    public function getPlaylistDuration($playlist_id): bool|int
+    {
+        $songsInPlaylist = $this->getSongsFromPlaylist($playlist_id);
+
+        $totalDuration = 0;
+        foreach ($songsInPlaylist as $song) {
+            $totalDuration += $song['duration'];
+        }
+
+        return $totalDuration;
+    }
 }

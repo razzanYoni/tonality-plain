@@ -5,7 +5,6 @@
  *  @var $page int
  * */
 require_once ROOT_DIR . "public/components/NavBar.php";
-require_once ROOT_DIR . "public/components/AlbumCard.php";
 require_once ROOT_DIR . "public/components/Pagination.php";
 
 ?>
