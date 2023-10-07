@@ -82,4 +82,26 @@ class AlbumRepository extends BaseRepository
             return [];
         }
     }
+
+    public function getAlbumDuration($album_id): bool|int
+    {
+        try {
+            $query = "SELECT SUM(duration) AS total_duration FROM songs WHERE album_id = :album_id";
+            $stmt = Application::$app->db->prepare($query);
+
+            $stmt->bindParam(':album_id', $album_id);
+
+            $stmt->execute();
+            $result = $stmt->fetch();
+
+            if ($result && isset($result['total_duration'])) {
+                return (int)$result['total_duration'];
+            } else {
+                return 0;
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return null;
+        }
+    }
 }
