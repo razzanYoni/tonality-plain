@@ -24,11 +24,11 @@ function searchAlbum() {
   xhr.onload = function () {
     if (xhr.status === 200) {
       // const response = JSON.parse(xhr.responseText);
-      // implement set $_GLOBAL["search"] = input;
-      oldInput = "<?php echo $_GLOBAL['search'] = input; ?>"
-
       window.history.pushState({ query: input }, "", newUrl);
-      window.location.reload();
+      // window.location.reload();
+
+      const response = JSON.parse(xhr.responseText);
+      // TODO : set Element TO
     } else {
       console.error("Terjadi kesalahan dalam melakukan pencarian.");
     }
