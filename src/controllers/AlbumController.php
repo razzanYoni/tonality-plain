@@ -82,6 +82,12 @@ class AlbumController extends BaseController
             }
         }
 
+        if ($where_like !== '') {
+            Application::$app->response->statusCode(200);
+            echo json_encode($albums);
+            exit();
+        }
+
         $this->setLayout('AlbumPage');
         return $this->render('album/albumAdmin', [
 
