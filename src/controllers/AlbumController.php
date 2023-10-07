@@ -67,7 +67,7 @@ class AlbumController extends BaseController
             }
         }
         $this->setLayout('AlbumForm');
-        return $this->render('album/insertAlbum', [
+        return $this->render('album/InsertAlbum', [
             'view' => [
                 'model' => $albumModel
                 ],

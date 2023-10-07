@@ -17,9 +17,6 @@ require_once ROOT_DIR . "public/components/NavBar.php";
     <link rel="stylesheet" href="/public/css/Form.css" type="text/css">
     <title>
         <?php
-            if (isset($title))
-            {
-                echo $title;
         if (isset($title)) {
             echo $title;
         }
@@ -30,10 +27,8 @@ require_once ROOT_DIR . "public/components/NavBar.php";
     <?php
         echo NavBar();
     ?>
-    <div class="form-container">
     <div class="form-body">
         {{content}}
-    </div>
     </div>
 </body>
 </html>
