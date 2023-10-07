@@ -25,9 +25,15 @@ class SongController extends BaseController {
     public function insertSongToAlbum(Request $request) {
         $songModel = new SongModel();
         $album_id = $request->getRouteParam('album_id');
+
         if ($request->getMethod() === 'post') {
             $songModel->set('album_id', $album_id);
             $songModel->loadData($request->getBody());
+
+            if (!empty($_FILES['audio_filename'])) {
+                $songModel->set('audio_filename', $_FILES['audio_filename']['name']);
+            }
+
             if ($songModel->validate() && SongRepository::getInstance()->insert($songModel->toArray())) {
                 Application::$app->session->setFlash('success', 'Song inserted successfully');
                 Application::$app->response->redirect('/albumAdmin/' . $album_id . '/insertSong');
@@ -36,8 +42,8 @@ class SongController extends BaseController {
         }
 
         // Method : GET
-        $this->setLayout('blank');
-        return $this->render('song/insertSong', [
+        $this->setLayout('AlbumForm');
+        return $this->render('song/InsertSong', [
             'view' => [
                 'model' => $songModel
                 ]

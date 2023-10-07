@@ -2,9 +2,8 @@
 
 namespace repositories;
 
-use bases\BaseRepository;
-use cores\Application;
-use PDOException;
+use bases\BaseRepository,
+    utils\FileProcessing;
 
 class SongRepository extends BaseRepository
 {
@@ -101,5 +100,11 @@ class SongRepository extends BaseRepository
         }
 
         return $totalDuration;
+    }
+
+    public function insert(array $data): bool
+    {
+        $data['audio_filename'] = FileProcessing::getInstance()->processFile();
+        return parent::insert($data);
     }
 }
