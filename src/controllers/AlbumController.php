@@ -149,11 +149,12 @@ class AlbumController extends BaseController
         if ($request->getMethod() === 'get') {
             if ($albumModel->validate() && AlbumRepository::getInstance()->findOne($where)) {
                 Application::$app->session->setFlash('success', 'Album Retrieved Successfully');
-                return;
+                // return;
             }
         }
-        $this->setLayout('AlbumPage');
-        return $this->render('album/albumContent', [
+
+        $this->setLayout('AlbumContent');
+        return $this->render('album/AlbumContentAdmin', [
             'view' => [
                 'album' => $album,
             ],
