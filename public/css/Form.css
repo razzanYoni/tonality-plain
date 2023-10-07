@@ -61,7 +61,8 @@ h1 {
 }
 
 form input[type=text],
-form input[type=password] {
+form input[type=password],
+form input[type=number] {
     background-color: #000000;
     border-radius: 15px;
     border-color: white;
