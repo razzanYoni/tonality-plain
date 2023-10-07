@@ -2,10 +2,12 @@
 require_once ROOT_DIR . "src/models/AlbumModel.php";
 require_once ROOT_DIR . "src/controllers/AlbumController.php";
 require_once ROOT_DIR . "src/repositories/AlbumRepository.php";
+require_once ROOT_DIR . "src/repositories/SongRepository.php";
 require_once ROOT_DIR . "public/components/AlbumCard.php";
 
 use controllers\AlbumController;
 use repositories\AlbumRepository;
+use repositories\SongRepository;
 use models\AlbumModel;
 ?>
 
@@ -25,11 +27,11 @@ use models\AlbumModel;
                 <?php echo $album->get('release_date')?>
             </div>
             <div class="album-songs">
-            <?php echo count(AlbumRepository::getInstance()->getSongsFromAlbum($album->get('album_id')))?>
+            <?php echo SongRepository::getInstance()->getCountSongsFromAlbum($album->get('album_id'))?>
                 <span> songs</span>
             </div>
             <div class="album-duration">
-                <?php echo AlbumRepository::getInstance()->getAlbumDuration($album->get('album_id'))?>
+                <?php echo SongRepository::getInstance()->getAlbumDuration($album->get('album_id'))?>
                 <span> minutes</span>
             </div>
         </div>
@@ -51,7 +53,7 @@ use models\AlbumModel;
             <th class="song-duration">Duration</th>
         </thead>
         <tbody>
-            <?php $songs = AlbumRepository::getInstance()->getSongsFromAlbum($album->get('album_id')) ?>
+            <?php $songs = SongRepository::getInstance()->getSongsFromAlbum($album->get('album_id')) ?>
             <?php foreach ($songs as $key => $song): ?>
                 <tr class="single-song">
                     <td class="song-number"><?php echo $key + 1; ?></td>
