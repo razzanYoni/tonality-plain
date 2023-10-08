@@ -6,7 +6,6 @@
 require_once ROOT_DIR . "src/models/PlaylistModel.php";
 require_once ROOT_DIR . "public/components/PlaylistCard.php";
 
-use controllers\PlaylistController;
 use models\PlaylistModel;
 
 ?>
