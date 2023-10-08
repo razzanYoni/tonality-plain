@@ -1,3 +1,4 @@
+.album-detail-container,
 .playlist-detail-container {
     background-color: #6F6F6F;
     display: flex;
@@ -10,21 +11,33 @@
     display: flex;
 }
 
+.album-cover,
 .playlist-cover {
     width: 220px;
     height: 220px;
     background-color: #D9D9D9;
+    border-radius: 15px;
 }
 
+.album-cover-image,
+.playlist-cover-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px
+}
+
+.album-detail,
 .playlist-detail {
     margin-left: 30px;
 }
 
+.album-title,
 .playlist-title {
     font-size: 100px;
 }
 
-.playlist-description,.playlist-songs {
+.album-artist, .album-date, .album-songs,
+.playlist-description, .playlist-songs {
     margin-bottom: 5px;
 }
 
@@ -34,28 +47,36 @@
 
 }
 
-.edit-btn {
-    background-color: black;
-    border-color: black;
+.edit-btn,
+.delete-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #151515;
+
+    border: none;
     border-radius: 30px;
-    width: 40px;
-    height: 40px;
+
+    width: 30px;
+    height: 30px;
+
+    padding: 8px;
+
+    transition: background-color 0.2s;
+}
+
+.edit-btn {
     margin-right: 0.5rem;
 }
 
 .delete-btn {
-    background-color: black;
-    border-color: black;
-    border-radius: 30px;
-    width: 40px;
-    height: 40px;
     margin-left: 0.5rem;
 }
 
 .edit-btn:hover, .delete-btn:hover {
-    background-color: #333;
-    border-color: #333;
-    color: white;
+    background-color: #2b2b2b;
+    cursor: pointer;
 }
 
 .song-table {

@@ -208,8 +208,8 @@ class PlaylistController extends BaseController
             // return;
         }
 
-        $this->setLayout('playlistContent');
-        return $this->render('playlist/playlistContent', [
+        $this->setLayout('PlaylistContent');
+        return $this->render('playlist/PlaylistContent', [
             'view' => [
                 'playlist' => $playlistModel,
                 'songs' => $songs,

@@ -15,8 +15,7 @@ require_once ROOT_DIR . "public/components/AlbumCard.php";
   <script src="/public/js/Form.js"></script>
   <link rel="stylesheet" href="/public/css/Global.css" type="text/css">
   <link rel="stylesheet" href="/public/css/NavBar.css" type="text/css">
-  <link rel="stylesheet" href="/public/css/AlbumContent.css" type="text/css">
-  <link rel="stylesheet" href="/public/css/AlbumCard.css" type="text/css">
+  <link rel="stylesheet" href="/public/css/AlbumAndPlaylistContent.css" type="text/css">
 
   <title>
       <?php
