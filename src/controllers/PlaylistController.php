@@ -2,7 +2,7 @@
 
 namespace controllers;
 
-require_once ROOT_DIR . "src/middlewares/AuthMiddleware.php";
+require_once ROOT_DIR . "src/middlewares/UserMiddleware.php";
 require_once ROOT_DIR . "src/repositories/PlaylistRepository.php";
 require_once ROOT_DIR . "src/models/PlaylistModel.php";
 
@@ -10,7 +10,7 @@ use bases\BaseController;
 use cores\Application;
 use cores\Request;
 use exceptions\BadRequestException;
-use middlewares\AuthMiddleware;
+use middlewares\UserMiddleware;
 use models\PlaylistModel;
 use repositories\PlaylistRepository;
 use repositories\SongRepository;
@@ -19,7 +19,7 @@ class PlaylistController extends BaseController
 {
     public function __construct()
     {
-        $this->registerMiddleware(new AuthMiddleware(['playlist', 'insertPlaylist', 'updatePlaylist', 'deletePlaylist', 'playlistById']));
+        $this->registerMiddleware(new UserMiddleware(['playlist', 'insertPlaylist', 'updatePlaylist', 'deletePlaylist', 'playlistById']));
     }
 
     public function playlist(Request $request)

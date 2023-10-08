@@ -13,12 +13,12 @@ use bases\BaseController,
     models\SongModel,
     repositories\AppearsOnRepository,
     repositories\SongRepository,
-    middlewares\AuthMiddleware;
+    middlewares\UserMiddleware;
 
 class SongController extends BaseController {
     public function __construct() {
         $this->registerMiddleware(new AdminMiddleware(['insertSongToAlbum', 'updateSongFromAlbum', 'deleteSongFrom']));
-        $this->registerMiddleware(new AuthMiddleware(['insertSongToPlaylist', 'deleteSongFromPlaylist']));
+        $this->registerMiddleware(new UserMiddleware(['insertSongToPlaylist', 'deleteSongFromPlaylist']));
     }
 
     // Admin
