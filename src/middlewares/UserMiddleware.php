@@ -2,12 +2,15 @@
 
 namespace middlewares;
 
-use bases\BaseMiddleware;
-use exceptions\ForbiddenException;
+require_once ROOT_DIR . "src/bases/BaseMiddleware.php";
+require_once ROOT_DIR . "src/exceptions/ForbiddenException.php";
 
-class AuthMiddleware extends BaseMiddleware
+use exceptions\ForbiddenException,
+    bases\BaseMiddleware;
+
+class UserMiddleware extends BaseMiddleware
 {
-    protected static AuthMiddleware $instance;
+    protected static UserMiddleware $instance;
     protected array $actions = [];
 
     public function __construct($actions = []) {
@@ -23,7 +26,7 @@ class AuthMiddleware extends BaseMiddleware
 
     public function execute()
     {
-        if (\cores\Application::$app::isGuest()) {
+        if (\cores\Application::$app::isNotUser()) {
             if (empty($this->actions) || in_array(\cores\Application::$app->controller->action, $this->actions)) {
                 throw new ForbiddenException(message: "You don't have permission to access this page", code: 403);
             }

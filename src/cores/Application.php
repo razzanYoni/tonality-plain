@@ -63,6 +63,11 @@ class Application {
         return self::$app;
     }
 
+    public static function isGuest()
+    {
+        return !self::$app->loggedUser;
+    }
+
     public static function isNotUser()
     {
         // asumsi admin gabisa masuk ke halaman user

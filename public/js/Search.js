@@ -14,18 +14,39 @@ function searchAlbum() {
   const input = searchInput.value;
 
   const xhr = new XMLHttpRequest();
-  const currentUrl = new URL(window.location.href);
+  let url = window.location.href;
+  if (url.includes("albumAdmin")) {
+    url = url.replace("albumAdmin", "albumXhr");
+  } else {
+    if (!url.includes("albumXhr")) {
+      url = url.replace("album", "albumXhr");
+    }
+  }
+
+  let currentUrl = new URL(url);
+
   currentUrl.searchParams.set("search", input);
 
-  const newUrl = currentUrl.href;
+  let newUrl = currentUrl.href;
 
   xhr.open("GET", newUrl, true);
 
   xhr.onload = function () {
     if (xhr.status === 200) {
-      // const response = JSON.parse(xhr.responseText);
+      const response = JSON.parse(xhr.response);
+      const page = response["page"];
+      const totalPage = response["totalPage"];
+      const is_admin = response["is_admin"];
+      const data = response["data"];
+
+      console.log(is_admin);
+      if (is_admin === 0) {
+        newUrl = newUrl.replace("albumXhr", "albumAdmin");
+      } else {
+        newUrl = newUrl.replace("albumXhr", "album");
+      }
       window.history.pushState({ query: input }, "", newUrl);
-      window.location.reload();
+
     } else {
       console.error("Terjadi kesalahan dalam melakukan pencarian.");
     }

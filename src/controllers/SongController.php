@@ -6,21 +6,19 @@ require_once ROOT_DIR . "src/models/SongModel.php";
 require_once ROOT_DIR . "src/repositories/SongRepository.php";
 require_once ROOT_DIR . "src/repositories/AppearsOnRepository.php";
 
-use bases\BaseController;
-use cores\Application;
-use cores\Request;
-use middlewares\AdminMiddleware;
-use middlewares\AuthMiddleware;
-use models\SongModel;
-use repositories\AppearsOnRepository;
-use repositories\SongRepository;
+use bases\BaseController,
+    cores\Application,
+    cores\Request,
+    middlewares\AdminMiddleware,
+    models\SongModel,
+    repositories\AppearsOnRepository,
+    repositories\SongRepository,
+    middlewares\UserMiddleware;
 
-class SongController extends BaseController
-{
-    public function __construct()
-    {
+class SongController extends BaseController {
+    public function __construct() {
         $this->registerMiddleware(new AdminMiddleware(['insertSongToAlbum', 'updateSongFromAlbum', 'deleteSongFrom']));
-        $this->registerMiddleware(new AuthMiddleware(['insertSongToPlaylist', 'deleteSongFromPlaylist']));
+        $this->registerMiddleware(new UserMiddleware(['insertSongToPlaylist', 'deleteSongFromPlaylist']));
     }
 
     // Admin
