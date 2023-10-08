@@ -12,7 +12,7 @@ use models\AlbumModel;
 
 ?>
 
-<div class="album-card-container">
+<div class="album-card-container" id="album-card-container">
     <?php
         foreach ($albums as $album) {
             $albumModel = new AlbumModel();

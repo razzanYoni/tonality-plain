@@ -42,7 +42,7 @@ function pagination($totalPage, $currentPage = 1) : string
     }
 
     return <<<"EOT"
-        <div class="pagination">
+        <div class="pagination-container" id="pagination-container">
             $first
             $prev
             $current

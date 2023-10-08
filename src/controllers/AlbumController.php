@@ -86,7 +86,6 @@ class AlbumController extends BaseController
         }
 
         $resultJson = array();
-        $resultJson['page'] = json_encode($page);
         $resultJson['totalPage'] = json_encode($totalPage);
         $resultJson['is_admin'] = json_encode((int)Application::$app->loggedUser->isAdmin());
 
@@ -94,7 +93,9 @@ class AlbumController extends BaseController
         foreach ($albums as $album) {
             $albumModel = new AlbumModel();
             $albumModel->constructFromArray($album);
-            $data[] = $albumModel->toArray();
+            $dataTemp = $albumModel->toArray();
+            $dataTemp['album_id'] = $album['album_id'];
+            $data[] = $dataTemp;
         }
 
         $resultJson['data'] = json_encode($data);
