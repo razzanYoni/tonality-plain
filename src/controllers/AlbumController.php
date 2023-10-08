@@ -7,15 +7,15 @@ require_once ROOT_DIR . "src/middlewares/AdminMiddleware.php";
 require_once ROOT_DIR . "src/repositories/AlbumRepository.php";
 require_once ROOT_DIR . "src/models/AlbumModel.php";
 
-use bases\BaseController,
-    middlewares\AuthMiddleware,
-    middlewares\AdminMiddleware;
-use cores\Application,
-    cores\Request;
-use repositories\AlbumRepository,
-    models\AlbumModel;
-use repositories\SongRepository,
-    exceptions\NotFoundException;
+use bases\BaseController;
+use cores\Application;
+use cores\Request;
+use exceptions\NotFoundException;
+use middlewares\AdminMiddleware;
+use middlewares\AuthMiddleware;
+use models\AlbumModel;
+use repositories\AlbumRepository;
+use repositories\SongRepository;
 
 class AlbumController extends BaseController
 {
@@ -111,7 +111,7 @@ class AlbumController extends BaseController
         return $this->render('album/InsertAlbum', [
             'view' => [
                 'model' => $albumModel
-                ],
+            ],
             'layout' => [
                 'title' => 'Add Album - Tonality'
             ]
@@ -137,7 +137,7 @@ class AlbumController extends BaseController
                         data: $albumModelNew->toArray()
                     )) {
                 Application::$app->session->setFlash('success', 'Album Edited Successfully');
-                Application::$app->response->redirect('/albumAdmin/{album_id:\d+}/updateAlbum');
+                Application::$app->response->redirect('/albumAdmin/' . $album_id);
                 return;
             }
         }
@@ -324,7 +324,7 @@ class AlbumController extends BaseController
 
         Application::$app->session->setFlash('success', 'Album Retrieved Successfully');
 
-       $this->setLayout('AlbumContent');
+        $this->setLayout('AlbumContent');
         return $this->render('album/albumContentUser', [
             'view' => [
                 'album' => $albumModel,
