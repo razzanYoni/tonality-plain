@@ -96,4 +96,11 @@ class PlaylistRepository extends BaseRepository
         $data['cover_filename'] = FileProcessing::getInstance()->processFile();
         return parent::insert($data);
     }
+
+    public function update($id, array $data): bool
+    {
+        $data['user_id'] = Application::getInstance()->loggedUser->getUserId();
+        $data['cover_filename'] = FileProcessing::getInstance()->processFile();
+        return parent::update($id, $data);
+    }
 }

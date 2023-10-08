@@ -16,6 +16,7 @@ $playlistDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($du
 ?>
 
 <div class="playlist-detail-container">
+
   <div class="cover-detail">
     <div class="playlist-cover">
       <img class="playlist-cover-image"
@@ -37,7 +38,19 @@ $playlistDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($du
       </div>
     </div>
   </div>
+
+  <div class="edit-delete">
+    <button class="edit-btn"
+            onclick="window.location.href='/playlist/<?php echo $playlist->get('playlist_id'); ?>/updatePlaylist'">
+      <img src="/public/assets/icons/pen-solid.svg" alt="Edit">
+    </button>
+    <button class="delete-btn"
+            onclick="window.location.href='/playlist/<?php echo $playlist->get('playlist_id'); ?>/deletePlaylist'">
+      <img src="/public/assets/icons/trash-solid.svg" alt="Delete">
+    </button>
+  </div>
 </div>
+
 <div class="song-table">
   <table>
     <thead>

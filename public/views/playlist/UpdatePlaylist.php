@@ -1,34 +1,43 @@
 <?php
 
-/** @var $model \models\UserLoginModel */
+/** @var $model PlaylistModel */
 
-// define("ROOT_DIR", __DIR__ . "/");
 require_once ROOT_DIR . "public/components/NavBar.php";
 require_once ROOT_DIR . "src/forms/Form.php";
 
 use forms\Form;
+use models\PlaylistModel;
 
 ?>
-<h1>Update Playlist</h1>
-<?php $form = Form::begin('', 'post', ['class' => 'form-list']); ?>
-<div class="playlist-quest">
-    <?php echo $form->field($model, 'playlist_name') ?>
-</div>
 
-<div class="playlist-quest">
-    <?php echo $form->field($model, 'description') ?>
-</div>
+<div class="form-container">
+  <h1>
+    Edit Playlist
+  </h1>
 
-<div class="playlist-quest">
-    <?php
-    echo $form->field($model, 'cover_filename', ["id" => "input-file", "accept" => "image/*"])->fileField();
-    echo '<label for="input-file" class="custom-file-upload" id="file-label">Choose Your Playlist Cover</label>';
-    ?>
-</div>
+    <?php $form = Form::begin('', 'post', ['class' => 'form-list'], enctype: "multipart/form-data"); ?>
 
-<div class="cancel-submit">
+  <div class="playlist-quest">
+      <?php echo $form->field($model, 'playlist_name') ?>
+  </div>
+
+  <div class="playlist-quest">
+      <?php echo $form->field($model, 'description') ?>
+  </div>
+
+  <div class="playlist-quest">
+      <?php
+      echo $form->field($model, 'cover_filename', ["id" => "input-file", "accept" => "image/*"])->fileField();
+      echo '<label for="input-file" class="custom-file-upload" id="file-label">Choose Your Playlist Cover</label>';
+      ?>
+  </div>
+
+  <div class="cancel-submit">
     <input type="button" class="cancel-btn" onclick="history.back()" value="Cancel">
-    <button class="add-btn" formaction="/playlist/insertPlaylist">Add Song</button>
-</div>
+    <button class="add-btn" formaction="/playlist/<?php echo $model->get('playlist_id') ?>/updatePlaylist">Edit
+      Playlist
+    </button>
+  </div>
 
-<?php Form::end() ?>
+    <?php Form::end() ?>
+</div>
