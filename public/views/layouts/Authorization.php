@@ -14,10 +14,9 @@
     <script src="/public/js/Login.js"></script>
     <title>
         <?php
-            if (isset($title))
-            {
-                echo $title;
-            }
+        if (isset($title)) {
+            echo $title;
+        }
         ?>
     </title>
 </head>

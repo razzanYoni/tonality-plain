@@ -29,7 +29,7 @@ class AuthorizationController extends BaseController
 
         $userRegisterModel = new UserModel();
 
-        if ($request->getMethod() === 'post') {
+        if ($request->isPost()) {
 
             $userRegisterModel->loadData($request->getBody());
 
@@ -65,7 +65,7 @@ class AuthorizationController extends BaseController
 
         $userLoginModel = new UserLoginModel();
 
-        if ($request->getMethod() === 'post') {
+        if ($request->isPost()) {
             $userLoginModel->loadData($request->getBody());
             if ($userLoginModel->validate() && $userLoginModel->login()) {
                 Application::$app->response->redirect('/');
