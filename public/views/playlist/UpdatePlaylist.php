@@ -28,7 +28,7 @@ use models\PlaylistModel;
   <div class="playlist-quest">
       <?php
       echo $form->field($model, 'cover_filename', ["id" => "input-file", "accept" => "image/*"])->fileField();
-      echo '<label for="input-file" class="custom-file-upload" id="file-label">Choose Your Playlist Cover</label>';
+      echo '<label for="input-file" class="custom-file-upload" id="file-label">Select a File</label>';
       ?>
   </div>
 

@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
             // Mengganti teks pada label dengan nama file yang dipilih
             fileLabel.innerHTML = `${fileName}`;
         } else {
-            // Jika tidak ada file yang dipilih, kembalikan teks label ke "Choose A File"
-            fileLabel.innerHTML = 'Choose A File';
+            // Jika tidak ada file yang dipilih, kembalikan teks label ke "Select a File"
+            fileLabel.innerHTML = 'Select a File';
         }
     });
 
