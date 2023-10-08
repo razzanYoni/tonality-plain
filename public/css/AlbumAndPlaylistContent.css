@@ -1,4 +1,5 @@
-.album-detail-container {
+.album-detail-container,
+.playlist-detail-container {
     background-color: #6F6F6F;
     display: flex;
     height: 220px;
@@ -46,19 +47,19 @@
 
 }
 
-.cancelbtn, .deletebtn {
+.cancel-btn, .delete-btn {
     float: left;
     width: 50%;
 }
 
 /* Add a color to the cancel button */
-.cancelbtn {
+.cancel-btn {
     background-color: #ccc;
     color: black;
 }
 
 /* Add a color to the delete button */
-.deletebtn {
+.delete-btn {
     background-color: #f44336;
 }
 
