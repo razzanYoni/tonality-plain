@@ -51,9 +51,25 @@ $albumDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($durat
       <img src="/public/assets/icons/pen-solid.svg" alt="Edit">
     </button>
     <button class="delete-btn"
-            onclick="window.location.href='/albumAdmin/<?php echo $album->get('album_id'); ?>/deleteAlbum'">
+            onclick="document.getElementById(<?php echo $album->get('album_id'); ?>).style.display='block'">
       <img src="/public/assets/icons/trash-solid.svg" alt="Delete">
     </button>
+
+      <div id="<?php echo $album->get('album_id');?>" class="modal">
+          <span onclick="document.getElementById(<?php echo $album->get('album_id');?>).style.display='none'" class="close" title="Close Modal">×</span>
+<!--          <form class="modal-content" action="/albumAdmin/--><?php //echo $album->get('album_id'); ?><!--/deleteAlbum" method="post">-->
+              <div class="modal-container">
+                  <h1>Delete <?php echo $album->get('album_name') ?> Album</h1>
+                  <p>Are you sure you want to delete the Album?</p>
+
+                  <div class="clearfix">
+                      <button type="button" onclick="document.getElementById(<?php echo $album->get('album_id');?>).style.display='none'" class="cancelbtn">Cancel</button>
+                      <button type="button" onclick="deleteAlbum(<?php echo $album->get('album_id');?>)" class="deletebtn" >Delete</button>
+                  </div>
+              </div>
+<!--          </form>-->
+      </div>
+
   </div>
 </div>
 <div class="song-table">

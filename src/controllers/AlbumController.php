@@ -154,26 +154,14 @@ class AlbumController extends BaseController
 
     public function deleteAlbum(Request $request)
     {
-        $albumModel = new AlbumModel();
-        if ($request->getMethod() === 'delete') {
-            $albumModel->loadData($request->getBody());
-            $album_id = $request->getBody();
-            // print_r($album_id);
+        $album_id = $request->getRouteParam('album_id');
+        if ($request->isDelete()) {
             if (AlbumRepository::getInstance()->delete($album_id)) {
                 Application::$app->session->setFlash('success', 'Album Deleted Successfully');
-                return;
             }
         }
-        $this->setLayout('AlbumForm');
-        return $this->render('albumAdmin/deleteAlbum', [
 
-            'view' => [
-                'model' => $albumModel
-            ],
-            'layout' => [
-                'title' => 'Delete Album - Tonality'
-            ]
-        ]);
+        Application::$app->response->redirect('/albumAdmin');
     }
 
 
