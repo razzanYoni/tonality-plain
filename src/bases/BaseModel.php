@@ -14,6 +14,7 @@ abstract class BaseModel
     const RULE_MATCH = 'match';
     const RULE_UNIQUE = 'unique';
     const RULE_MAX_FILE_SIZE = 'maxFileSize';
+    const FILE_ATTRIBUTES = ['cover_filename', 'audio_filename'];
 
     public array $errors = [];
 
@@ -86,8 +87,13 @@ abstract class BaseModel
                 if (!is_string($rule)) {
                     $ruleName = $rule[0];
                 }
-                if ($ruleName === self::RULE_REQUIRED && (!$value || $fileError === 4)) {
-                    $this->addErrorByRule($attribute, self::RULE_REQUIRED);
+                if ($ruleName === self::RULE_REQUIRED) {
+                    if (!$value) {
+                        $this->addErrorByRule($attribute, self::RULE_REQUIRED);
+                    }
+                    if (in_array($attribute, self::FILE_ATTRIBUTES) && $fileError === 4) {
+                        $this->addErrorByRule($attribute, self::RULE_REQUIRED);
+                    }
                 }
                 if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
                     $this->addErrorByRule($attribute, self::RULE_EMAIL);
