@@ -19,7 +19,8 @@ $albumDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($durat
 <div class="album-detail-container">
   <div class="cover-detail">
     <div class="album-cover">
-      <img class="album-cover-image" src="<?php echo '/' . STORAGE_FOLDER . '/' . $album->get('cover_filename') ?>"
+      <img class="album-cover-image"
+           src="<?php echo '/' . STORAGE_FOLDER . '/' . $album->get('cover_filename') ?>"
            alt="Album Cover Image">
     </div>
     <div class="album-detail">
