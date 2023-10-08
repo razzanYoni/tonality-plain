@@ -50,14 +50,14 @@ $playlistDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($du
     </button>
 
   <div id="playlist-<?php echo $playlist->get('playlist_id');?>" class="modal">
-      <span onclick="document.getElementById('playlist-<?php echo $playlist->get("laylist_id"); ?>').style.display='none'" class="close" title="Close Modal">×</span>
+      <span onclick="document.getElementById('playlist-<?php echo $playlist->get("playlist_id"); ?>').style.display='none'" class="close" title="Close Modal">×</span>
       <div class="modal-container">
           <h1>Delete <?php echo $playlist->get('playlist_name') ?> Playlist</h1>
           <p>Are you sure you want to delete the Playlist?</p>
 
           <div class="clearfix">
               <button type="button" onclick="document.getElementById('playlist-<?php echo $playlist->get("playlist_id"); ?>').style.display='none'" class="cancelbtn">Cancel</button>
-              <button type="button" onclick="deletePlaylist(<?php echo $playlist->get('playlist_id');?>)" class="deletebtn" >Delete</button>
+              <button type="button" onclick="deleteSongFromPlaylist(<?php echo $song['song_id'];?>, <?php echo $playlist->get('playlist_id');?>)" class="deletebtn" >Delete</button>
           </div>
       </div>
   </div>
@@ -79,8 +79,8 @@ $playlistDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($du
         <td class="song-number"><?php echo $key + 1; ?></td>
         <td class="song-title"><?php echo $song['title']; ?></td>
         <td class="song-duration-body"><?php echo $songDurationTuple[0] . ":" . $songDurationTuple[1]; ?></td>
-        <td><a href="/playlist/<?php echo $playlist->get('playlist_id'); ?>/deletePlaylist"><img
-              src="/public/assets/icons/trash-solid.svg" alt="Delete"></a></td>
+        <td><a onclick="document.getElementById('song-<?php echo $song['song_id']; ?>').style.display='block'">
+                <img src="/public/assets/icons/trash-solid.svg" alt="Delete"></a></td>
       </tr>
 
         <div id="song-<?php echo $song['song_id'];?>" class="modal">
