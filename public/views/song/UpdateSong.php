@@ -74,7 +74,7 @@ if ($updateSongIndex !== false) {
   </div>
 
   <div class="cancel-submit">
-    <button class="cancel-btn">Cancel</button>
+      <input type="button" class="cancel-btn" onclick="history.back()" value="Cancel">
     <button class="add-btn" formaction="/albumAdmin/<?php echo $albumId ?>/updateSong/<?php echo $songId ?>">Edit Song
     </button>
   </div>
