@@ -17,6 +17,7 @@ function PlaylistCard(PlaylistModel $playlist): string
             <img src=$coverUrl alt="playlist cover image" class="playlist-cover-image"/>
             <div class="playlist-name">$playlistName</div>
         </div>
+    </a>
     EOT;
 
 }
