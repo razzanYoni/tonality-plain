@@ -42,7 +42,7 @@ use models\AlbumModel;
   </div>
 
   <div class="cancel-submit">
-    <button class="cancel-btn">Cancel</button>
+      <input type="button" class="cancel-btn" onclick="window.location.href='/albumAdmin'" value="Cancel">
     <button class="add-btn" formaction="/albumAdmin/insertAlbum">Add Album</button>
   </div>
 

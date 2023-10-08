@@ -34,7 +34,7 @@ use models\PlaylistModel;
   </div>
 
   <div class="cancel-submit">
-    <input type="button" class="cancel-btn" onclick="history.back()" value="Cancel">
+    <input type="button" class="cancel-btn" onclick="window.location.href='/playlist/<?php echo $model->get('playlist_id') ?>'" value="Cancel">
     <button class="add-btn" formaction="/playlist/<?php echo $model->get('playlist_id') ?>/updatePlaylist">Edit
       Playlist
     </button>

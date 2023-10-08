@@ -3,6 +3,7 @@
 /** @var $title string
  * @var $totalPage int
  * @var $page int
+ * @var $is_admin bool
  * */
 require_once ROOT_DIR . "public/components/NavBar.php";
 require_once ROOT_DIR . "public/components/Pagination.php";
@@ -37,11 +38,16 @@ require_once ROOT_DIR . "public/components/SortFilter.php";
 echo NavBar(currentPage: "Albums");
 ?>
 
+<div class="sort-filter-container">
 <?php
 echo DropDown();
 ?>
+    <button class="add-btn" onclick="window.location.href='/albumAdmin/insertAlbum'" style="display: <?php echo $is_admin ? 'inline' : 'none';?>; color: black">
+        <img src="/public/assets/icons/plus-solid.svg" alt="add-album-button">
+    </button>
+</div>
 
-<div class="album-container">
+<div class="sort-filter-container">
     {{content}}
 </div>
 

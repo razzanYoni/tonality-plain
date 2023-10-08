@@ -90,6 +90,7 @@ class AlbumController extends BaseController
                 'title' => 'Tonality',
                 'totalPage' => $totalPage,
                 'page' => $page,
+                'is_admin' => true
             ]
         ]);
     }
@@ -281,6 +282,7 @@ class AlbumController extends BaseController
                 'title' => 'Tonality',
                 'totalPage' => $totalPage,
                 'page' => $page,
+                'is_admin' => false,
             ]
         ]);
     }
