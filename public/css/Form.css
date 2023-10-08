@@ -102,6 +102,41 @@ form input[type=file] {
     display: none;
 }
 
+.form-select-label {
+    display: block;
+
+    background-color: transparent;
+
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    text-align: left;
+
+    padding: 0;
+
+    margin-bottom: 5px;
+    color: white;
+}
+
+form select {
+    background-color: #000000;
+    border-radius: 15px;
+    border-color: white;
+
+    width: 280px;
+    height: 40px;
+
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    cursor: text;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+
+    transition: transform 0.3s ease;
+}
+
 label {
     background-color: #000000;
     border-radius: 15px;
