@@ -95,4 +95,10 @@ class AlbumRepository extends BaseRepository
         $data['cover_filename'] = FileProcessing::getInstance()->processFile();
         return parent::insert($data);
     }
+
+    public function update($id, array $data): bool
+    {
+        $data['cover_filename'] = FileProcessing::getInstance()->processFile();
+        return parent::update($id, $data);
+    }
 }
