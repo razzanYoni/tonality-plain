@@ -40,7 +40,7 @@ function searchAlbum() {
       const data = response["data"];
 
       console.log(is_admin);
-      if (is_admin === 0) {
+      if (is_admin === "0") {
         newUrl = newUrl.replace("albumXhr", "album");
       } else {
         newUrl = newUrl.replace("albumXhr", "albumAdmin");
