@@ -38,7 +38,7 @@ use models\UserLoginModel;
     </div>
 
     <div class="cancel-submit">
-        <button class="cancel-btn">Cancel</button>
+        <input type="button" class="cancel-btn" onclick="history.back()" value="Cancel">
         <button class="add-btn" formaction="/albumAdmin/{album_id:\d+}/updateAlbum">Edit Album</button>
     </div>
 
