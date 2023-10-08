@@ -26,7 +26,7 @@ class SongController extends BaseController {
         $songModel = new SongModel();
         $album_id = $request->getRouteParam('album_id');
 
-        if ($request->getMethod() === 'post') {
+        if ($request->isPost()) {
             $songModel->set('album_id', $album_id);
             $songModel->loadData($request->getBody());
 
@@ -60,7 +60,7 @@ class SongController extends BaseController {
                 ->getSongById($song_id)
         );
 
-        if ($request->getMethod() === 'post') {
+        if ($request->isPost()) {
             $songModelNew = new SongModel();
             $songModelNew->set('song_id', $song_id);
             $songModelNew->loadData($request->getBody());
@@ -91,8 +91,8 @@ class SongController extends BaseController {
 
     public function deleteSongFromAlbum(Request $request) {
         $song_id = $request->getRouteParam('song_id');
-        // Method : POST OR DELETE
-        if ($request->getMethod() === 'post') {
+        // Method : DELETE
+        if ($request->isDelete()) {
             $album_id = $request->getRouteParam('album_id');
             if (SongRepository::getInstance()->delete($song_id)) {
                 Application::$app->session->setFlash('success', 'Song deleted successfully');
@@ -109,7 +109,7 @@ class SongController extends BaseController {
         $playlist_id = $request->getRouteParam('playlist_id');
         $album_id = $request->getRouteParam('album_id');
         // Method : POST
-        if ($request->getMethod() === 'post') {
+        if ($request->isPost()) {
             if (AppearsOnRepository::getInstance()->insert([
                 'song_id' => $song_id,
                 'playlist_id' => $playlist_id
@@ -126,8 +126,8 @@ class SongController extends BaseController {
         $song_id = $request->getRouteParam('song_id');
         $playlist_id = $request->getRouteParam('playlist_id');
 
-        // Method : POST OR DELETE
-        if ($request->getMethod() === 'post') {
+        // Method : DELETE
+        if ($request->isDelete()) {
             if (AppearsOnRepository::getInstance()->deleteSongFromPlaylist($song_id, $playlist_id)) {
                 Application::$app->session->setFlash('success', 'Song deleted successfully');
                 return;

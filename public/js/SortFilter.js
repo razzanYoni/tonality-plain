@@ -32,13 +32,13 @@ document.addEventListener("DOMContentLoaded", function () {
         let url = new URL(window.location.href);
 
         // Clear existing parameters related to filter, sort, and desc
-        url.searchParams.delete("filter");
+        url.searchParams.delete("genre");
         url.searchParams.delete("sort");
         url.searchParams.delete("is_desc");
 
         // Add filter parameter
         if (filter !== "Genre") {
-            url.searchParams.set("filter", filter);
+            url.searchParams.set("genre", filter);
         }
 
         // Add sort parameter
@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         xhr.onload = function () {
             if (xhr.status === 200) {
                 window.history.pushState({}, "", url.href);
+                window.location.reload();
             } else {
                 console.error("Terjadi kesalahan dalam melakukan permintaan.");
             }

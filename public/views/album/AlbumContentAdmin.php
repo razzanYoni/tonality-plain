@@ -51,23 +51,21 @@ $albumDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($durat
       <img src="/public/assets/icons/pen-solid.svg" alt="Edit">
     </button>
     <button class="delete-btn"
-            onclick="document.getElementById(<?php echo $album->get('album_id'); ?>).style.display='block'">
+            onclick="document.getElementById('album-<?php echo $album->get("album_id"); ?>').style.display='block'">
       <img src="/public/assets/icons/trash-solid.svg" alt="Delete">
     </button>
 
-      <div id="<?php echo $album->get('album_id');?>" class="modal">
-          <span onclick="document.getElementById(<?php echo $album->get('album_id');?>).style.display='none'" class="close" title="Close Modal">×</span>
-<!--          <form class="modal-content" action="/albumAdmin/--><?php //echo $album->get('album_id'); ?><!--/deleteAlbum" method="post">-->
+      <div id="album-<?php echo $album->get('album_id');?>" class="modal">
+          <span onclick="document.getElementById('album-<?php echo $album->get("album_id"); ?>').style.display='none'" class="close" title="Close Modal">×</span>
               <div class="modal-container">
                   <h1>Delete <?php echo $album->get('album_name') ?> Album</h1>
                   <p>Are you sure you want to delete the Album?</p>
 
                   <div class="clearfix">
-                      <button type="button" onclick="document.getElementById(<?php echo $album->get('album_id');?>).style.display='none'" class="cancelbtn">Cancel</button>
+                      <button type="button" onclick="document.getElementById('album-<?php echo $album->get("album_id"); ?>').style.display='none'" class="cancelbtn">Cancel</button>
                       <button type="button" onclick="deleteAlbum(<?php echo $album->get('album_id');?>)" class="deletebtn" >Delete</button>
                   </div>
               </div>
-<!--          </form>-->
       </div>
 
   </div>
@@ -87,11 +85,25 @@ $albumDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($durat
         <td class="song-number"><?php echo $key + 1; ?></td>
         <td class="song-title"><?php echo $song['title']; ?></td>
         <td class="song-duration-body"><?php echo $songDurationTuple[0] . ":" . $songDurationTuple[1]; ?></td>
-        <td><a href="/albumAdmin/<?php echo $album->get('album_id'); ?>/updateSong/<?php echo $song['song_id']; ?>">
+        <td><a href="/albumAdmin/<?php echo $album->get('album_id'); ?>/updateSong/<?php echo $song['song_id']; ?>" >
             <img src="/public/assets/icons/pen-solid.svg" alt="Edit"></a></td>
-        <td><a href="/albumAdmin/<?php echo $album->get('album_id'); ?>/deleteSong/<?php echo $song['song_id']; ?>"><img
-              src="/public/assets/icons/trash-solid.svg" alt="Delete"></a></td>
+        <td><a onclick="document.getElementById('song-<?php echo $song['song_id']; ?>').style.display='block'">
+            <img src="/public/assets/icons/trash-solid.svg" alt="Delete"></a></td>
       </tr>
+
+        <div id="song-<?php echo $song['song_id'];?>" class="modal">
+            <span onclick="document.getElementById('song-<?php echo $song["song_id"]; ?>').style.display='none'" class="close" title="Close Modal">×</span>
+            <div class="modal-container">
+                <h1>Delete <?php echo $song['title'] ?> from <?php echo $album->get('album_id') ?> Album</h1>
+                <p>Are you sure you want to delete the Album?</p>
+
+                <div class="clearfix">
+                    <button type="button" onclick="document.getElementById('song-<?php echo $song["song_id"]; ?>').style.display='none'" class="cancelbtn">Cancel</button>
+                    <button type="button" onclick="deleteSongFromAlbum(<?php echo $song['song_id'];?>, <?php echo $album->get('album_id');?>)" class="deletebtn" >Delete</button>
+                </div>
+            </div>
+        </div>
+
     <?php endforeach; ?>
     </tbody>
   </table>

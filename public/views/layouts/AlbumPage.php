@@ -1,8 +1,8 @@
 <?php
 
 /** @var $title string
- *  @var $totalPage int
- *  @var $page int
+ * @var $totalPage int
+ * @var $page int
  * */
 require_once ROOT_DIR . "public/components/NavBar.php";
 require_once ROOT_DIR . "public/components/Pagination.php";
@@ -26,28 +26,27 @@ require_once ROOT_DIR . "public/components/SortFilter.php";
 
     <title>
         <?php
-            if (isset($title))
-            {
-                echo $title;
-            }
+        if (isset($title)) {
+            echo $title;
+        }
         ?>
     </title>
 </head>
 <body>
-    <?php
-        echo NavBar(currentPage: "Albums");
-    ?>
+<?php
+echo NavBar(currentPage: "Albums");
+?>
 
-    <?php
-        echo DropDown();
-    ?>
+<?php
+echo DropDown();
+?>
 
-    <div class="album-container">
-        {{content}}
-    </div>
+<div class="album-container">
+    {{content}}
+</div>
 
-    <?php
-        echo Pagination(totalPage: $totalPage, currentPage: $page);
-    ?>
+<?php
+echo Pagination(totalPage: $totalPage, currentPage: $page);
+?>
 </body>
 </html>

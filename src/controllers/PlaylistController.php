@@ -71,7 +71,7 @@ class PlaylistController extends BaseController
         );
         $totalPages = ceil($countPlaylist / ROWS_PER_PAGE);
 
-        if ($request->getMethod() === 'get') {
+        if ($request->isGet()) {
             if ($playlist) {
                 Application::$app->session->setFlash('success', 'Playlist Songs Retrieved Successfully');
 //                return;
@@ -95,7 +95,7 @@ class PlaylistController extends BaseController
     {
         $playlistModel = new PlaylistModel();
 
-        if ($request->getMethod() === 'post') {
+        if ($request->isPost()) {
             $playlistModel->loadData($request->getBody());
             if ($playlistModel->validate() && PlaylistRepository::getInstance()->insert($playlistModel->toArray())) {
                 Application::$app->session->setFlash('success', 'Playlist Inserted Successfully');
@@ -125,7 +125,7 @@ class PlaylistController extends BaseController
                 ->getPlaylistById($playlist_id)
         );
 
-        if ($request->getMethod() === 'post') {
+        if ($request->isPost()) {
             $playlistModelNew = new PlaylistModel();
             $playlistModelNew->set('playlist_id', $playlist_id);
             $playlistModelNew->loadData($request->getBody());
@@ -154,7 +154,7 @@ class PlaylistController extends BaseController
     public function deletePlaylist(Request $request)
     {
         $playlistModel = new PlaylistModel();
-        if ($request->getMethod() === 'delete') {
+        if ($request->isDelete()) {
             $playlistModel->loadData($request->getBody());
             $playlist_id = $request->getBody();
             print_r($playlist_id);

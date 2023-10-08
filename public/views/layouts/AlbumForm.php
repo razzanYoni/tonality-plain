@@ -17,18 +17,18 @@ require_once ROOT_DIR . "public/components/NavBar.php";
     <link rel="stylesheet" href="/public/css/Form.css" type="text/css">
     <title>
         <?php
-            if (isset($title)) {
-                echo $title;
-            }
+        if (isset($title)) {
+            echo $title;
+        }
         ?>
     </title>
 </head>
 <body>
-    <?php
-        echo NavBar("Albums");
-    ?>
-    <div class="form-body">
-        {{content}}
-    </div>
+<?php
+echo NavBar("Albums");
+?>
+<div class="form-body">
+    {{content}}
+</div>
 </body>
 </html>

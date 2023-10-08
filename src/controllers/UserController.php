@@ -3,6 +3,7 @@
 namespace controllers;
 
 use bases\BaseController;
+use cores\Application;
 use cores\Request;
 use middlewares\AdminMiddleware;
 use repositories\UserRepository;
@@ -11,7 +12,7 @@ class UserController extends BaseController
 {
     public function __construct()
     {
-        $this->registerMiddleware(new AdminMiddleware(['user', 'userById']));
+        $this->registerMiddleware(new AdminMiddleware(['getAllUsers', 'deleteUserById']));
     }
 
     public function getAllUsers(Request $request)
@@ -40,5 +41,17 @@ class UserController extends BaseController
                 'title' => 'User'
             ]
         ]);
+    }
+
+    public function deleteUserById(Request $request) {
+        $user_id = $request->getRouteParam('user_id');
+        if ($request->isDelete()) {
+            if (UserRepository::getInstance()->delete($user_id)) {
+                Application::$app->session->setFlash('success', 'User deleted successfully');
+                Application::$app->response->redirect('/users');
+            }
+        }
+
+        Application::$app->response->redirect('/users');
     }
 }

@@ -98,7 +98,7 @@ class AlbumController extends BaseController
     {
         $albumModel = new AlbumModel();
 
-        if ($request->getMethod() === 'post') {
+        if ($request->isPost()) {
             $albumModel->loadData($request->getBody());
             if ($albumModel->validate() && AlbumRepository::getInstance()->insert($albumModel->toArray())) {
                 Application::$app->session->setFlash('success', 'Album Inserted Successfully');
@@ -127,7 +127,7 @@ class AlbumController extends BaseController
                 ->getAlbumById($album_id)
         );
 
-        if ($request->getMethod() === 'post') {
+        if ($request->isPost()) {
             $albumModelNew = new AlbumModel();
             $albumModelNew->set('album_id', $album_id);
             $albumModelNew->loadData($request->getBody());

@@ -5,11 +5,18 @@ function pagination($totalPage, $currentPage = 1) : string
     $uri = $_SERVER['REQUEST_URI'];
 
     if (!str_contains($uri, '?')) {
-        if (!str_contains($uri, 'page=')) {
-            $uri = $uri . '?page=' . $currentPage;
-        } else {
-            $uri .= '?page=' . $currentPage;
-        }
+        $uri = $uri . '?';
+    }
+
+    if ((strpos($uri, '?') + 1) != strlen($uri)) {
+        $uri = $uri . '&';
+    }
+
+    if (!str_contains($uri, 'page=')) {
+        $uri = $uri . 'page=' . $currentPage;
+    } else {
+        $uri = str_replace('page=' . $currentPage, '', $uri);
+        $uri = $uri . 'page=' . $currentPage;
     }
 
     $first = '';
