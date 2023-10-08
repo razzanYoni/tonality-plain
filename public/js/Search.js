@@ -25,10 +25,7 @@ function searchAlbum() {
     if (xhr.status === 200) {
       // const response = JSON.parse(xhr.responseText);
       window.history.pushState({ query: input }, "", newUrl);
-      // window.location.reload();
-
-      const response = JSON.parse(xhr.responseText);
-      // TODO : set Element TO
+      window.location.reload();
     } else {
       console.error("Terjadi kesalahan dalam melakukan pencarian.");
     }
@@ -53,3 +50,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 300);
   });
 });
+
+function goToLastValue(
+) {
+  var val = document.getElementById('search').value;
+  document.getElementById('search').value = '';
+  document.getElementById('search').value = val;
+}

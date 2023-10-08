@@ -75,17 +75,9 @@ class AlbumController extends BaseController
         );
         $totalPage = ceil($countAlbums / ROWS_PER_PAGE);
 
-        if ($request->getMethod() === 'get') {
-            if ($albums) {
-                Application::$app->session->setFlash('success', 'Albums Retrieved Successfully');
-                // return;
-            }
-        }
-
-        if ($where_like !== '') {
-            Application::$app->response->statusCode(200);
-            echo json_encode($albums);
-            exit();
+        if (!$albums) {
+            $albums = [];
+            // return;
         }
 
         $this->setLayout('AlbumPage');
@@ -285,6 +277,11 @@ class AlbumController extends BaseController
                 Application::$app->session->setFlash('success', 'Albums Retrieved Successfully');
 //                return;
             }
+        }
+
+        if (!$albums) {
+            $albums = [];
+            // return;
         }
 
         $this->setLayout('AlbumPage');
