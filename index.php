@@ -38,8 +38,7 @@ $app->router->get('/albumAdmin/insertAlbum', [AlbumController::class, 'insertAlb
 $app->router->post('/albumAdmin/insertAlbum', [AlbumController::class, 'insertAlbum']);
 $app->router->get('/albumAdmin/{album_id:\d+}/updateAlbum', [AlbumController::class, 'updateAlbum']);
 $app->router->post('/albumAdmin/{album_id:\d+}/updateAlbum', [AlbumController::class, 'updateAlbum']);
-$app->router->get('/albumAdmin/{album_id:\d+}/deleteAlbum', [AlbumController::class, 'deleteAlbum']);
-$app->router->post('/albumAdmin/{album_id:\d+}/deleteAlbum', [AlbumController::class, 'deleteAlbum']);
+$app->router->delete('/albumAdmin/{album_id:\d+}/deleteAlbum', [AlbumController::class, 'deleteAlbum']);
 $app->router->get('/albumAdmin/{album_id:\d+}', [AlbumController::class, 'albumAdminById']);
 // User
 $app->router->get('/album', [AlbumController::class, 'albumUser']);
@@ -53,8 +52,7 @@ $app->router->get('/playlist/insertPlaylist', [PlaylistController::class, 'inser
 $app->router->post('/playlist/insertPlaylist', [PlaylistController::class, 'insertPlaylist']);
 $app->router->get('/playlist/{playlist_id:\d+}/updatePlaylist', [PlaylistController::class, 'updatePlaylist']);
 $app->router->post('/playlist/{playlist_id:\d+}/updatePlaylist', [PlaylistController::class, 'updatePlaylist']);
-$app->router->get('/playlist/{playlist_id:\d+}/deletePlaylist', [PlaylistController::class, 'deletePlaylist']);
-$app->router->post('/playlist/{playlist_id:\d+}/deletePlaylist', [PlaylistController::class, 'deletePlaylist']);
+$app->router->delete('/playlist/{playlist_id:\d+}/deletePlaylist', [PlaylistController::class, 'deletePlaylist']);
 $app->router->get('/playlist/{playlist_id:\d+}', [PlaylistController::class, 'playlistById']);
 
 
@@ -64,14 +62,12 @@ $app->router->get('/albumAdmin/{album_id:\d+}/insertSong', [SongController::clas
 $app->router->post('/albumAdmin/{album_id:\d+}/insertSong', [SongController::class, 'insertSongToAlbum']);
 $app->router->get('/albumAdmin/{album_id:\d+}/updateSong/{song_id:\d+}', [SongController::class, 'updateSongFromAlbum']);
 $app->router->post('/albumAdmin/{album_id:\d+}/updateSong/{song_id:\d+}', [SongController::class, 'updateSongFromAlbum']);
-$app->router->get('/albumAdmin/{album_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromAlbum']);
-$app->router->post('/albumAdmin/{album_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromAlbum']);
+$app->router->delete('/albumAdmin/{album_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromAlbum']);
 // User
 // TODO : add schema for add song to playlist
 $app->router->get('/album/{album_id:\d+}/insertSong', [SongController::class, 'insertSongToPlaylist']);
 $app->router->post('/album/{album_id:\d+}/insertSong', [SongController::class, 'insertSongToPlaylist']);
-$app->router->get('/playlist/{playlist_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
-$app->router->post('/playlist/{playlist_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
+$app->router->delete('/playlist/{playlist_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
 
 
 $app->router->get('/users', [UserController::class, 'getAllUsers']);
