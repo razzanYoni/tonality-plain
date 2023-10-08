@@ -6,23 +6,26 @@ require_once ROOT_DIR . "src/models/SongModel.php";
 require_once ROOT_DIR . "src/repositories/SongRepository.php";
 require_once ROOT_DIR . "src/repositories/AppearsOnRepository.php";
 
-use bases\BaseController,
-    cores\Application,
-    cores\Request,
-    middlewares\AdminMiddleware,
-    models\SongModel,
-    repositories\AppearsOnRepository,
-    repositories\SongRepository,
-    middlewares\AuthMiddleware;
+use bases\BaseController;
+use cores\Application;
+use cores\Request;
+use middlewares\AdminMiddleware;
+use middlewares\AuthMiddleware;
+use models\SongModel;
+use repositories\AppearsOnRepository;
+use repositories\SongRepository;
 
-class SongController extends BaseController {
-    public function __construct() {
+class SongController extends BaseController
+{
+    public function __construct()
+    {
         $this->registerMiddleware(new AdminMiddleware(['insertSongToAlbum', 'updateSongFromAlbum', 'deleteSongFrom']));
         $this->registerMiddleware(new AuthMiddleware(['insertSongToPlaylist', 'deleteSongFromPlaylist']));
     }
 
     // Admin
-    public function insertSongToAlbum(Request $request) {
+    public function insertSongToAlbum(Request $request)
+    {
         $songModel = new SongModel();
         $album_id = $request->getRouteParam('album_id');
 
@@ -46,7 +49,7 @@ class SongController extends BaseController {
         return $this->render('song/InsertSong', [
             'view' => [
                 'model' => $songModel
-                ]
+            ]
         ]);
     }
 
@@ -85,11 +88,12 @@ class SongController extends BaseController {
         return $this->render('song/UpdateSong', [
             'view' => [
                 'model' => $songModelOld
-                ]
+            ]
         ]);
     }
 
-    public function deleteSongFromAlbum(Request $request) {
+    public function deleteSongFromAlbum(Request $request)
+    {
         $song_id = $request->getRouteParam('song_id');
         // Method : DELETE
         if ($request->isDelete()) {
@@ -104,25 +108,34 @@ class SongController extends BaseController {
 
 
     // User
-    public function insertSongToPlaylist(Request $request) {
+    public function insertSongToPlaylist(Request $request)
+    {
         $song_id = $request->getRouteParam('song_id');
-        $playlist_id = $request->getRouteParam('playlist_id');
         $album_id = $request->getRouteParam('album_id');
+
         // Method : POST
-        if ($request->isPost()) {
-            if (AppearsOnRepository::getInstance()->insert([
-                'song_id' => $song_id,
-                'playlist_id' => $playlist_id
-            ])) {
+        if ($request->getMethod() === 'post') {
+            $playlist_id = $request->getBody()['selected-playlist'];
+
+            if (AppearsOnRepository::getInstance()->insertSongToPlaylist($song_id, $playlist_id)) {
                 Application::$app->session->setFlash('success', 'Song inserted successfully');
                 Application::$app->response->redirect('/album/' . $album_id);
                 return;
             }
         }
 
+        // Method : GET
+        $this->setLayout('AlbumForm');
+        return $this->render('song/InsertSongToPlaylist', [
+            'view' => [
+                'album_id' => $album_id,
+                'song_id' => $song_id,
+            ]
+        ]);
     }
 
-    public function deleteSongFromPlaylist(Request $request) {
+    public function deleteSongFromPlaylist(Request $request)
+    {
         $song_id = $request->getRouteParam('song_id');
         $playlist_id = $request->getRouteParam('playlist_id');
 

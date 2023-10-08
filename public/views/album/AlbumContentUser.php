@@ -60,6 +60,8 @@ $albumDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($durat
         <td class="song-number"><?php echo $key + 1; ?></td>
         <td class="song-title"><?php echo $song['title']; ?></td>
         <td class="song-duration-body"><?php echo $songDurationTuple[0] . ":" . $songDurationTuple[1]; ?></td>
+        <td><a href="/album/<?php echo $album->get('album_id'); ?>/insertSong/<?php echo $song['song_id']; ?>" >
+            <img src="/public/assets/icons/plus-solid.svg" alt="Add"></a></td>
       </tr>
     <?php endforeach; ?>
     </tbody>
