@@ -66,8 +66,8 @@ $app->router->post('/albumAdmin/{album_id:\d+}/updateSong/{song_id:\d+}', [SongC
 $app->router->delete('/albumAdmin/{album_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromAlbum']);
 // User
 // TODO : add schema for add song to playlist
-$app->router->get('/album/{album_id:\d+}/insertSong', [SongController::class, 'insertSongToPlaylist']);
-$app->router->post('/album/{album_id:\d+}/insertSong', [SongController::class, 'insertSongToPlaylist']);
+$app->router->get('/album/{album_id:\d+}/insertSong/{song_id:\d+}', [SongController::class, 'insertSongToPlaylist']);
+$app->router->post('/album/{album_id:\d+}/insertSong/{song_id:\d+}', [SongController::class, 'insertSongToPlaylist']);
 $app->router->delete('/playlist/{playlist_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
 
 

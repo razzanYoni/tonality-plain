@@ -7,6 +7,7 @@ use bases\BaseRepository;
 class AppearsOnRepository extends BaseRepository
 {
     protected static BaseRepository $instance;
+
     public static function tableName(): string
     {
         return 'appears_on';
@@ -33,7 +34,13 @@ class AppearsOnRepository extends BaseRepository
         return self::$instance;
     }
 
-    public function deleteSongFromPlaylist($song_id, $playlist_id) {
+    public function deleteSongFromPlaylist($song_id, $playlist_id)
+    {
         return $this->delete(id: ["song_id" => $song_id, "playlist_id" => $playlist_id]);
+    }
+
+    public function insertSongToPlaylist($song_id, $playlist_id): bool
+    {
+        return $this->insert(["song_id" => $song_id, "playlist_id" => $playlist_id]);
     }
 }
