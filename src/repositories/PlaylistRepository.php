@@ -4,7 +4,7 @@ namespace repositories;
 
 use bases\BaseRepository;
 use cores\Application;
-use PDOException;
+use utils\FileProcessing;
 
 class PlaylistRepository extends BaseRepository
 {
@@ -38,7 +38,7 @@ class PlaylistRepository extends BaseRepository
         return self::$instance;
     }
 
-    public function getPlaylistsByUserId($order = null, $is_desc = false, $where = [], $where_like = '',$limit = ROWS_PER_PAGE, $offset = null): bool|array
+    public function getPlaylistsByUserId($order = null, $is_desc = false, $where = [], $where_like = '', $limit = ROWS_PER_PAGE, $offset = null): bool|array
     {
         if ($where_like === '') {
             $where_like = [];
@@ -52,7 +52,7 @@ class PlaylistRepository extends BaseRepository
             order: $order,
             is_desc: $is_desc,
             where: $where,
-            where_like:  $where_like,
+            where_like: $where_like,
             limit: $limit,
             offset: $offset
         );
@@ -72,7 +72,7 @@ class PlaylistRepository extends BaseRepository
             method: 'COUNT',
             alias: 'count_playlists',
             where: $where,
-            where_like:  $where_like
+            where_like: $where_like
         )['count_playlists'];
     }
 
@@ -88,5 +88,12 @@ class PlaylistRepository extends BaseRepository
                 "playlist_id" => $playlist_id,
                 "user_id" => Application::$app->loggedUser->getUserId()
             ]);
+    }
+
+    public function insert(array $data): bool
+    {
+        $data['user_id'] = Application::getInstance()->loggedUser->getUserId();
+        $data['cover_filename'] = FileProcessing::getInstance()->processFile();
+        return parent::insert($data);
     }
 }
