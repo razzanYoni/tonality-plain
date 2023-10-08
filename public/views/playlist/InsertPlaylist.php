@@ -35,7 +35,7 @@ use models\PlaylistModel;
   </div>
 
   <div class="cancel-submit">
-    <button class="cancel-btn">Cancel</button>
+    <input type="button" class="cancel-btn" onclick="window.location.href='/playlist'" value="Cancel">
     <button class="add-btn" formaction="/playlist/insertPlaylist">Add Playlist</button>
   </div>
 

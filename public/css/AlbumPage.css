@@ -6,7 +6,7 @@
     margin-right: 10px;
 }
 
-.album-container {
+.sort-filter-container {
     display: flex;
     flex-flow: column;
     justify-content: center;

@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="sort-filter-container">
     {{content}}
 </div>
 </body>
