@@ -60,7 +60,7 @@ function DropDown(): string
     }
 
     return <<<"EOT"
-    <div class="container">
+    <div class="dropdown-container">
         <select class="filter">
             {$default_genre}
             {$options}
