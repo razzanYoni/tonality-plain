@@ -13,6 +13,7 @@ require_once ROOT_DIR . "public/components/AlbumCard.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/public/js/Delete.js"></script>
+    <script src="/public/js/MusicPlayer.js"></script>
     <link rel="stylesheet" href="/public/css/Global.css" type="text/css">
     <link rel="stylesheet" href="/public/css/NavBar.css" type="text/css">
     <link rel="stylesheet" href="/public/css/AlbumAndPlaylistContent.css" type="text/css">
