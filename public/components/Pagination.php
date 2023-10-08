@@ -8,7 +8,7 @@ function pagination($totalPage, $currentPage = 1) : string
         $uri = $uri . '?';
     }
 
-    if ((strpos($uri, '?') + 1) != strlen($uri)) {
+    if ((strpos($uri, '?') + 1) != strlen($uri) && !str_contains($uri, 'page=')) {
         $uri = $uri . '&';
     }
 
