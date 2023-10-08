@@ -29,7 +29,7 @@ create table if not exists songs
     duration       int unsigned      not null,
     audio_filename varchar(255)      not null,
     primary key (song_id),
-    foreign key (album_id) references albums (album_id)
+    foreign key (album_id) references albums (album_id) on delete cascade
 ) character set utf8;
 
 create table if not exists playlists
@@ -40,7 +40,7 @@ create table if not exists playlists
     description    text,
     cover_filename varchar(255) not null,
     primary key (playlist_id),
-    foreign key (user_id) references users (user_id)
+    foreign key (user_id) references users (user_id) on delete cascade
 ) character set utf8;
 
 create table if not exists appears_on
@@ -48,8 +48,8 @@ create table if not exists appears_on
     song_id     int unsigned not null,
     playlist_id int unsigned not null,
     primary key (song_id, playlist_id),
-    foreign key (song_id) references songs (song_id),
-    foreign key (playlist_id) references playlists (playlist_id)
+    foreign key (song_id) references songs (song_id) on delete cascade,
+    foreign key (playlist_id) references playlists (playlist_id) on delete cascade
 ) character set utf8;
 
 
