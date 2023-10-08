@@ -31,4 +31,21 @@ class PlaylistModel extends BaseModel
             'cover_filename' => $this->cover_filename,
         );
     }
+
+    public function rules(): array
+    {
+        return [
+            'playlist_name' => [self::RULE_REQUIRED],
+            'cover_filename' => [self::RULE_MAX_FILE_SIZE]
+        ];
+    }
+
+    public function labels(): array
+    {
+        return [
+            'playlist_name' => 'Playlist Name',
+            'description' => 'Description',
+            'cover_filename' => 'Cover Photo'
+        ];
+    }
 }
