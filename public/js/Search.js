@@ -41,9 +41,9 @@ function searchAlbum() {
 
       console.log(is_admin);
       if (is_admin === 0) {
-        newUrl = newUrl.replace("albumXhr", "albumAdmin");
-      } else {
         newUrl = newUrl.replace("albumXhr", "album");
+      } else {
+        newUrl = newUrl.replace("albumXhr", "albumAdmin");
       }
       window.history.pushState({ query: input }, "", newUrl);
 
