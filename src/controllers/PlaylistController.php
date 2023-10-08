@@ -136,12 +136,12 @@ class PlaylistController extends BaseController
                     )) {
                 Application::$app->session->setFlash('success', 'Playlist Edited Successfully');
 
-                Application::$app->response->redirect('/playlist/{playlist_id:\d+}/updatePlaylist');
+                Application::$app->response->redirect('/playlist/' . $playlist_id);
                 return;
             }
         }
-        $this->setLayout('playlist');
-        return $this->render('playlist/updatePlaylist', [
+        $this->setLayout('PlaylistForm');
+        return $this->render('playlist/UpdatePlaylist', [
             'view' => [
                 'model' => $playlistModelOld
             ],
