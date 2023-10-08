@@ -59,7 +59,7 @@ $albumDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($durat
         ?>
       <tr class="single-song">
         <td class="song-number"><?php echo $key + 1; ?></td>
-        <td class="song-title" data-song-id="<?php echo $song['song_id']; ?>" data-audio-filename="<?php echo $song['audio_filename']; ?>><?php echo $song['title']; ?></td>
+        <td class="song-title" data-song-id="<?php echo $song['song_id']; ?>" data-audio-filename="<?php echo $song['audio_filename']; ?>"><?php echo $song['title']; ?></td>
         <td class="song-duration-body"><?php echo $songDurationTuple[0] . ":" . $songDurationTuple[1]; ?></td>
         <td><a href="/album/<?php echo $album->get('album_id'); ?>/insertSong/<?php echo $song['song_id']; ?>" >
             <img src="/public/assets/icons/plus-solid.svg" alt="Add"></a></td>
