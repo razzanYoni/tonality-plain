@@ -71,6 +71,7 @@ $app->router->delete('/playlist/{playlist_id:\d+}/deleteSong/{song_id:\d+}', [So
 
 
 $app->router->get('/users', [UserController::class, 'getAllUsers']);
+$app->router->delete('/users/{user_id:\d+}/deleteUser', [UserController::class, 'deleteUserById']);
 
 // Set router default to login
 if ($_SERVER['REQUEST_URI'] === '/' && !isset($_SESSION['user_id'])) {
