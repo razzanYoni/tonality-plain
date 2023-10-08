@@ -98,8 +98,8 @@ $albumDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($durat
                 <p>Are you sure you want to delete the Album?</p>
 
                 <div class="clearfix">
-                    <button type="button" onclick="document.getElementById('song-<?php echo $song["song_id"]; ?>').style.display='none'" class="cancelbtn">Cancel</button>
-                    <button type="button" onclick="deleteSongFromAlbum(<?php echo $song['song_id'];?>, <?php echo $album->get('album_id');?>)" class="deletebtn" >Delete</button>
+                    <button type="button" onclick="document.getElementById('song-<?php echo $song["song_id"]; ?>').style.display='none'" class="cancel-btn">Cancel</button>
+                    <button type="button" onclick="deleteSongFromAlbum(<?php echo $song['song_id'];?>, <?php echo $album->get('album_id');?>)" class="delete-btn" >Delete</button>
                 </div>
             </div>
         </div>
