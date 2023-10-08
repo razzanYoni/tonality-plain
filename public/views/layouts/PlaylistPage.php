@@ -18,7 +18,7 @@ require_once ROOT_DIR . "public/components/Pagination.php";
     <link rel="stylesheet" href="/public/css/Global.css" type="text/css">
     <link rel="stylesheet" href="/public/css/NavBar.css" type="text/css">
     <link rel="stylesheet" href="/public/css/Pagination.css" type="text/css">
-    <link rel="stylesheet" href="/public/css/SortFilter.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/FilterSort.css" type="text/css">
 
     <link rel="stylesheet" href="/public/css/PlaylistCard.css" type="text/css">
     <link rel="stylesheet" href="/public/css/PlaylistPage.css" type="text/css">

@@ -1,11 +1,9 @@
 <?php
 require_once ROOT_DIR . "src/cores/Application.php";
 
-use cores\Application;
-use models\PlaylistModel;
 use repositories\AlbumRepository;
 
-function DropDown(): string
+function FilterSort(): string
 {
     $genres = AlbumRepository::getInstance()->getAlbumGenres();
 
@@ -60,7 +58,7 @@ function DropDown(): string
     }
 
     return <<<"EOT"
-    <div class="dropdown-container">
+    <div class="filter-sort-container">
         <select class="filter">
             {$default_genre}
             {$options}
