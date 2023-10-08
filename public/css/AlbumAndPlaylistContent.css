@@ -150,3 +150,10 @@ thead {
     border-radius: 0 10px 10px 0;
     overflow: hidden;
 }
+
+tbody .song-title:hover {
+    color: #1BCEC8;
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
+  }
