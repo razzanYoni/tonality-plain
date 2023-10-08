@@ -6,21 +6,24 @@ require_once ROOT_DIR . "src/middlewares/AuthMiddleware.php";
 require_once ROOT_DIR . "src/repositories/PlaylistRepository.php";
 require_once ROOT_DIR . "src/models/PlaylistModel.php";
 
-use bases\BaseController,
-    middlewares\AuthMiddleware;
-use cores\Application,
-    cores\Request;
+use bases\BaseController;
+use cores\Application;
+use cores\Request;
 use exceptions\BadRequestException;
-use repositories\PlaylistRepository,
-    models\PlaylistModel;
+use middlewares\AuthMiddleware;
+use models\PlaylistModel;
+use repositories\PlaylistRepository;
 use repositories\SongRepository;
 
-class PlaylistController extends BaseController {
-    public function __construct() {
+class PlaylistController extends BaseController
+{
+    public function __construct()
+    {
         $this->registerMiddleware(new AuthMiddleware(['playlist', 'insertPlaylist', 'updatePlaylist', 'deletePlaylist', 'playlistById']));
     }
 
-    public function playlist(Request $request) {
+    public function playlist(Request $request)
+    {
         // Method : GET
         $user_id = Application::$app->loggedUser->getUserId();
 
@@ -75,7 +78,7 @@ class PlaylistController extends BaseController {
             }
         }
 
-       $this->setLayout('PlaylistPage');
+        $this->setLayout('PlaylistPage');
         return $this->render('playlist/PlaylistPage', [
             'view' => [
                 'playlists' => $playlist
@@ -88,7 +91,8 @@ class PlaylistController extends BaseController {
         ]);
     }
 
-    public function insertPlaylist(Request $request) {
+    public function insertPlaylist(Request $request)
+    {
         $playlistModel = new PlaylistModel();
 
         if ($request->getMethod() === 'post') {
@@ -100,18 +104,20 @@ class PlaylistController extends BaseController {
                 return;
             }
         }
-        $this->setLayout('playlistForm');
-        return $this->render('playlist/insertPlaylist', [
+
+        $this->setLayout('PlaylistForm');
+        return $this->render('playlist/InsertPlaylist', [
             'view' => [
                 'model' => $playlistModel
-                ],
+            ],
             'layout' => [
                 'title' => 'Add Playlist - Tonality'
             ]
         ]);
     }
 
-    public function updatePlaylist(Request $request) {
+    public function updatePlaylist(Request $request)
+    {
         $playlistModelOld = new PlaylistModel();
         $playlist_id = $request->getRouteParam('playlist_id');
         $playlistModelOld->constructFromArray(
@@ -138,14 +144,15 @@ class PlaylistController extends BaseController {
         return $this->render('playlist/updatePlaylist', [
             'view' => [
                 'model' => $playlistModelOld
-                ],
+            ],
             'layout' => [
                 'title' => 'Update Playlist - Tonality'
             ]
         ]);
     }
 
-    public function deletePlaylist(Request $request) {
+    public function deletePlaylist(Request $request)
+    {
         $playlistModel = new PlaylistModel();
         if ($request->getMethod() === 'delete') {
             $playlistModel->loadData($request->getBody());
@@ -170,7 +177,8 @@ class PlaylistController extends BaseController {
     /**
      * @throws BadRequestException
      */
-    public function playlistById(Request $request) {
+    public function playlistById(Request $request)
+    {
         $playlist_id = $request->getRouteParam('playlist_id');
 
         $playlistRepository = PlaylistRepository::getInstance();
@@ -200,7 +208,7 @@ class PlaylistController extends BaseController {
             // return;
         }
 
-       $this->setLayout('playlistContent');
+        $this->setLayout('playlistContent');
         return $this->render('playlist/playlistContent', [
             'view' => [
                 'playlist' => $playlistModel,
