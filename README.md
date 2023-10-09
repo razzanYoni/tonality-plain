@@ -93,6 +93,7 @@ Tonality is a monolithic web application to stream your personal music collectio
 | 13521063   | [Salomo309](https://github.com/Salomo309)       |
 | 13521087   | [razzanYoni](https://github.com/razzanYoni)     |
 | 13521096   | [noelsimbolon](https://github.com/noelsimbolon) |
+| 10023329   | [taufik233](https://github.com/Taufiq233)       |
 
 ### Server Side
 | Task                              | Student ID         |
