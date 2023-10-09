@@ -53,7 +53,7 @@ function searchAlbum() {
       JSON.parse(data).forEach((album) => {
         if (is_admin === "0") {
           albumCardContainer.innerHTML += `
-          <a href="/albumAdmin/${album["album_id"]}" class="album-card">
+          <a href="/album/${album["album_id"]}" class="album-card">
             <div class="album-info-container">
                 <img src="storage/${album["cover_filename"]}" alt="album cover image" class="album-cover-image"/>
                 <div class="album-name">${album["album_name"]}</div>
