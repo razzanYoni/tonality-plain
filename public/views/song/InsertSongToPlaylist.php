@@ -43,7 +43,7 @@ $playlists = PlaylistRepository::getInstance()->getPlaylistsByUserId(where: ["us
   </div>
 
   <div class="cancel-submit">
-    <button class="cancel-btn">Cancel</button>
+    <input type="button" class="cancel-btn" onclick="window.location.href='/album/<?php echo $album_id; ?>'" value="Cancel">
     <button class="add-btn" formaction="/album/<?php echo $album_id ?>/insertSong/<?php echo $song_id ?>">Add Song
     </button>
   </div>
