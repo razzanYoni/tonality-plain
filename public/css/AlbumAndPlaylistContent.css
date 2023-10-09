@@ -157,3 +157,34 @@ tbody .song-title:hover {
     font-weight: bold;
     cursor: pointer;
   }
+
+.add-song-btn-container {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 20px;
+}
+
+.add-song-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 7px;
+
+    width: 35px;
+    height: auto;
+
+    background-color: #151515;
+    transition: background-color 0.2s;
+
+    border-radius: 5px;
+    border-color: transparent;
+}
+
+.add-song-btn:hover {
+    background-color: #2b2b2b;
+    border-radius: 5px;
+
+    cursor: pointer;
+}

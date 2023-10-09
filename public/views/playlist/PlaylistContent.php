@@ -56,8 +56,8 @@ $playlistDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($du
           <p>Are you sure you want to delete the Playlist?</p>
 
           <div class="clearfix">
-              <button type="button" onclick="document.getElementById('playlist-<?php echo $playlist->get("playlist_id"); ?>').style.display='none'" class="cancelbtn">Cancel</button>
-              <button type="button" onclick="deleteSongFromPlaylist(<?php echo $song['song_id'];?>, <?php echo $playlist->get('playlist_id');?>)" class="deletebtn" >Delete</button>
+              <button type="button" onclick="document.getElementById('playlist-<?php echo $playlist->get("playlist_id"); ?>').style.display='none'" class="cancel-btn">Cancel</button>
+              <button type="button" onclick="deleteSongFromPlaylist(<?php echo $song['song_id'];?>, <?php echo $playlist->get('playlist_id');?>)" class="delete-btn" >Delete</button>
           </div>
       </div>
   </div>
@@ -90,8 +90,8 @@ $playlistDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($du
                 <p>Are you sure you want to delete the Playlist?</p>
 
                 <div class="clearfix">
-                    <button type="button" onclick="document.getElementById('song-<?php echo $song["song_id"]; ?>').style.display='none'" class="cancelbtn">Cancel</button>
-                    <button type="button" onclick="deleteSongFromPlaylist(<?php echo $song['song_id'];?>, <?php echo $playlist->get('playlist_id');?>)" class="deletebtn" >Delete</button>
+                    <button type="button" onclick="document.getElementById('song-<?php echo $song["song_id"]; ?>').style.display='none'" class="cancel-btn">Cancel</button>
+                    <button type="button" onclick="deleteSongFromPlaylist(<?php echo $song['song_id'];?>, <?php echo $playlist->get('playlist_id');?>)" class="delete-btn" >Delete</button>
                 </div>
             </div>
         </div>

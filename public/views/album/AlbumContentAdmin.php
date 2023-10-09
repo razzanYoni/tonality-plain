@@ -62,8 +62,8 @@ $albumDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($durat
                   <p>Are you sure you want to delete the Album?</p>
 
                   <div class="clearfix">
-                      <button type="button" onclick="document.getElementById('album-<?php echo $album->get("album_id"); ?>').style.display='none'" class="cancelbtn">Cancel</button>
-                      <button type="button" onclick="deleteAlbum(<?php echo $album->get('album_id');?>)" class="deletebtn" >Delete</button>
+                      <button type="button" onclick="document.getElementById('album-<?php echo $album->get("album_id"); ?>').style.display='none'" class="cancel-btn">Cancel</button>
+                      <button type="button" onclick="deleteAlbum(<?php echo $album->get('album_id');?>)" class="delete-btn" >Delete</button>
                   </div>
               </div>
       </div>
@@ -107,4 +107,9 @@ $albumDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($durat
     <?php endforeach; ?>
     </tbody>
   </table>
+</div>
+<div class="add-song-btn-container">
+  <button class="add-song-btn" onclick="window.location.href='/albumAdmin/<?php echo $album->get("album_id");?>/insertSong'">
+    <img src="/public/assets/icons/plus-solid.svg" alt="Add Album">
+  </button>
 </div>
