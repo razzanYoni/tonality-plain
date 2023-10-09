@@ -156,9 +156,9 @@ class PlaylistController extends BaseController
         $playlistModel = new PlaylistModel();
         if ($request->isDelete()) {
             $playlistModel->loadData($request->getBody());
-            $playlist_id = $request->getBody();
-            print_r($playlist_id);
-            if ($playlistModel->validate() && PlaylistRepository::getInstance()->delete($playlist_id)) {
+            $playlist_id = $request->getRouteParam('playlist_id');
+
+            if (PlaylistRepository::getInstance()->delete($playlist_id)) {
                 Application::$app->session->setFlash('success', 'Playlist Deleted Successfully');
                 return;
             }
