@@ -60,7 +60,7 @@ function deletePlaylist(playlistId) {
 function deleteUser(userId) {
 
     var xhr = new XMLHttpRequest();
-    xhr.open("DELETE", "/users/" + userId + "deleteUser", true);
+    xhr.open("DELETE", "/users/" + userId + "/deleteUser", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.onload = function () {
         if (xhr.status === 200) {
