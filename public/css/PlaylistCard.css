@@ -1,0 +1,64 @@
+@font-face {
+    font-family: Inter;
+    src: url(/public/assets/fonts/Inter-Variable.ttf);
+}
+
+.playlist-card {
+    display: inline-block;
+    width: 230px; /* Set a fixed width for the playlist card */
+    margin: 10px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #151515;
+    border-radius: 5px; /* Apply border-radius to the default state */
+    overflow: hidden; /* Prevents content from overflowing rounded corners */
+    transition: background-color 0.2s; /* Add a smooth transition */
+}
+
+.playlist-card:hover {
+    background-color: #2b2b2b;
+    border-radius: 5px; /* Apply border-radius to the hover state */
+}
+
+.playlist-info-container {
+    padding: 20px;
+}
+
+.playlist-cover-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px
+}
+
+/* Additional styling for playlist name*/
+.playlist-name {
+    font-family: 'Inter', sans-serif;
+    font-size: small;
+    margin-top: 5px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.playlist-name {
+    font-weight: bold;
+    color: white;
+}
+
+.artist-name {
+    color: rgb(210, 210, 210);
+}
+
+/* Responsive styles using media queries */
+@media (max-width: 768px) {
+    /* Adjust card width and font size for smaller screens */
+    .playlist-card {
+        width: 150px;
+    }
+
+    .playlist-name,
+    .artist-name {
+        font-size: x-small;
+    }
+}

@@ -1,20 +1,119 @@
-## Panduan Pengerjaan
-Berikut adalah hal yang harus diperhatikan untuk pengumpulan tugas ini:
-1. Buatlah grup pada Gitlab dengan format "IF3110-2023-01-XX", dengan XX adalah nomor kelompok (untuk K1 dan K2) atau kode kelompok (untuk K3).
-2. Tambahkan anggota tim pada grup anda.
-3. **Fork** pada repository ini dengan organisasi yang telah dibuat.
-4. Ubah hak akses repository hasil Fork anda menjadi **private**.
-5. Hal-hal yang harus diperhatikan.
-    * Silakan commit pada repository anda (hasil fork)
-    * Lakukan beberapa commit dengan pesan yang bermakna, contoh: “add register form”, “fix logout bug”, jangan seperti “final”, “benerin dikit”, “fix bug”.
-    * Disarankan untuk tidak melakukan commit dengan perubahan yang besar karena akan mempengaruhi penilaian (contoh: hanya melakukan satu commit kemudian dikumpulkan).
-    * Commit dari setiap anggota tim akan mempengaruhi penilaian.
-    * Jadi, setiap anggota tim harus melakukan commit yang berpengaruh terhadap proses pembuatan aplikasi.
-    * Sebagai panduan bisa mengikuti [semantic commit](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716).
-6. Buatlah file README yang berisi:
-    * Deskripsi aplikasi web
-    * Daftar requirement
-    * Cara instalasi
-    * Cara menjalankan server
-    * Screenshot tampilan aplikasi (tidak perlu semua kasus, minimal 1 per halaman), dan 
-    * Penjelasan mengenai pembagian tugas masing-masing anggota (lihat formatnya pada bagian pembagian tugas).
+## Overview
+Tonality is a monolithic web application to stream your personal music collection. It's built using HTML, CSS, JavaScript, PHP, and MySQL.
+
+## Prerequisites
+- [Docker](https://docs.docker.com/get-docker/)
+
+## How to Install
+1. Download the latest release and extract it to a folder.
+2. Create an `.env` file with environment variables as specified in `.env.docker`. Specify the empty values.
+
+## How to Start the Server
+1. Navigate to the root directory of the project.
+2. Run the following command to create and start Docker containers for the project.
+  
+    ```shell
+    docker compose up
+    ```
+3. You can now access the web application at `localhost:8080`.
+
+## Screenshots
+  1. Login Page
+     ![image.png](./docs/imgs/LoginPage.png)
+     
+  2. Register Page
+     ![image.png](./docs/imgs/RegisterPage.png)
+     
+  3. Add Playlist Page
+     ![image.png](./docs/imgs/AddPlaylistPage.png)
+    
+     
+  4. Add Song Page
+     ![image.png](./docs/imgs/AddSongPage.png)
+     
+  5. Users Page
+     ![image.png](./docs/imgs/UsersPage.png)
+     
+  6. Add Song To Playlist Page
+     ![image.png](./docs/imgs/AddSongToPlaylist.png)
+     
+  7. Album Content For Admin Page
+     ![image.png](./docs/imgs/AlbumContentForAdmin.png)
+     
+  8. Album Content For User Page
+     ![image.png](./docs/imgs/AlbumContentForUser.png)
+     
+  9. Delete Album Confirmation Page
+     ![image.png](./docs/imgs/AlbumDeleteConfirmation.png)
+     
+  10. Albums For Admin Page
+      ![image.png](./docs/imgs/AlbumPageForAdmin.png)
+      
+  11. Album For User Page
+      ![image.png](./docs/imgs/AlbumPageForUser.png)
+      
+  12. Delete Playlist Confirmation Page
+      ![image.png](./docs/imgs/DeletePlaylistConfirmation.png)
+      
+  13. Delete Song From Playlist Confirmation Page
+      ![image.png](./docs/imgs/DeleteSongFromPlaylistConfirmation.png)
+      
+  14. Update Album Page
+      ![image.png](./docs/imgs/EditAlbumPage.png)
+      
+  15. Update Playlist Page
+      ![image.png](./docs/imgs/EditPlaylistPage.png)
+      
+  16. Update Song Page
+      ![image.png](./docs/imgs/EditSongPage.png)
+      
+  17. Playlist Content Page
+      ![image.png](./docs/imgs/PlaylistContentPage.png)
+      
+  18. Playlist Page
+      ![image.png](./docs/imgs/PlaylistPage.png)
+      
+  19. Delete Song From Album Confirmation Page
+      ![image.png](./docs/imgs/SongDeleteFromAlbumConfirmation.png)
+      
+  20. Update Album Page
+      ![image.png](./docs/imgs/UpdateAlbumPage.png)
+      
+  21. Delete User Confirmation Page
+      ![image.png](./docs/imgs/UserDeleteConfirmation.png)
+
+  22. Add Album Page
+      ![image.png](./docs/imgs/AddAlbumPage.png)
+
+## Task Distribution
+
+### Team Members
+| Student ID | GitHub                                          |
+|------------|-------------------------------------------------|
+| 13521063   | [Salomo309](https://github.com/Salomo309)       |
+| 13521087   | [razzanYoni](https://github.com/razzanYoni)     |
+| 13521096   | [noelsimbolon](https://github.com/noelsimbolon) |
+
+### Server Side
+| Task                              | Student ID         |
+|-----------------------------------|--------------------|
+| User CRUD Operations and Auth     | 13521063, 13521087 |
+| Delete Operations                 | 13521063, 13521087 |
+| Searching, Filtering, and Sorting | 13521087           |
+| Pagination                        | 13521087           |
+| Create and Update Operations      | 13521096, 13521063 |
+| Database                          | 13521096, 13521087 |
+| Docker                            | 13521096           |
+
+
+### Client Side
+| Task                     | Student ID                   |
+|--------------------------|------------------------------|
+| Form                     | 13521063, 13521087, 13521096 |
+| Navigation Bar           | 13521096, 13521063           |
+| Album and Playlist Card  | 13521096                     |
+| Filter and Sort Controls | 13521063, 13521096           |
+| Table                    | 13521063                     |
+| Audio Player             | 13521063                     |
+| Pagination               | 13521087, 13521096           |
+| AJAX                     | 13521087                     |

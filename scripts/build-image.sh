@@ -1,1 +1,1 @@
-docker build -t tubes-1:latest .
+docker buildx build -t tonality:0.1
