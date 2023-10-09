@@ -28,8 +28,8 @@
                     <p>Are you sure you want to delete the User?</p>
 
                     <div class="clearfix">
-                        <button type="button" onclick="document.getElementById('user-<?php echo $user["user_id"]; ?>').style.display='none'" class="cancelbtn">Cancel</button>
-                        <button type="button" onclick="deleteUser(<?php echo $user['user_id'];?>,)" class="deletebtn" >Delete</button>
+                        <button type="button" onclick="document.getElementById('user-<?php echo $user["user_id"]; ?>').style.display='none'" class="cancel-btn">Cancel</button>
+                        <button type="button" onclick="deleteUser(<?php echo $user['user_id'];?>,)" class="delete-btn" >Delete</button>
                     </div>
                 </div>
             </div>

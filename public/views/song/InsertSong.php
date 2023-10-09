@@ -64,7 +64,7 @@ if ($albumAdminIndex !== false) {
   </div>
 
   <div class="cancel-submit">
-      <input type="button" class="cancel-btn" onclick="window.location.href='albumAdmin/<?php echo $albumId?>'" value="Cancel">
+      <input type="button" class="cancel-btn" onclick="window.location.href='/albumAdmin/<?php echo $albumId?>'" value="Cancel">
       <button class="add-btn" formaction="/albumAdmin/<?php echo $albumId ?>/insertSong">Add Song</button>
   </div>
 
