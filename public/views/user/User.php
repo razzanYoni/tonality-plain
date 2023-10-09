@@ -2,6 +2,8 @@
 
 /** @var $users array*/
 
+use cores\Application;
+
 ?>
 
 <div class="user-table">
@@ -17,8 +19,16 @@
                 <td class="user-number"><?php echo $key + 1; ?></td>
                 <td class="user-title"><?php echo $user['username']; ?></td>
                 <td class="user-duration-body"><?php echo $user['is_admin']; ?></td>
-                <td><a onclick="document.getElementById('user-<?php echo $user['user_id']; ?>').style.display='block'">
-                        <img src="public/assets/icons/trash-solid.svg" alt="Delete"></a></td>
+                <td>
+                    <?php
+                        $user_id = $user['user_id'];
+                        if ($user_id != Application::$app->loggedUser->getUserId()) {
+                            echo '<a onclick="document.getElementById(user-' . $user_id . ' ).style.display="block"">';
+                            echo '<img src="public/assets/icons/trash-solid.svg" alt="Delete"></a>';
+                        }
+                    ?>
+
+                </td>
             </tr>
 
             <div id="user-<?php echo $user['user_id'];?>" class="modal">
