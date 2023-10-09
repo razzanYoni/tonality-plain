@@ -77,7 +77,7 @@ $playlistDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($du
         ?>
       <tr class="single-song">
         <td class="song-number"><?php echo $key + 1; ?></td>
-        <td class="song-title" data-song-id="<?php echo $song['song_id']; ?>" data-audio-filename="<?php echo $song['audio_filename']; ?>"><?php echo $song['title']; ?></td>
+      <td class="song-title" onclick="playAudio('<?php echo STORAGE_FOLDER . '/' . $song['audio_filename']; ?>')"><?php echo $song['title']; ?></td>
         <td class="song-duration-body"><?php echo $songDurationTuple[0] . ":" . $songDurationTuple[1]; ?></td>
         <td><a onclick="document.getElementById('song-<?php echo $song['song_id']; ?>').style.display='block'">
                 <img src="/public/assets/icons/trash-solid.svg" alt="Delete"></a></td>
@@ -98,4 +98,7 @@ $playlistDurationTuple = TimeConverter::getInstance()->secondsToMinutesTuple($du
     <?php endforeach; ?>
     </tbody>
   </table>
+    <audio controls id="audio_player">
+        <source src="" type="audio/mpeg" id="source_audio">
+    </audio>
 </div>

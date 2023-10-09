@@ -1,27 +1,12 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const musicPlayer = document.getElementById("musicPlayer");
-    const songTitles = document.querySelectorAll(".song-title");
+function playAudio(srcAudio) {
+    const audioPlayer = document.getElementById("audio_player")
+    const extension = srcAudio.split('.').pop();
+    audioPlayer.innerHTML = `<source src="/${srcAudio}" type="audio/${extension}" id="source_audio">`
+    audioPlayer.load()
 
-    let currentSongId = null;
-
-    songTitles.forEach(function (songTitle) {
-      songTitle.addEventListener("click", function () {
-        const songId = songTitle.getAttribute("data-song-id");
-        const audioFilename = songTitle.getAttribute("data-audio-filename");
-
-        if (songId === currentSongId) {
-          if (musicPlayer.paused) {
-            musicPlayer.src = audioFilename;
-            musicPlayer.play();
-          } else {
-            musicPlayer.pause();
-          }
-        } else {
-            musicPlayer.pause();
-            musicPlayer.src = audioFilename;
-            musicPlayer.play();
-            currentSongId = songId;
-        }
-      });
-    });
-  });
+    if (audioPlayer.paused) {
+        audioPlayer.play()
+    } else {
+        audioPlayer.pause();
+    }
+}
