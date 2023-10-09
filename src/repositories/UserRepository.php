@@ -61,4 +61,12 @@ class UserRepository extends BaseRepository
             offset: $offset
         );
     }
+
+    public function getCountUsers(): int
+    {
+        return parent::aggregate(
+            method: 'COUNT',
+            alias: 'count_users',
+        )['count_users'];
+    }
 }

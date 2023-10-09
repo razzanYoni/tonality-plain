@@ -32,13 +32,18 @@ class UserController extends BaseController
             offset: $offset
         );
 
+        $totalPage = ceil(UserRepository::getInstance()->getCountUsers() / ROWS_PER_PAGE);
+
         $this->setLayout('UserPage');
         return $this->render('user/user', [
             'view' => [
                 'users' => $user,
+                'page' => $page,
             ],
             'layout' => [
-                'title' => 'User'
+                'title' => 'User',
+                'totalPage' => $totalPage,
+                'page' => $page,
             ]
         ]);
     }

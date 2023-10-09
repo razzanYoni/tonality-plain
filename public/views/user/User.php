@@ -16,7 +16,7 @@ use cores\Application;
         <tbody>
         <?php foreach ($users as $key => $user): ?>
             <tr class="single-user">
-                <td class="user-number"><?php echo $key + 1; ?></td>
+                <td class="user-number"><?php echo (($page - 1) * ROWS_PER_PAGE) + $key + 1; ?></td>
                 <td class="user-title"><?php echo $user['username']; ?></td>
                 <td class="user-duration-body"><?php echo $user['is_admin']; ?></td>
                 <td>

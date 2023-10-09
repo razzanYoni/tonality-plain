@@ -1,9 +1,12 @@
 <?php
 
-/** @var $title string */
+/** @var $title string
+ * @var $totalPage int
+ * @var $page int
+ * */
 require_once ROOT_DIR . "public/components/NavBar.php";
 require_once ROOT_DIR . "public/components/AlbumCard.php";
-
+require_once ROOT_DIR . "public/components/Pagination.php";
 
 ?>
 
@@ -17,6 +20,8 @@ require_once ROOT_DIR . "public/components/AlbumCard.php";
     <link rel="stylesheet" href="/public/css/NavBar.css" type="text/css">
     <link rel="stylesheet" href="/public/css/UserTable.css" type="text/css">
     <link rel="stylesheet" href="/public/css/Dialog.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/Pagination.css" type="text/css">
+
 
     <title>
         <?php
@@ -32,6 +37,10 @@ echo NavBar("Users");
 ?>
 
 {{content}}
+
+<?php
+echo Pagination(totalPage: $totalPage, currentPage: $page);
+?>
 
 </body>
 </html>
