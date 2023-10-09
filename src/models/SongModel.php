@@ -57,6 +57,7 @@ class SongModel extends BaseModel
     public function toArray(): array
     {
         return array(
+            'album_id' => $this->album_id,
             'title' => $this->title,
             'artist' => $this->artist,
             'song_number' => $this->song_number,
