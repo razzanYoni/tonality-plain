@@ -11,7 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/css/Global.css" type="text/css">
     <link rel="stylesheet" href="/public/css/Authorization.css" type="text/css">
-    <script src="/public/js/Login.js"></script>
     <title>
         <?php
         if (isset($title)) {
