@@ -37,13 +37,13 @@ echo NavBar(currentPage: "Playlists");
 ?>
 
 <div class="add-playlist-container">
-    <button class="add-btn" onclick="window.location.href='/playlist/insertPlaylist'">
-        <img src="/public/assets/icons/plus-solid.svg" alt="add-album-button">
-    </button>
+  <button class="add-playlist-btn" onclick="window.location.href='/playlist/insertPlaylist'">
+    <img src="/public/assets/icons/plus-solid.svg" alt="Add Playlist">
+  </button>
 </div>
 
 
-<div class="playlist-container">
+<div class="playlists">
     {{content}}
 </div>
 

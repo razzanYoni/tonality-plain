@@ -6,11 +6,26 @@
     margin-right: 10px;
 }
 
-.playlist-container {
+.add-playlist-btn {
     display: flex;
-    flex-flow: column;
     justify-content: center;
-    margin-top: 20px;
-    padding: 10px;
-    height: 550px;
+    align-items: center;
+
+    padding: 7px;
+
+    width: 35px;
+    height: auto;
+
+    background-color: #151515;
+    transition: background-color 0.2s;
+
+    border-radius: 5px;
+    border-color: transparent;
+}
+
+.add-playlist-btn:hover {
+    background-color: #2b2b2b;
+    border-radius: 5px;
+
+    cursor: pointer;
 }
