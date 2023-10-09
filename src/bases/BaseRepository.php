@@ -186,11 +186,15 @@ abstract class BaseRepository
                 }
                 $conditions = [];
 
+                $query .= "(";
+
                 foreach ($where_like as $key => $value) {
                     $conditions[] = "$key LIKE :wl_$key";
                 }
 
                 $query .= implode(" OR ", $conditions);
+
+                $query .= ")";
             }
 
             if ($order) {
