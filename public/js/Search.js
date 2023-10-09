@@ -130,10 +130,3 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 300);
   });
 });
-
-function goToLastValue(
-) {
-  var val = document.getElementById('search').value;
-  document.getElementById('search').value = '';
-  document.getElementById('search').value = val;
-}

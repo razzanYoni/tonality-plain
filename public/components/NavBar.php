@@ -53,7 +53,7 @@ function NavBar($currentPage): string
           </div>
           <div class="right-navbar-items">
             <div class="search-bar right-side">
-              <input type="text" placeholder="What do you want to listen to?" id="search" value="$value" autofocus onfocusin="goToLastValue()"/>
+              <input type="text" placeholder="What do you want to listen to?" id="search" value="$value"/>
             </div>
             <div class="username">$username</div>
             <a href="/logout" class="logout">Log Out</a>

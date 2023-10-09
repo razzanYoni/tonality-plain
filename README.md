@@ -18,8 +18,72 @@ Tonality is a monolithic web application to stream your personal music collectio
 3. You can now access the web application at `localhost:8080`.
 
 ## Screenshots
+  1. Login Page
+     ![image.png](./docs/imgs/LoginPage.png)
+     
+  2. Register Page
+     ![image.png](./docs/imgs/RegisterPage.png)
+     
+  3. Add Playlist Page
+     ![image.png](./docs/imgs/AddPlaylistPage.png)
+    
+     
+  4. Add Song Page
+     ![image.png](./docs/imgs/AddSongPage.png)
+     
+  5. Users Page
+     ![image.png](./docs/imgs/UsersPage.png)
+     
+  6. Add Song To Playlist Page
+     ![image.png](./docs/imgs/AddSongToPlaylist.png)
+     
+  7. Album Content For Admin Page
+     ![image.png](./docs/imgs/AlbumContentForAdmin.png)
+     
+  8. Album Content For User Page
+     ![image.png](./docs/imgs/AlbumContentForUser.png)
+     
+  9. Delete Album Confirmation Page
+     ![image.png](./docs/imgs/AlbumDeleteConfirmation.png)
+     
+  10. Albums For Admin Page
+      ![image.png](./docs/imgs/AlbumPageForAdmin.png)
+      
+  11. Album For User Page
+      ![image.png](./docs/imgs/AlbumPageForUser.png)
+      
+  12. Delete Playlist Confirmation Page
+      ![image.png](./docs/imgs/DeletePlaylistConfirmation.png)
+      
+  13. Delete Song From Playlist Confirmation Page
+      ![image.png](./docs/imgs/DeleteSongFromPlaylistConfirmation.png)
+      
+  14. Update Album Page
+      ![image.png](./docs/imgs/EditAlbumPage.png)
+      
+  15. Update Playlist Page
+      ![image.png](./docs/imgs/EditPlaylistPage.png)
+      
+  16. Update Song Page
+      ![image.png](./docs/imgs/EditSongPage.png)
+      
+  17. Playlist Content Page
+      ![image.png](./docs/imgs/PlaylistContentPage.png)
+      
+  18. Playlist Page
+      ![image.png](./docs/imgs/PlaylistPage.png)
+      
+  19. Delete Song From Album Confirmation Page
+      ![image.png](./docs/imgs/SongDeleteFromAlbumConfirmation.png)
+      
+  20. Update Album Page
+      ![image.png](./docs/imgs/UpdateAlbumPage.png)
+      
+  21. Delete User Confirmation Page
+      ![image.png](./docs/imgs/UserDeleteConfirmation.png)
 
-WIP
+  22. Add Album Page
+      ![image.png](./docs/imgs/AdAlbumPage.png)
 
 ## Task Distribution
 
