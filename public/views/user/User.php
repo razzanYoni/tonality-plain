@@ -23,8 +23,10 @@ use cores\Application;
                     <?php
                         $user_id = $user['user_id'];
                         if ($user_id != Application::$app->loggedUser->getUserId()) {
-                            echo '<a onclick="document.getElementById(user-' . $user_id . ' ).style.display="block"">';
-                            echo '<img src="public/assets/icons/trash-solid.svg" alt="Delete"></a>';
+                            echo <<<"EOT"
+                            <a onclick="document.getElementById('user-$user_id').style.display='block'" class="delete-btn">
+                             <img src="public/assets/icons/trash-solid.svg" alt="Delete"></a>
+                            EOT;
                         }
                     ?>
 
