@@ -83,7 +83,7 @@ Tonality is a monolithic web application to stream your personal music collectio
       ![image.png](./docs/imgs/UserDeleteConfirmation.png)
 
   22. Add Album Page
-      ![image.png](./docs/imgs/AdAlbumPage.png)
+      ![image.png](./docs/imgs/AddAlbumPage.png)
 
 ## Task Distribution
 
