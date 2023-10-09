@@ -40,8 +40,8 @@ use cores\Application;
                     <p>Are you sure you want to delete the User?</p>
 
                     <div class="clearfix">
-                        <button type="button" onclick="document.getElementById('user-<?php echo $user["user_id"]; ?>').style.display='none'" class="cancel-btn">Cancel</button>
-                        <button type="button" onclick="deleteUser(<?php echo $user['user_id'];?>,)" class="delete-btn" >Delete</button>
+                        <button type="button" onclick="document.getElementById('user-<?php echo $user["user_id"]; ?>').style.display='none'">Cancel</button>
+                        <button type="button" onclick="deleteUser(<?php echo $user['user_id'];?>,)">Delete</button>
                     </div>
                 </div>
             </div>

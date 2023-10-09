@@ -43,13 +43,13 @@ WIP
 
 
 ### Client Side
-| Task                     | Student ID         |
-|--------------------------|--------------------|
-| Form                     | 13521063, 13521096 |
-| Navigation Bar           | 13521096, 13521063 |
-| Album and Playlist Card  | 13521096           |
-| Filter and Sort Controls | 13521063, 13521096 |
-| Table                    | 13521063           |
-| Audio Player             | 13521063           |
-| Pagination               | 13521087, 13521096 |
-| AJAX                     | 13521087           |
+| Task                     | Student ID                   |
+|--------------------------|------------------------------|
+| Form                     | 13521063, 13521087, 13521096 |
+| Navigation Bar           | 13521096, 13521063           |
+| Album and Playlist Card  | 13521096                     |
+| Filter and Sort Controls | 13521063, 13521096           |
+| Table                    | 13521063                     |
+| Audio Player             | 13521063                     |
+| Pagination               | 13521087, 13521096           |
+| AJAX                     | 13521087                     |
