@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)$ index.php [QSA,L]
+ErrorDocument 404 /public/views/errors/NotFound.php
+ErrorDocument 500 /public/views/errors/ServerIssue.php
+
+php_value post_max_size 60M
+php_value upload_max_filesize 50M
