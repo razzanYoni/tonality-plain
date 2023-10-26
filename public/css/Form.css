@@ -1,0 +1,308 @@
+.form-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.form-container {
+    background-color: #151515;
+    border-radius: 15px;
+
+    padding: 40px;
+
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 25px;
+    text-align: center;
+    margin: 0 0 20px;
+}
+
+.form-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.invalid-feedback {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.song-quest {
+    margin-bottom: 10px;
+}
+
+.album-quest {
+    margin-bottom: 10px;
+}
+
+.playlist-quest {
+    margin-bottom: 10px;
+}
+
+.form-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+
+    margin-bottom: 5px;
+    color: white;
+}
+
+form input[type=text],
+form input[type=password],
+form input[type=number] {
+    background-color: #000000;
+    border-radius: 15px;
+    border-color: white;
+
+    width: 280px;
+    height: 40px;
+
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    cursor: text;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+
+    transition: transform 0.3s ease;
+}
+
+form input[type=date] {
+    background-color: #000000;
+    border-radius: 15px;
+    border-color: white;
+
+    width: 280px;
+    height: 40px;
+
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+
+    transition: transform 0.3s ease;
+}
+
+form input[type=file] {
+    display: none;
+}
+
+.form-select-label {
+    display: block;
+
+    background-color: transparent;
+
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    text-align: left;
+
+    padding: 0;
+
+    margin-bottom: 5px;
+    color: white;
+}
+
+form select {
+    background-color: #000000;
+    border-radius: 15px;
+    border-color: white;
+
+    width: 280px;
+    height: 40px;
+
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    cursor: text;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+
+    transition: transform 0.3s ease;
+}
+
+label {
+    background-color: #000000;
+    border-radius: 15px;
+    border-color: white;
+    position: relative;
+
+    width: 276px;
+    height: 18px;
+
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    position:relative;
+
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    transition: transform 0.3s ease;
+}
+
+.custom-file-upload {
+    border: 2px solid #ccc;
+    display: inline-block;
+    padding: 12px 12px;
+    cursor: pointer;
+}
+
+.cancel-submit {
+    margin-top: 10px;
+    width: 300px;
+    justify-content: center;
+    display: flex;
+}
+
+.cancel-btn {
+    background-color: #EB4646;
+
+    font-family: 'Inter', 'sans-serif';
+    color: white;
+
+    border-style: none;
+    border-radius: 15px;
+
+    width: 125px;
+    height: 40px;
+
+    margin-right: 11px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cancel-btn:hover {
+    background-color: #FF5959; /* Warna latar berubah saat tombol dihover */
+    cursor: pointer;
+    /*transform: scale(1.05);*/
+}
+
+.add-btn {
+    background-color: #259793;
+
+    font-family: 'Inter', 'sans-serif';
+    color: white;
+
+    border-style: none;
+    border-radius: 15px;
+
+    width: 125px;
+    height: 40px;
+
+    margin-left: 15px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-btn:hover {
+    background-color: #2ebab5; /* Warna latar berubah saat tombol dihover */
+    cursor: pointer;
+    /*transform: scale(1.05);*/
+}
+
+@media screen and (max-width: 600px) {
+    .form-container {
+        margin-right: auto;
+        margin-left: auto;
+
+        width: 82%;
+
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-list {
+        width: 82%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    form input[type=text] {
+        width: 94%;
+    }
+
+    form input[type=file] {
+        width: 94%;
+    }
+
+    label {
+        width: 91.5%;
+    }
+
+    form input[type=date] {
+        width: 94%;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .form-container {
+        margin-right: auto;
+        margin-left: auto;
+
+        width: 82%;
+
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-list {
+        width: 82%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    form input[type=text] {
+        width: 90%;
+    }
+
+    form input[type=file] {
+        width: 940%;
+    }
+
+    label {
+        width: 88%;
+    }
+
+    form input[type=date] {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .cancel-submit {
+        align-items: center;
+        justify-content: center;
+        display: flex;
+
+        width: 100%;
+    }
+    .cancel-btn {
+        width: 60%;
+    }
+
+    .add-btn {
+        width: 60%;
+    }
+}

@@ -1,0 +1,190 @@
+.album-detail-container,
+.playlist-detail-container {
+    background-color: #6F6F6F;
+    display: flex;
+    height: 220px;
+    padding: 30px;
+    justify-content: space-between;
+}
+
+.cover-detail {
+    display: flex;
+}
+
+.album-cover,
+.playlist-cover {
+    width: 220px;
+    height: 220px;
+    background-color: #D9D9D9;
+    border-radius: 15px;
+}
+
+.album-cover-image,
+.playlist-cover-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px
+}
+
+.album-detail,
+.playlist-detail {
+    margin-left: 30px;
+}
+
+.album-title,
+.playlist-title {
+    font-size: 100px;
+}
+
+.album-artist, .album-date, .album-songs,
+.playlist-description, .playlist-songs {
+    margin-bottom: 5px;
+}
+
+.edit-delete {
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.cancel-btn, .delete-btn {
+    float: left;
+    width: 50%;
+}
+
+.cancel-btn {
+    background-color: #ccc;
+    color: black;
+}
+
+.delete-btn {
+    background-color: #f44336;
+}
+
+.edit-btn,
+.delete-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #151515;
+
+    border: none;
+    border-radius: 30px;
+
+    width: 30px;
+    height: 30px;
+
+    padding: 8px;
+
+    transition: background-color 0.2s;
+}
+
+.edit-btn {
+    margin-right: 0.5rem;
+}
+
+.delete-btn {
+    margin-left: 0.5rem;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+    background-color: #2b2b2b;
+    cursor: pointer;
+}
+
+.song-table {
+    justify-content: center;
+    display: flex;
+    flex-flow: column;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 30px;
+
+
+
+    .song-title {
+        text-align: left;
+        width: 700px;
+    }
+
+}
+
+.song-duration-body {
+    text-align: center;
+}
+
+.song-number {
+    width: 40px;
+    text-align: center;
+}
+
+.single-song {
+    height: 50px;
+    border-radius: 15px;
+}
+
+.single-song:nth-child(odd) {
+    background-color: #151515;
+}
+
+.single-song:nth-child(even) {
+    background-color: #000000;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+thead {
+    border-bottom: 2px solid #1BCEC8;
+    height: 40px;
+}
+
+.single-song td:first-child {
+    border-radius: 10px 0 0 10px;
+    overflow: hidden;
+}
+
+.single-song td:last-child {
+    border-radius: 0 10px 10px 0;
+    overflow: hidden;
+}
+
+tbody .song-title:hover {
+    color: #1BCEC8;
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+.add-song-btn-container {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 20px;
+}
+
+.add-song-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 7px;
+
+    width: 35px;
+    height: auto;
+
+    background-color: #151515;
+    transition: background-color 0.2s;
+
+    border-radius: 5px;
+    border-color: transparent;
+}
+
+.add-song-btn:hover {
+    background-color: #2b2b2b;
+    border-radius: 5px;
+
+    cursor: pointer;
+}

@@ -1,0 +1,183 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container,
+.signup-container {
+    background-color: #151515;
+    border-radius: 15px;
+
+    min-height: 550px;
+    min-width: 400px;
+    padding: 40px 80px;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+}
+
+.invalid-feedback {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.logo {
+    height: 100px;
+    width: 100px;
+}
+
+.login-title,
+.signup-title {
+    font-size: 30px;
+    font-weight: bold;
+
+    margin: 20px 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form,
+.signup-form {
+    width: 300px;
+
+    margin: 20px 0;
+
+    align-items: center;
+}
+
+.login-quest,
+.signup-quest {
+    margin: 10px 0;
+}
+
+.form-label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+form input[type=text],
+form input[type=password] {
+    background-color: #000000;
+    border-radius: 15px;
+    border-color: white;
+
+    width: 280px;
+    height: 40px;
+
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    cursor: text;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+
+    transition: transform 0.3s ease;
+}
+
+.login-btn,
+.signup-btn {
+    background-color: #259793;
+    color: white;
+
+    font-family: Inter, sans-serif;
+    font-weight: bold;
+
+    border-style: none;
+    border-radius: 15px;
+
+    margin: 10px 0;
+
+    width: 135px;
+    height: 40px;
+
+    transition: background-color 0.1s ease, transform 0.2s ease;
+}
+
+.login-btn:hover,
+.signup-btn:hover {
+    background-color: #2ebab5;
+    cursor: pointer;
+}
+
+.login-link,
+.signup-link {
+    margin-top: 40px;
+}
+
+.login-text,
+.signup-text {
+    text-decoration: underline;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.login-text:hover,
+.signup-text:hover {
+    color: #259793;
+}
+
+/* Add a media query for screens with a width of 1280px or less */
+@media screen and (max-width: 1280px) {
+    .login-container,
+    .signup-container {
+        min-height: auto;
+        min-width: auto;
+        padding: 20px;
+    }
+
+    .login-form,
+    .signup-form {
+        width: 100%;
+    }
+}
+
+/* Add a media query for screens with a width of 400px or less */
+@media screen and (max-width: 400px) {
+    .login-container,
+    .signup-container {
+        min-height: auto;
+        min-width: auto;
+        padding: 20px;
+    }
+
+    .logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .login-title,
+    .signup-title {
+        font-size: 24px;
+    }
+
+    form input[type=text],
+    form input[type=password] {
+        width: 100%;
+    }
+
+    .login-btn,
+    .signup-btn {
+        width: 100%;
+    }
+
+    .login-link,
+    .signup-link {
+        margin-top: 20px;
+    }
+}

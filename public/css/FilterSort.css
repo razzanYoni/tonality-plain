@@ -1,0 +1,43 @@
+.sort-filter-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.add-playlist-container {
+    display: flex;
+    justify-content: right;
+    gap: 1rem;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+select {
+    height: 35px;
+    border-radius: 20px;
+    padding: .2rem .6rem;
+}
+
+.filter,
+.sort,
+.desc {
+    border-radius: 20px;
+    border-color: transparent;
+
+    font-family: Inter, 'sans-serif';
+    color: #ffffff;
+
+    background-color: #151515;
+    transition: background-color 0.2s;
+}
+
+.filter:hover,
+.sort:hover,
+.desc:hover {
+    background-color: #2b2b2b;
+    cursor: pointer;
+}
