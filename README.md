@@ -1,3 +1,5 @@
+# Plain Web Service for Tonality
+
 ## Overview
 Tonality is a monolithic web application to stream your personal music collection. It's built using HTML, CSS, JavaScript, PHP, and MySQL.
 
