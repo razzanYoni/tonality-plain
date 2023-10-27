@@ -64,6 +64,7 @@ class SongController extends BaseController {
         if ($request->isPost()) {
             $songModelNew = new SongModel();
             $songModelNew->set('song_id', $song_id);
+            $songModelNew->set('album_id', $album_id);
             $songModelNew->loadData($request->getBody());
 
             if (!empty($_FILES['audio_filename'])) {
