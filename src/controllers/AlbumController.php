@@ -3,7 +3,6 @@
 namespace controllers;
 
 require_once ROOT_DIR . "src/middlewares/AdminMiddleware.php";
-require_once ROOT_DIR . "src/middlewares/AuthMiddleware.php";
 require_once ROOT_DIR . "src/middlewares/UserMiddleware.php";
 require_once ROOT_DIR . "src/repositories/AlbumRepository.php";
 require_once ROOT_DIR . "src/models/AlbumModel.php";
@@ -13,7 +12,6 @@ use cores\Application;
 use cores\Request;
 use exceptions\NotFoundException;
 use middlewares\AdminMiddleware;
-use middlewares\AuthMiddleware;
 use middlewares\UserMiddleware;
 use models\AlbumModel;
 use repositories\AlbumRepository;
@@ -23,86 +21,8 @@ class AlbumController extends BaseController
 {
     public function __construct()
     {
-        $this->registerMiddleware(new AuthMiddleware(['albumXhr']));
         $this->registerMiddleware(new UserMiddleware(['albumUser', 'albumUserById', ]));
         $this->registerMiddleware(new AdminMiddleware(['albumAdmin', 'insertAlbum', 'updateAlbum', 'deleteAlbum', 'albumAdminById']));
-    }
-
-    public function albumXhr(Request $request)
-    {
-        // Method : GET
-        $requestBody = $request->getBody();
-
-        $page = 1;
-        if (isset($requestBody['page'])) {
-            $page = $requestBody['page'];
-        }
-
-        $limit = ROWS_PER_PAGE;
-        $offset = ($page - 1) * ROWS_PER_PAGE;
-
-        $where = [];
-        if (isset($requestBody['genre'])) {
-            $where['genre'] = $requestBody['genre'];
-        }
-
-        $where_like = '';
-        if (isset($requestBody['search'])) {
-            $where_like = $requestBody['search'];
-        }
-
-        $orderBy = 'album_name';
-        if (isset($requestBody['order'])) {
-            $orderBy[$requestBody['order']] = $requestBody['order'];
-        }
-
-        $is_desc = false;
-        if (isset($requestBody['is_desc'])) {
-            $is_desc = $requestBody['is_desc'] === 'desc';
-        }
-
-        $albumRepository = AlbumRepository::getInstance();
-        $albums = $albumRepository->getAllAlbum(
-            order: $orderBy,
-            is_desc: $is_desc,
-            where: $where,
-            where_like: $where_like,
-            limit: $limit,
-            offset: $offset,
-        );
-
-        $countAlbums = $albumRepository->getCountAlbums(
-            where: $where,
-            where_like: $where_like,
-        );
-        $totalPage = ceil($countAlbums / ROWS_PER_PAGE);
-        if ($totalPage == 0) {
-            $page = 0;
-        }
-
-        if (!$albums) {
-            $albums = [];
-            // return;
-        }
-
-        $resultJson = array();
-        $resultJson['totalPage'] = json_encode($totalPage);
-        $resultJson['is_admin'] = json_encode((int)Application::$app->loggedUser->isAdmin());
-
-        $data = array();
-        foreach ($albums as $album) {
-            $albumModel = new AlbumModel();
-            $albumModel->constructFromArray($album);
-            $dataTemp = $albumModel->toArray();
-            $dataTemp['album_id'] = $album['album_id'];
-            $data[] = $dataTemp;
-        }
-
-        $resultJson['data'] = json_encode($data);
-        $resultJson['totalData'] = json_encode($countAlbums);
-
-        print_r(json_encode($resultJson));
-        exit;
     }
 
     // Admin
@@ -161,6 +81,27 @@ class AlbumController extends BaseController
         if (!$albums) {
             $albums = [];
             // return;
+        }
+
+        if ($request->getHeader("Content-Type") === 'application/json') {
+            $resultJson = array();
+            $resultJson['totalPage'] = json_encode($totalPage);
+            $resultJson['is_admin'] = json_encode((int)Application::$app->loggedUser->isAdmin());
+
+            $data = array();
+            foreach ($albums as $album) {
+                $albumModel = new AlbumModel();
+                $albumModel->constructFromArray($album);
+                $dataTemp = $albumModel->toArray();
+                $dataTemp['album_id'] = $album['album_id'];
+                $data[] = $dataTemp;
+            }
+
+            $resultJson['data'] = json_encode($data);
+            $resultJson['totalData'] = json_encode($countAlbums);
+
+            print_r(json_encode($resultJson));
+            exit;
         }
 
         $this->setLayout('AlbumPage');
@@ -357,6 +298,27 @@ class AlbumController extends BaseController
         if (!$albums) {
             $albums = [];
             // return;
+        }
+
+        if ($request->getHeader("Content-Type") === 'application/json') {
+            $resultJson = array();
+            $resultJson['totalPage'] = json_encode($totalPage);
+            $resultJson['is_admin'] = json_encode((int)Application::$app->loggedUser->isAdmin());
+
+            $data = array();
+            foreach ($albums as $album) {
+                $albumModel = new AlbumModel();
+                $albumModel->constructFromArray($album);
+                $dataTemp = $albumModel->toArray();
+                $dataTemp['album_id'] = $album['album_id'];
+                $data[] = $dataTemp;
+            }
+
+            $resultJson['data'] = json_encode($data);
+            $resultJson['totalData'] = json_encode($countAlbums);
+
+            print_r(json_encode($resultJson));
+            exit;
         }
 
         $this->setLayout('AlbumPage');

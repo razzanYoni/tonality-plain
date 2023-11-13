@@ -2,6 +2,10 @@
 
 function pagination($totalPage, $currentPage = 1) : string
 {
+    if ($totalPage <= 1) {
+        return '';
+    }
+
     $uri = $_SERVER['REQUEST_URI'];
 
     if (!str_contains($uri, '?')) {

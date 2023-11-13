@@ -34,7 +34,6 @@ $app->router->get('/logout', [AuthorizationController::class, 'logout']);
 // Album
 // Admin
 $app->router->get('/albumAdmin', [AlbumController::class, 'albumAdmin']);
-$app->router->get('/albumXhr', [AlbumController::class, 'albumXhr']);
 $app->router->get('/albumAdmin/insertAlbum', [AlbumController::class, 'insertAlbum']);
 $app->router->post('/albumAdmin/insertAlbum', [AlbumController::class, 'insertAlbum']);
 $app->router->get('/albumAdmin/{album_id:\d+}/updateAlbum', [AlbumController::class, 'updateAlbum']);

@@ -73,6 +73,10 @@ class Request
         return $this;
     }
 
+    public function getHeader($param) {
+        return getallheaders()[$param] ?? null;
+    }
+
     public function getRouteParams()
     {
         return $this->routeParams;
