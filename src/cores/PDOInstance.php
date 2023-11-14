@@ -20,6 +20,7 @@ class PDOInstance
         try {
             $this->dbh = new PDO('mysql:host=' . $DB_HOST . ';dbname=' . $DB_NAME, $DB_USER, $DB_PASSWORD, );
             $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->dbh->setAttribute(PDO::ATTR_PERSISTENT, true);
         } catch (PDOException $e) {
             die("Unable to connect: ". $e->getMessage());
         }
