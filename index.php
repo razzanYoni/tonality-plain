@@ -1,5 +1,4 @@
 <?php
-
 const ROOT_DIR = __DIR__ . '/';
 
 require_once 'public/bootstrap.php';
@@ -15,7 +14,8 @@ use cores\Application,
     controllers\AlbumController,
     controllers\PlaylistController,
     controllers\SongController,
-    controllers\UserController;
+    controllers\UserController,
+    controllers\SubscriptionController;
 
 $app = Application::getInstance();
 
@@ -69,6 +69,11 @@ $app->router->get('/album/{album_id:\d+}/insertSong/{song_id:\d+}', [SongControl
 $app->router->post('/album/{album_id:\d+}/insertSong/{song_id:\d+}', [SongController::class, 'insertSongToPlaylist']);
 $app->router->delete('/playlist/{playlist_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
 
+
+// Subscription
+$app->router->get('/premium-album/{premium_album_id:\d+}', [SubscriptionController::class, 'getSubscription']);
+$app->router->post('/premium-album/{premium_album_id:\d+}', [SubscriptionController::class, 'createSubscription']);
+$app->router->get('/premium-album', [SubscriptionController::class, 'getSubscriptionByUserId']);
 
 $app->router->get('/users', [UserController::class, 'getAllUsers']);
 $app->router->delete('/users/{user_id:\d+}/deleteUser', [UserController::class, 'deleteUserById']);
