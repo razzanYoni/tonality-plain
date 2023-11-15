@@ -8,6 +8,8 @@ require_once ROOT_DIR . 'src/controllers/AlbumController.php';
 require_once ROOT_DIR . 'src/controllers/SongController.php';
 require_once ROOT_DIR . 'src/controllers/PlaylistController.php';
 require_once ROOT_DIR . 'src/controllers/UserController.php';
+require_once ROOT_DIR . 'src/controllers/SubscriptionController.php';
+require_once ROOT_DIR . 'src/controllers/UploadFileController.php';
 
 use cores\Application,
     controllers\AuthorizationController,
@@ -15,7 +17,8 @@ use cores\Application,
     controllers\PlaylistController,
     controllers\SongController,
     controllers\UserController,
-    controllers\SubscriptionController;
+    controllers\SubscriptionController,
+    controllers\UploadFileController;
 
 $app = Application::getInstance();
 
@@ -77,6 +80,10 @@ $app->router->get('/premium-album', [SubscriptionController::class, 'getSubscrip
 
 $app->router->get('/users', [UserController::class, 'getAllUsers']);
 $app->router->delete('/users/{user_id:\d+}/deleteUser', [UserController::class, 'deleteUserById']);
+
+// Upload File From Rest
+$app->router->post('/upload', [UploadFileController::class, 'upload']);
+
 
 // Set router default to login
 if ($_SERVER['REQUEST_URI'] === '/' && !isset($_SESSION['user_id'])) {
