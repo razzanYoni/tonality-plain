@@ -25,15 +25,25 @@ class SubscriptionRepository
 
 
     public function createSubscription($subscriptionModel) {
-        return $this->soapClient->soapHandler('createSubscription', $subscriptionModel->toArray(), );
+        return $this->soapClient->handler(
+            'createSubscription',
+            "POST",
+            $subscriptionModel->toArray(),
+        );
     }
 
     public function getSubscription($subscriptionModel) {
-        return $this->soapClient->soapHandler('getSubscription', $subscriptionModel->toArray(), );
+        return $this->soapClient->handler(
+            'getSubscription',
+            "POST",
+            $subscriptionModel->toArray(),
+        );
     }
 
     public function getSubscriptionByUserId($userId, $page, $size) {
-        return $this->soapClient->soapHandler('getSubscriptionsByUserId',
+        return $this->soapClient->handler(
+            'getSubscriptionsByUserId',
+            "POST",
             [
                 'userId' => $userId,
                 'page' => $page,

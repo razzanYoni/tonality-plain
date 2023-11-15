@@ -2,8 +2,11 @@
 
 namespace clients;
 
+require_once ROOT_DIR . 'src/bases/BaseClient.php';
 
-class SOAPClient
+use bases\BaseClient;
+
+class SOAPClient extends BaseClient
 {
     private $ws_url;
     private $url;
@@ -14,34 +17,27 @@ class SOAPClient
         $this->ws_url = $ws_url;
     }
 
-    public function soapHandler(
-        string $function_name,
-        array $data,
-    ) {
-        $response = $this->soapRequest($function_name, $data);
-        return $this->soapResponseDataParser($response);
-    }
-
-    public function soapRequest(
-        string $function_name,
-        array $data
+    public function request(
+        $function_name_or_param,
+        $method,
+        $data
     ) {
         $envelope = '<?xml version="1.0" encoding="utf-8"?>';
         $envelope .= '<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">';
         $envelope .= '<Body>';
-        $envelope .= '<' . $function_name . ' xmlns="' . $this->ws_url . '">';
+        $envelope .= '<' . $function_name_or_param . ' xmlns="' . $this->ws_url . '">';
         foreach ($data as $key => $value) {
             if ($value != null) {
                 $envelope .= '<' . $key . ' xmlns="">' . $value . '</' . $key . '>';
             }
         }
-        $envelope .= '</' . $function_name . '>';
+        $envelope .= '</' . $function_name_or_param . '>';
         $envelope .= '</Body>';
         $envelope .= '</Envelope>';
 
         $headers = [
             'Content-Type: text/xml; charset=utf-8',
-            'SOAPAction: ' . $this->ws_url . $function_name,
+            'SOAPAction: ' . $this->ws_url . $function_name_or_param,
             'X-API-KEY: ' . $_ENV['SOAP_API_KEY'],
             'Accept: text/xml',
         ];
@@ -71,9 +67,10 @@ class SOAPClient
         return $response;
     }
 
-    public function soapResponseDataParser($response)
+    public function response_data_parser($response)
     {
-        // TODO : add parser if needed
+        // TODO : parse response to array or json
         return $response;
     }
+
 }
