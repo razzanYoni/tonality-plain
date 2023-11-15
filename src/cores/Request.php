@@ -86,4 +86,9 @@ class Request
     {
         return $this->routeParams[$param] ?? $default;
     }
+
+    public function getFiles()
+    {
+        return $_FILES;
+    }
 }
