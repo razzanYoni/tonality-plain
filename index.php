@@ -10,6 +10,7 @@ require_once ROOT_DIR . 'src/controllers/PlaylistController.php';
 require_once ROOT_DIR . 'src/controllers/UserController.php';
 require_once ROOT_DIR . 'src/controllers/SubscriptionController.php';
 require_once ROOT_DIR . 'src/controllers/UploadFileController.php';
+require_once ROOT_DIR . 'src/controllers/PremiumAlbumController.php';
 
 use cores\Application,
     controllers\AuthorizationController,
@@ -17,6 +18,7 @@ use cores\Application,
     controllers\PlaylistController,
     controllers\SongController,
     controllers\UserController,
+    controllers\PremiumAlbumController,
     controllers\SubscriptionController,
     controllers\UploadFileController;
 
@@ -72,12 +74,15 @@ $app->router->get('/album/{album_id:\d+}/insertSong/{song_id:\d+}', [SongControl
 $app->router->post('/album/{album_id:\d+}/insertSong/{song_id:\d+}', [SongController::class, 'insertSongToPlaylist']);
 $app->router->delete('/playlist/{playlist_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
 
-
 // Subscription
-$app->router->get('/premium-album/{premium_album_id:\d+}', [SubscriptionController::class, 'getSubscription']);
-$app->router->post('/premium-album/{premium_album_id:\d+}', [SubscriptionController::class, 'createSubscription']);
-$app->router->get('/premium-album', [SubscriptionController::class, 'getSubscriptionByUserId']);
+$app->router->post('/premiumAlbum/{premium_album_id:\d+}/subscribe', [SubscriptionController::class, 'createSubscription']);
 
+// Premium Album
+$app->router->get('/premiumAlbum', [PremiumAlbumController::class, 'searchPremiumAlbums']);
+$app->router->get('/yourPremiumAlbum', [PremiumAlbumController::class, 'searchPremiumAlbumOwned']);
+$app->router->get('/premiumAlbum/{premium_album_id:\d+}', [PremiumAlbumController::class, 'premiumAlbumById']);
+
+// User From Admin
 $app->router->get('/users', [UserController::class, 'getAllUsers']);
 $app->router->delete('/users/{user_id:\d+}/deleteUser', [UserController::class, 'deleteUserById']);
 
