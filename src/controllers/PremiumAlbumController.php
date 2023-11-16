@@ -17,7 +17,7 @@ class PremiumAlbumController extends BaseController
 {
     public function __construct()
     {
-        $this->registerMiddleware(new UserMiddleware(['searchPremiumAlbums', 'getPremiumAlbum', 'getPremiumAlbumOwned']));
+        $this->registerMiddleware(new UserMiddleware(['searchPremiumAlbums', 'premiumAlbumById', 'searchPremiumAlbumOwned']));
     }
 
     public function searchPremiumAlbums(Request $request) {
@@ -31,16 +31,16 @@ class PremiumAlbumController extends BaseController
         $premiumAlbumsTotalPage = ceil($premiumAlbums->paging->totalAlbums / ROWS_PER_PAGE);
         $premiumAlbums = $premiumAlbums->data;
 
-        $this->setLayout('PremiumAlbumPage');
-        return $this->render('PremiumAlbumPage', [
+        $this->setLayout('PremiumAlbum');
+        return $this->render('premium/premiumAlbum', [
             'view' => [
                 'premiumAlbums' => $premiumAlbums,
-                'premiumAlbumsCount' => $premiumAlbumsTotalPage,
-                'page' => $page,
-                'size' => $size,
             ],
             'layout' => [
-                'title' => 'Premium Albums'
+                'title' => 'Premium Albums',
+                'totalPage' => $premiumAlbumsTotalPage,
+                'page' => $page,
+                'size' => $size,
             ]
         ]);
     }
@@ -56,7 +56,19 @@ class PremiumAlbumController extends BaseController
         $premiumAlbumsTotalPage = ceil($premiumAlbums->paging->totalAlbums / ROWS_PER_PAGE);
         $premiumAlbums = $premiumAlbums->data;
 
-        // TODO : UI
+        $this->setLayout('PremiumAlbum');
+        return $this->render('premium/premiumAlbumOwned', [
+            'view' => [
+                'premiumAlbums' => $premiumAlbums,
+            ],
+            'layout' => [
+                'title' => 'Your Premium Albums',
+                'totalPage' => $premiumAlbumsTotalPage,
+                'page' => $page,
+                'size' => $size,
+                'searchQuery' => $searchQuery,
+            ]
+        ]);
     }
 
     public function premiumAlbumById(Request $request) {
@@ -83,6 +95,17 @@ class PremiumAlbumController extends BaseController
 
         Application::$app->session->setFlash('success', 'Premium album Retrieved successfully');
 
-        // TODO : UI
+        $this->setLayout('PremiumAlbumContent');
+        return $this->render('premium/premiumAlbumContent', [
+            'view' => [
+                'album' => $premiumAlbumModel,
+                'songs' => $premiumSongs,
+                'count_song' => $countPremiumSongs,
+                'duration' => $duration
+            ],
+            'layout' => [
+                'title' => 'Premium Album Detail - Tonality'
+            ]
+        ]);
     }
 }
