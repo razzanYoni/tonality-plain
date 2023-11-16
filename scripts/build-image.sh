@@ -1,0 +1,1 @@
+docker buildx build -t tonality:0.1

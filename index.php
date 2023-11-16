@@ -1,5 +1,4 @@
 <?php
-
 const ROOT_DIR = __DIR__ . '/';
 
 require_once 'public/bootstrap.php';
@@ -9,13 +8,19 @@ require_once ROOT_DIR . 'src/controllers/AlbumController.php';
 require_once ROOT_DIR . 'src/controllers/SongController.php';
 require_once ROOT_DIR . 'src/controllers/PlaylistController.php';
 require_once ROOT_DIR . 'src/controllers/UserController.php';
+require_once ROOT_DIR . 'src/controllers/SubscriptionController.php';
+require_once ROOT_DIR . 'src/controllers/UploadFileController.php';
+require_once ROOT_DIR . 'src/controllers/PremiumAlbumController.php';
 
 use cores\Application,
     controllers\AuthorizationController,
     controllers\AlbumController,
     controllers\PlaylistController,
     controllers\SongController,
-    controllers\UserController;
+    controllers\UserController,
+    controllers\PremiumAlbumController,
+    controllers\SubscriptionController,
+    controllers\UploadFileController;
 
 $app = Application::getInstance();
 
@@ -34,7 +39,6 @@ $app->router->get('/logout', [AuthorizationController::class, 'logout']);
 // Album
 // Admin
 $app->router->get('/albumAdmin', [AlbumController::class, 'albumAdmin']);
-$app->router->get('/albumXhr', [AlbumController::class, 'albumXhr']);
 $app->router->get('/albumAdmin/insertAlbum', [AlbumController::class, 'insertAlbum']);
 $app->router->post('/albumAdmin/insertAlbum', [AlbumController::class, 'insertAlbum']);
 $app->router->get('/albumAdmin/{album_id:\d+}/updateAlbum', [AlbumController::class, 'updateAlbum']);
@@ -70,9 +74,21 @@ $app->router->get('/album/{album_id:\d+}/insertSong/{song_id:\d+}', [SongControl
 $app->router->post('/album/{album_id:\d+}/insertSong/{song_id:\d+}', [SongController::class, 'insertSongToPlaylist']);
 $app->router->delete('/playlist/{playlist_id:\d+}/deleteSong/{song_id:\d+}', [SongController::class, 'deleteSongFromPlaylist']);
 
+// Subscription
+$app->router->post('/premiumAlbum/{premium_album_id:\d+}/subscribe', [SubscriptionController::class, 'createSubscription']);
 
+// Premium Album
+$app->router->get('/premiumAlbum', [PremiumAlbumController::class, 'searchPremiumAlbums']);
+$app->router->get('/yourPremiumAlbum', [PremiumAlbumController::class, 'searchPremiumAlbumOwned']);
+$app->router->get('/premiumAlbum/{premium_album_id:\d+}', [PremiumAlbumController::class, 'premiumAlbumById']);
+
+// User From Admin
 $app->router->get('/users', [UserController::class, 'getAllUsers']);
 $app->router->delete('/users/{user_id:\d+}/deleteUser', [UserController::class, 'deleteUserById']);
+
+// Upload File From Rest
+$app->router->post('/upload', [UploadFileController::class, 'upload']);
+
 
 // Set router default to login
 if ($_SERVER['REQUEST_URI'] === '/' && !isset($_SESSION['user_id'])) {

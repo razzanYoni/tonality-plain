@@ -55,9 +55,13 @@ create table if not exists appears_on
 
 INSERT INTO users (username, password, is_admin)
 VALUES ('admin', '$2y$10$RtzpjVTqsEeKl4FRZbVp/OZEMfbr9Jt6SaO6lxQLfbIwnW8kbzgF.', true),
+<<<<<<< HEAD
        ('user', '$2y$10$RtzpjVTqsEeKl4FRZbVp/OZEMfbr9Jt6SaO6lxQLfbIwnW8kbzgF.', false),
        ('zan', '$2y$10$RtzpjVTqsEeKl4FRZbVp/OZEMfbr9Jt6SaO6lxQLfbIwnW8kbzgF.', false),
        ('sal', '$2y$10$RtzpjVTqsEeKl4FRZbVp/OZEMfbr9Jt6SaO6lxQLfbIwnW8kbzgF.', false)
+=======
+       ('user', '$2y$10$RtzpjVTqsEeKl4FRZbVp/OZEMfbr9Jt6SaO6lxQLfbIwnW8kbzgF.', false)
+>>>>>>> 4ab3176d601ac31cb58118f1e44f0ade82bec0b8
 ;
 
 INSERT INTO albums (album_name, release_date, genre, artist, cover_filename)

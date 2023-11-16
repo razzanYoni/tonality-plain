@@ -5,6 +5,7 @@ namespace cores;
 use exceptions\NotFoundException;
 
 require_once ROOT_DIR . "src/controllers/AuthorizationController.php";
+require_once ROOT_DIR . "src/controllers/SubscriptionController.php";
 require_once ROOT_DIR . "src/exceptions/NotFoundException.php";
 
 class Router
@@ -102,7 +103,7 @@ class Router
 
             if ($callback === false) {
                 // return $this->renderView('error/notFound');
-               throw new NotFoundException("not found", 404);
+                throw new NotFoundException("not found", 404);
             }
 
         }
