@@ -10,6 +10,8 @@ function NavBar($currentPage): string
     $albumLink = '<li><a href=';
     $albumLinkTemp = '/album';
     $playlistLink = '';
+    $premiumAlbumLink = '';
+    $premiumAlbumOwnedLink = '';
     $additionalAdminNavLinks = '';
 
     if (Application::$app->loggedUser->isAdmin()) {
@@ -24,6 +26,8 @@ function NavBar($currentPage): string
     } else {
         if ($currentPage === "Playlists") {
             $playlistLink .= '<li><a href="/playlist" style="font-weight: bold;">Playlists</a></li>';
+        } else if ($currentPage === "Your Premium Album") {
+            $premiumAlbumOwnedLink .= '<li><a href="/premiumAlbumOwned" style="font-weight: bold;">Your Premium Album</a></li>';
         } else {
             $playlistLink .= '<li><a href="/playlist">Playlists</a></li>';
         }
@@ -32,8 +36,12 @@ function NavBar($currentPage): string
     $albumLink .= "$albumLinkTemp";
     if ($currentPage === "Albums") {
         $albumLink .= ' style="font-weight: bold;"';
+        $albumLink .= '>Albums</a></li>';
+    } else {
+        if ($currentPage === "Premium Albums") {
+            $premiumAlbumLink .= '<li><a href="/premiumAlbum" style="font-weight: bold;">Premium Album</a></li>';
+        }
     }
-    $albumLink .= '>Albums</a></li>';
 
     $value = '';
     if (isset($_GET['search'])) {
@@ -48,6 +56,8 @@ function NavBar($currentPage): string
             <ul class="nav-links">
                 $albumLink
                 $playlistLink
+                $premiumAlbumLink
+                $premiumAlbumOwnedLink
                 $additionalAdminNavLinks
             </ul>
           </div>
