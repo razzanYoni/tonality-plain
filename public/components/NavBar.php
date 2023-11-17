@@ -10,9 +10,10 @@ function NavBar($currentPage): string
     $albumLink = '<li><a href=';
     $albumLinkTemp = '/album';
     $playlistLink = '';
-    $premiumAlbumLink = '';
-    $premiumAlbumOwnedLink = '';
     $additionalAdminNavLinks = '';
+    $premiumAlbumLink = '<li><a href=';
+    $premiumAlbumLinkTemp = '/premiumAlbum';
+    $yourPremiumAlbumLink = '';
 
     if (Application::$app->loggedUser->isAdmin()) {
         $userLink = '';
@@ -26,8 +27,6 @@ function NavBar($currentPage): string
     } else {
         if ($currentPage === "Playlists") {
             $playlistLink .= '<li><a href="/playlist" style="font-weight: bold;">Playlists</a></li>';
-        } else if ($currentPage === "Your Premium Album") {
-            $premiumAlbumOwnedLink .= '<li><a href="/premiumAlbumOwned" style="font-weight: bold;">Your Premium Album</a></li>';
         } else {
             $playlistLink .= '<li><a href="/playlist">Playlists</a></li>';
         }
@@ -36,12 +35,24 @@ function NavBar($currentPage): string
     $albumLink .= "$albumLinkTemp";
     if ($currentPage === "Albums") {
         $albumLink .= ' style="font-weight: bold;"';
-        $albumLink .= '>Albums</a></li>';
-    } else {
-        if ($currentPage === "Premium Albums") {
-            $premiumAlbumLink .= '<li><a href="/premiumAlbum" style="font-weight: bold;">Premium Album</a></li>';
-        }
     }
+    $albumLink .= '>Albums</a></li>';
+
+    $premiumAlbumLink .= "$premiumAlbumLinkTemp";
+    if ($currentPage === "PremiumAlbum") {
+        $premiumAlbumLink .= ' style="font-weight: bold;"';
+    }
+    $premiumAlbumLink .= '>Premium Album</a></li>';
+
+    // Menambahkan menu Your Premium Album
+    if ($currentPage === "PremiumAlbumOwned") {
+        $yourPremiumAlbumLink .= '<li><a href="/yourPremiumAlbum" style="font-weight: bold;">Your Premium Album</a></li>';
+    } else {
+        $yourPremiumAlbumLink .= '<li><a href="/premiumAlbum">Your Premium Album</a></li>';
+    }
+
+    // Menambahkan kedua menu ke dalam baris ul
+    $additionalPremiumNavLinks = $premiumAlbumLink . $yourPremiumAlbumLink;
 
     $value = '';
     if (isset($_GET['search'])) {
@@ -56,14 +67,13 @@ function NavBar($currentPage): string
             <ul class="nav-links">
                 $albumLink
                 $playlistLink
-                $premiumAlbumLink
-                $premiumAlbumOwnedLink
                 $additionalAdminNavLinks
+                $additionalPremiumNavLinks
             </ul>
           </div>
           <div class="right-navbar-items">
             <div class="search-bar right-side">
-              <input type="text" placeholder="What do you want to listen to?" id="search"/>
+              <input type="text" placeholder="What do you want to listen to?" id="search" value="$value"/>
             </div>
             <div class="username">$username</div>
             <a href="/logout" class="logout">Log Out</a>
@@ -71,3 +81,4 @@ function NavBar($currentPage): string
         </nav>
     EOT;
 }
+?>
