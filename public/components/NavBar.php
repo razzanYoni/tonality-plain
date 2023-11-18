@@ -48,7 +48,7 @@ function NavBar($currentPage): string
     if ($currentPage === "PremiumAlbumOwned") {
         $yourPremiumAlbumLink .= '<li><a href="/yourPremiumAlbum" style="font-weight: bold;">Your Premium Album</a></li>';
     } else {
-        $yourPremiumAlbumLink .= '<li><a href="/premiumAlbum">Your Premium Album</a></li>';
+        $yourPremiumAlbumLink .= '<li><a href="/yourPremiumAlbum">Your Premium Album</a></li>';
     }
 
     // Menambahkan kedua menu ke dalam baris ul

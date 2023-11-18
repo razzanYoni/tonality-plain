@@ -35,7 +35,7 @@ class PremiumAlbumRepository
 
     public function searchPremiumAlbum($searchQuery = null, $page = 1, $size = 10) {
         return $this->restClient->handler(
-            'premium-album',
+            'api/premium-album',
             "GET",
             [
                 'searchQuery' => $searchQuery,

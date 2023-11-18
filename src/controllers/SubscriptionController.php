@@ -38,8 +38,6 @@ class SubscriptionController extends BaseController {
         $premium_album_id = $request->getRouteParam('premium_album_id');
         $subscriptionModel->set('user_id', $user_id);
         $subscriptionModel->set('premium_album_id', $premium_album_id);
-        Application::$app->response->setHeader("Content-Type", "text/xml");
-        Application::$app->response->statusCode(200);
         print_r(SubscriptionRepository::getInstance()->getSubscription($subscriptionModel));
         exit;
     }
@@ -53,8 +51,6 @@ class SubscriptionController extends BaseController {
         if (isset($request->getBody()['page'])) $page = $request->getBody()['page'];
         if (isset($request->getBody()['size'])) $size = $request->getBody()['size'];
         $subscriptionModel->set('user_id', $user_id);
-        Application::$app->response->setHeader("Content-Type", "text/xml");
-        Application::$app->response->statusCode(200);
         print_r(SubscriptionRepository::getInstance()->getSubscriptionByUserId($user_id, $page, $size));
         exit;
     }
