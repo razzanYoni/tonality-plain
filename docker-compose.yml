@@ -11,6 +11,8 @@ services:
       - ./storage:/var/www/html/storage  # Map storage directory to a volume
     depends_on:
       - db
+    extra_hosts:
+        - "host.docker.internal:host-gateway"
 
   db:
     image: mysql:latest
