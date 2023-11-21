@@ -28,8 +28,8 @@ class PremiumAlbumController extends BaseController
         if (isset($request->getBody()['size'])) $size = $request->getBody()['size'];
         if (isset($request->getBody()['searchQuery'])) $searchQuery = $request->getBody()['searchQuery'];
         $premiumAlbums = PremiumAlbumRepository::getInstance()->searchPremiumAlbum($page, $size, $searchQuery);
-        $premiumAlbumsTotalPage = ceil($premiumAlbums->paging->totalAlbums / ROWS_PER_PAGE);
-        $premiumAlbums = $premiumAlbums->data;
+        $premiumAlbumsTotalPage = ceil($premiumAlbums['paging']['totalAlbums'] / ROWS_PER_PAGE);
+        $premiumAlbums = $premiumAlbums["data"];
 
         $this->setLayout('PremiumAlbum');
         return $this->render('premium/premiumAlbum', [
@@ -53,8 +53,8 @@ class PremiumAlbumController extends BaseController
         if (isset($request->getBody()['size'])) $size = $request->getBody()['size'];
         if (isset($request->getBody()['searchQuery'])) $searchQuery = $request->getBody()['searchQuery'];
         $premiumAlbums = PremiumAlbumRepository::getInstance()->searchPremiumAlbumOwned($page, $size, $searchQuery);
-        $premiumAlbumsTotalPage = ceil($premiumAlbums->paging->totalAlbums / ROWS_PER_PAGE);
-        $premiumAlbums = $premiumAlbums->data;
+        $premiumAlbumsTotalPage = ceil($premiumAlbums["paging"]["totalAlbums"] / ROWS_PER_PAGE);
+        $premiumAlbums = $premiumAlbums["data"];
 
         $this->setLayout('PremiumAlbum');
         return $this->render('premium/premiumAlbumOwned', [
@@ -82,7 +82,7 @@ class PremiumAlbumController extends BaseController
         }
 
         $premiumAlbumModel = new PremiumAlbumModel();
-        $premiumAlbumModel->constructFromArray($premium_album->data);
+        $premiumAlbumModel->constructFromArray($premium_album["data"]);
 
         $premiumSongs = PremiumSongRepository::getInstance()->getPremiumSong($premium_album_id);
         $countPremiumSongs = count($premiumSongs);
