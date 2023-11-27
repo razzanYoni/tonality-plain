@@ -41,6 +41,7 @@ class PremiumAlbumController extends BaseController
                 'totalPage' => $premiumAlbumsTotalPage,
                 'page' => $page,
                 'size' => $size,
+                'is_admin' => Application::$app->loggedUser->isAdmin(),
             ]
         ]);
     }
@@ -53,8 +54,15 @@ class PremiumAlbumController extends BaseController
         if (isset($request->getBody()['size'])) $size = $request->getBody()['size'];
         if (isset($request->getBody()['searchQuery'])) $searchQuery = $request->getBody()['searchQuery'];
         $premiumAlbums = PremiumAlbumRepository::getInstance()->searchPremiumAlbumOwned($page, $size, $searchQuery);
-        $premiumAlbumsTotalPage = ceil($premiumAlbums["paging"]["totalAlbums"] / ROWS_PER_PAGE);
-        $premiumAlbums = $premiumAlbums["data"];
+        if (isset($premiumAlbums["data"]))
+        {
+            $premiumAlbumsTotalPage = ceil($premiumAlbums["paging"]["totalAlbums"] / ROWS_PER_PAGE);
+            $premiumAlbums = $premiumAlbums["data"];
+        }
+        if (!$premiumAlbums) {
+            $premiumAlbums = [];
+            $premiumAlbumsTotalPage = 0;
+        }
 
         $this->setLayout('PremiumAlbum');
         return $this->render('premium/premiumAlbumOwned', [
@@ -67,6 +75,7 @@ class PremiumAlbumController extends BaseController
                 'page' => $page,
                 'size' => $size,
                 'searchQuery' => $searchQuery,
+                'is_admin' => Application::$app->loggedUser->isAdmin()
             ]
         ]);
     }

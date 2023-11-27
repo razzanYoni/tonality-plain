@@ -108,3 +108,9 @@ This plain web service is a monolithic web application to stream your personal m
 
 ## Changes Made
 - New subscription features
+
+| Task             | Student ID |
+|------------------|------------|
+| SOAP Client      | 13521087   |
+| REST Client      | 13521087   |
+| Premium Album UI | 13521063   |

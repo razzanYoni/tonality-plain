@@ -4,7 +4,7 @@ namespace models;
 
 use bases\BaseModel;
 
-class PremiumAlbumModel
+class PremiumAlbumModel extends BaseModel
 {
     protected $album_id;
     protected $album_name;
@@ -21,5 +21,17 @@ class PremiumAlbumModel
         $this->artist = $data['artist'];
         $this->cover_filename = $data['coverFilename'];
         return $this;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'albumId' => $this->album_id,
+            'albumName' => $this->album_name,
+            'releaseDate' => $this->release_date,
+            'genre' => $this->genre,
+            'artist' => $this->artist,
+            'coverFilename' => $this->cover_filename
+        ];
     }
 }

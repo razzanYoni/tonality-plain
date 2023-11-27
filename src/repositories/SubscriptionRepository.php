@@ -2,7 +2,7 @@
 
 namespace repositories;
 
-require_once __DIR__ . '/../clients/TonalitySOAPClient.php';
+require_once ROOT_DIR . "src/clients/TonalitySOAPClient.php";
 
 // https://www.w3docs.com/snippets/php/how-to-send-a-post-request-with-php.html
 use clients\TonalitySOAPClient;
@@ -47,7 +47,7 @@ class SubscriptionRepository
 
     public function getSubscriptionByUserId($userId, $page, $size) {
         $subscriptions = [];
-        foreach ($this->soapClient->handler(
+        $test = $this->soapClient->handler(
             'getSubscriptionsByUserId',
             "POST",
             [
@@ -55,7 +55,8 @@ class SubscriptionRepository
                 'page' => $page,
                 'size' => $size
             ],
-        )->subscription as $value) {
+        )->subscription ?? [];
+        foreach ($test as $value) {
             $subscriptionModel = new SubscriptionModel();
             $subscriptionModel->set('user_id', $value->userId);
             $subscriptionModel->set('premium_album_id', $value->premiumAlbumId);

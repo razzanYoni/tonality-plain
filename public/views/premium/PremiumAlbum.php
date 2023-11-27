@@ -6,7 +6,7 @@
 require_once ROOT_DIR . "src/models/PremiumAlbumModel.php";
 require_once ROOT_DIR . "src/controllers/PremiumAlbumController.php";
 require_once ROOT_DIR . "src/repositories/PremiumAlbumRepository.php";
-require_once ROOT_DIR . "public/components/AlbumCard.php";
+require_once ROOT_DIR . "public/components/PremiumAlbumCard.php";
 
 use models\PremiumAlbumModel;
 
